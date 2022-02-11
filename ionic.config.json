@@ -1,0 +1,7 @@
+{
+  "name": "donapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
