@@ -3,12 +3,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'inicio',
+    loadChildren: () => import('./page/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
   {
@@ -16,13 +16,15 @@ const routes: Routes = [
     loadChildren: () => import('./page/usuario/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'lista',
-    loadChildren: () => import('./page/cliente/lista/lista.module').then( m => m.ListaPageModule)
+    path: 'crearpaciente',
+    loadChildren: () => import('./page/paciente/crearpaciente/crearpaciente.module').then( m => m.CrearpacientePageModule)
   },
   {
-    path: 'create',
-    loadChildren: () => import('./page/cliente/create/create.module').then( m => m.CreatePageModule)
+    path: 'listapaciente',
+    loadChildren: () => import('./page/paciente/listapaciente/listapaciente.module').then( m => m.ListapacientePageModule)
   },
+
+
 ];
 
 @NgModule({

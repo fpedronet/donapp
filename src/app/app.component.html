@@ -3,7 +3,7 @@
     <ion-content>
       <div class="menu-header-bg">Menu</div>
       <div class="header-content">
-        <img />
+        <img src="/assets/logo.png" />
         <ion-label>
           <h2>Francisco Condor</h2>
           <p>Full Stack</p>
@@ -17,22 +17,22 @@
       </div>
 
       <ion-list class="menu-items" lines="none">
-        <ion-item>
-          <ion-icon name="pie-chart-outline" routerLink=""></ion-icon>Dashboard 1
+
+        <ion-item style="cursor: pointer;">
+          <ion-icon name="pie-chart-outline"></ion-icon>
+          <span routerLink="login">Login</span>            
         </ion-item>
-        <ion-item>
-          <ion-icon name="browsers-outline" routerLink=""></ion-icon>Dashboard 2
-        </ion-item>
-        <ion-item class="active">
-          <ion-icon name="flash-outline"></ion-icon>Dashboard 3
-        </ion-item>
-        
-        <!-- <ion-item>
-          <ion-icon name="chat-bubble-ellipses-outline"></ion-icon>Dashboard 4
-        </ion-item> -->
-        <ion-item>
-          <ion-icon name="pie-chart-outline"></ion-icon>Dashboard 5
-        </ion-item>
+
+          <ion-item style="cursor: pointer;">
+            <ion-icon name="pie-chart-outline"></ion-icon>
+            <span routerLink="listapaciente">Paciente</span>            
+          </ion-item>
+
+          <ion-item style="cursor: pointer;">
+            <ion-icon name="browsers-outline"></ion-icon>
+            <span routerLink="crearpaciente">Crear Paciente</span>   
+          </ion-item>
+
       </ion-list>
       
 

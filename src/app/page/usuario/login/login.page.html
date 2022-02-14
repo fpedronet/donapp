@@ -1,9 +1,63 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <!-- <ion-title>signup</ion-title> -->
+    <ion-buttons slot="start">
+      <ion-back-button defaulthref="login" text="">
+      </ion-back-button>
+      </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-color">
+
+    <ion-card class="ion-no-margin">
+        <ion-card-header>
+            <ion-card-title>
+              Sign Up
+            </ion-card-title>
+            <ion-card-subtitle>
+              Create Your account by filling
+              </ion-card-subtitle>
+        </ion-card-header>
+             <form [formGroup]="form">
+       <ion-card-content>
+
+           <ion-item>
+               <ion-input name="usuario" type="text" placeholder="Email" formControlName="usuario">
+                 <ion-icon name="mail-outline" ></ion-icon>
+               </ion-input>
+           </ion-item>
+
+           <ion-item>
+               <ion-input name="clave" type="password" placeholder="************" formControlName="clave">
+                 <ion-icon name="lock-closed" ></ion-icon>
+               </ion-input>
+           </ion-item>
+
+           <div class="sign-btn-wrap">
+              <ion-button  shape="round" type="submit"  fill="solid" class="sign-btn" [disabled]="!form.valid">Sign Up</ion-button>
+             </div>
+
+             <div class="text-tag">
+             <span>Sign Up with</span>
+             </div>
+
+             <div class="social-btns">
+                 <ion-button fill="clear"  class="facebookbtn ion-no-padding">
+               <ion-img src="assets/images/facebook.png"></ion-img>
+                 </ion-button>
+                 <ion-button fill="clear"  class="googlebtn ion-no-padding">
+               <ion-img src="assets/images/google.png"></ion-img>
+                 </ion-button>
+                 <ion-button fill="clear"  class="applebtn ion-no-padding">
+               <ion-img src="assets/images/apple.png"></ion-img>
+                 </ion-button>
+
+               </div>
+
+       </ion-card-content>
+        </form>
+    </ion-card>
 
 </ion-content>
