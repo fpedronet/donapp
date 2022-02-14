@@ -20,7 +20,7 @@
               Create Your account by filling
               </ion-card-subtitle>
         </ion-card-header>
-             <form [formGroup]="form">
+        <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="login()">
        <ion-card-content>
 
            <ion-item>
@@ -30,7 +30,7 @@
            </ion-item>
 
            <ion-item>
-               <ion-input name="clave" type="password" placeholder="************" formControlName="clave">
+               <ion-input name="clave" type="password" placeholder="********" formControlName="clave">
                  <ion-icon name="lock-closed" ></ion-icon>
                </ion-input>
            </ion-item>
@@ -45,13 +45,13 @@
 
              <div class="social-btns">
                  <ion-button fill="clear"  class="facebookbtn ion-no-padding">
-               <ion-img src="assets/images/facebook.png"></ion-img>
+               <ion-img src="assets/facebook.png"></ion-img>
                  </ion-button>
                  <ion-button fill="clear"  class="googlebtn ion-no-padding">
-               <ion-img src="assets/images/google.png"></ion-img>
+               <ion-img src="assets/google.png"></ion-img>
                  </ion-button>
                  <ion-button fill="clear"  class="applebtn ion-no-padding">
-               <ion-img src="assets/images/apple.png"></ion-img>
+               <ion-img src="assets/apple.png"></ion-img>
                  </ion-button>
 
                </div>
