@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { LoadingService } from '../../components/loading/loading.service';
 
 import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
-import { LoadingService } from '../../components/loading/loading.service';
-
 
 @Component({
   selector: 'app-login',
@@ -27,9 +27,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     
     this.form = new FormGroup({
-      'nIdCliente': new FormControl(),
-      'usuario': new FormControl(''),
-      'clave': new FormControl('')
+      'vUsuario': new FormControl(''),
+      'vContrasena': new FormControl('')
     });
   }
 
@@ -37,13 +36,11 @@ export class LoginPage implements OnInit {
 debugger;
     let model = new Usuario();
 
-    model.nIdCliente= this.form.value['nIdCliente'];
-    model.usuario = this.form.value['usuario'];
-    model.clave= this.form.value['clave'];
+    model.vUsuario = this.form.value['vUsuario'];
+    model.vContrasena= this.form.value['vContrasena'];
 
     this.loadingService.openLoading();
 
-    this.loadingService.closeLoading();
     // if(model.nIdCliente==null || model.clave=="" || model.usuario==""){
       // if(model.nIdCliente==null || model.clave==""){
       //   this.notifierService.showNotification(2,'Mensaje','Ingresa el cliente y la contraseña');
@@ -56,18 +53,17 @@ debugger;
     // }else{
 
       // this.spinner.showLoading();
-      // this.usuarioService.login(model).subscribe(data=>{
-  
-      //   // if(data.typeResponse==environment.EXITO){
-      //   //   localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
-      //   //   localStorage.setItem('first-time-login', 'true');
-  
-      //     this.router.navigate(['/page/inicio']);
-      //   // }
+      this.usuarioService.login(model).subscribe(data=>{
+  debugger;
+        if(data.typeResponse==environment.EXITO){
+          localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+            
+          this.router.navigate(['inicio']);
+        }
               
-      //   // this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-      //   // this.spinner.hideLoading();
-      // }); 
+        // this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+        this.loadingService.closeLoading();
+      }); 
 
       // this.router.navigate(['inicio']);
 

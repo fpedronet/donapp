@@ -22,6 +22,6 @@ export class LoadingService {
     await this.loading.present();
   }
   async closeLoading() {
-    await this.loading.onDidDismiss();
+    await this.loading.dismiss();
   }
 }
