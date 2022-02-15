@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { LoadingService } from '../../components/loading/loading.service';
 
 import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
-import { LoadingService } from '../../components/loading/loading.service';
-
+import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +18,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private usuarioService : UsuarioService,
-    private loadingService : LoadingService   
-
+    private loadingService : LoadingService,   
+    private toastService : ToastService
   ) { }
 
   form: FormGroup = new FormGroup({});
@@ -27,51 +28,37 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     
     this.form = new FormGroup({
-      'nIdCliente': new FormControl(),
-      'usuario': new FormControl(''),
-      'clave': new FormControl('')
+      'vUsuario': new FormControl(''),
+      'vContrasena': new FormControl('')
     });
   }
 
   login(){
-debugger;
+
     let model = new Usuario();
 
-    //model.nIdUsuario = this.form.value['nIdUsuario'];
     model.vUsuario = this.form.value['vUsuario'];
-    model.vContrasena = this.form.value['vContrasena'];
+    model.vContrasena= this.form.value['vContrasena'];
 
-    this.loadingService.openLoading();
+    if(model.vUsuario=="" || model.vContrasena==""){
 
-    this.loadingService.closeLoading();
-    // if(model.nIdCliente==null || model.clave=="" || model.usuario==""){
-      // if(model.nIdCliente==null || model.clave==""){
-      //   this.notifierService.showNotification(2,'Mensaje','Ingresa el cliente y la contraseña');
-      // }
-      // else{
-      //   this.notifierService.showNotification(2,'Mensaje','Ingresa un nombre o acrónimo para identificarse en la encuesta');
-      // }
-      // this.spinner.hideLoading();
+      this.toastService.showNotification(2,'Mensaje','Ingresa usuario y contraseña');
 
-    // }else{
+    }else{
 
-      // this.spinner.showLoading();
-      // this.usuarioService.login(model).subscribe(data=>{
-  
-      //   // if(data.typeResponse==environment.EXITO){
-      //   //   localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
-      //   //   localStorage.setItem('first-time-login', 'true');
-  
-      //     this.router.navigate(['/page/inicio']);
-      //   // }
+      this.loadingService.openLoading();
+      this.usuarioService.login(model).subscribe(data=>{
+
+        if(data.typeResponse==environment.EXITO){
+          localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+            
+          this.router.navigate(['inicio']);
+        }
               
-      //   // this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-      //   // this.spinner.hideLoading();
-      // }); 
-
-      // this.router.navigate(['inicio']);
-
-    // }
+        this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+        this.loadingService.closeLoading();
+      }); 
+    }
   }
 
   registrarPersona(){

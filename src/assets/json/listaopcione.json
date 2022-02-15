@@ -1,0 +1,14 @@
+[
+   {
+      "url":"/inicio",
+      "nombre":"Inicio",
+      "icon":"pie-chart-outline",
+      "admin":false
+   },
+   {
+       "url":"/listapersona",
+       "nombre":"Persona",
+       "icon":"pie-chart-outline",
+       "admin":false
+   }
+ ]

@@ -1,16 +1,16 @@
 export class Usuario{
     nIdUsuario?: number;
-    vUsuario? : string;
     vContrasena? : string;
+    vUsuario? : string;
 }
 export class TokenUsuario{
     idUsuario?: number;
     usuario? : string;
-    tipoDocu? : number;
+    tipoDocu? : string;
     documento? : string;
-    nombres? : string;
-    apPaterno? : string;
-    apMaterno? : string;
+    nombres?: string;
+    apPaterno?: string;
+    apMaterno?: string;
     access_token? : string;
     typeResponse? : number;
     message? : string;
