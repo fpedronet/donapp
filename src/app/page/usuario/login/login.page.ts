@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
+import { LoadingService } from '../../components/loading/loading.service';
+
 
 @Component({
   selector: 'app-login',
@@ -14,11 +16,14 @@ export class LoginPage implements OnInit {
 
   constructor(
     private router: Router,
-    private usuarioService : UsuarioService,  
+    private usuarioService : UsuarioService,
+    private loadingService : LoadingService   
+
   ) { }
 
   form: FormGroup = new FormGroup({});
-  
+  loading:any;
+
   ngOnInit() {
     
     this.form = new FormGroup({
@@ -29,12 +34,16 @@ export class LoginPage implements OnInit {
   }
 
   login(){
+debugger;
     let model = new Usuario();
 
     model.nIdCliente= this.form.value['nIdCliente'];
     model.usuario = this.form.value['usuario'];
     model.clave= this.form.value['clave'];
 
+    this.loadingService.openLoading();
+
+    this.loadingService.closeLoading();
     // if(model.nIdCliente==null || model.clave=="" || model.usuario==""){
       // if(model.nIdCliente==null || model.clave==""){
       //   this.notifierService.showNotification(2,'Mensaje','Ingresa el cliente y la contraseña');
@@ -60,7 +69,7 @@ export class LoginPage implements OnInit {
       //   // this.spinner.hideLoading();
       // }); 
 
-      this.router.navigate(['inicio']);
+      // this.router.navigate(['inicio']);
 
     // }
   }
