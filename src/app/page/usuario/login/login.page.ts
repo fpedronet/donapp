@@ -33,17 +33,11 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-debugger;
+
     let model = new Usuario();
 
-<<<<<<< HEAD
     model.vUsuario = this.form.value['vUsuario'];
     model.vContrasena= this.form.value['vContrasena'];
-=======
-    //model.nIdUsuario = this.form.value['nIdUsuario'];
-    model.vUsuario = this.form.value['vUsuario'];
-    model.vContrasena = this.form.value['vContrasena'];
->>>>>>> c63f72729a8f69f949c19e2113f1f85adc329059
 
     this.loadingService.openLoading();
 
@@ -60,7 +54,7 @@ debugger;
 
       // this.spinner.showLoading();
       this.usuarioService.login(model).subscribe(data=>{
-  debugger;
+
         if(data.typeResponse==environment.EXITO){
           localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
             
