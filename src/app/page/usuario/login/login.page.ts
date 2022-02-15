@@ -37,9 +37,9 @@ export class LoginPage implements OnInit {
 debugger;
     let model = new Usuario();
 
-    model.nIdCliente= this.form.value['nIdCliente'];
-    model.usuario = this.form.value['usuario'];
-    model.clave= this.form.value['clave'];
+    //model.nIdUsuario = this.form.value['nIdUsuario'];
+    model.vUsuario = this.form.value['vUsuario'];
+    model.vContrasena = this.form.value['vContrasena'];
 
     this.loadingService.openLoading();
 
