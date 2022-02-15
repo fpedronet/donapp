@@ -22,7 +22,16 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./page/inicio/inicio.module').then( m => m.InicioPageModule)
-   },  {
+   },
+  {
+    path: 'crearpersona',
+    loadChildren: () => import('./page/persona/crearpersona/crearpersona.module').then( m => m.CrearpersonaPageModule)
+  },
+  {
+    path: 'listapersona',
+    loadChildren: () => import('./page/persona/listapersona/listapersona.module').then( m => m.ListapersonaPageModule)
+  },
+  {
     path: 'loading',
     loadChildren: () => import('./page/components/loading/loading.module').then( m => m.LoadingPageModule)
   },
