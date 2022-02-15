@@ -30,7 +30,6 @@ const routes: Routes = [
    },
   {
     path: 'crearpersona',
-    canActivate: [GuardService],
     loadChildren: () => import('./page/persona/crearpersona/crearpersona.module').then( m => m.CrearpersonaPageModule)
   },
   {
