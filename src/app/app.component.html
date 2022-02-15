@@ -11,18 +11,21 @@
       </div>
 
     <ion-list class="menu-items" lines="none" *ngFor="let m of menus">
-
-          <ion-item style="cursor: pointer;">
-            <ion-icon name="{{m.icon}}"></ion-icon>
-            <span routerLink="{{m.url}}">{{m.nombre}}</span>            
-          </ion-item>
-      </ion-list>
+        <ion-menu-toggle autoHide="true">
+            <ion-item style="cursor: pointer;">
+              <ion-icon name="{{m.icon}}"></ion-icon>
+              <span routerLink="{{m.url}}">{{m.nombre}}</span>            
+            </ion-item>
+        </ion-menu-toggle>          
+    </ion-list>
       
     <ion-list class="menu-items" lines="none">
-      <ion-item style="cursor: pointer;">
-        <ion-icon name="close-circle-outline"></ion-icon>
-        <span (click)="closeLogin()">Cerrar Sessión</span>            
-      </ion-item>
+        <ion-menu-toggle autoHide="true">
+            <ion-item style="cursor: pointer;">
+              <ion-icon name="close-circle-outline"></ion-icon>
+              <span (click)="closeLogin()">Cerrar Sessión</span>            
+            </ion-item>
+        </ion-menu-toggle>        
     </ion-list>
 
     </ion-content>
