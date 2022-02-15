@@ -24,3 +24,9 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.header-toolbar{
+    --background: linear-gradient(90deg, #c40000 0%, #fe66dd 100%);
+    --color: #fff;
+}
