@@ -6,6 +6,7 @@ import { LoadingService } from '../../components/loading/loading.service';
 
 import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
+import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +18,8 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private usuarioService : UsuarioService,
-    private loadingService : LoadingService   
-
+    private loadingService : LoadingService,   
+    private toastService : ToastService
   ) { }
 
   form: FormGroup = new FormGroup({});
@@ -39,20 +40,13 @@ export class LoginPage implements OnInit {
     model.vUsuario = this.form.value['vUsuario'];
     model.vContrasena= this.form.value['vContrasena'];
 
-    this.loadingService.openLoading();
+    if(model.vUsuario=="" || model.vContrasena==""){
 
-    // if(model.nIdCliente==null || model.clave=="" || model.usuario==""){
-      // if(model.nIdCliente==null || model.clave==""){
-      //   this.notifierService.showNotification(2,'Mensaje','Ingresa el cliente y la contraseña');
-      // }
-      // else{
-      //   this.notifierService.showNotification(2,'Mensaje','Ingresa un nombre o acrónimo para identificarse en la encuesta');
-      // }
-      // this.spinner.hideLoading();
+      this.toastService.showNotification(2,'Mensaje','Ingresa usuario y contraseña');
 
-    // }else{
+    }else{
 
-      // this.spinner.showLoading();
+      this.loadingService.openLoading();
       this.usuarioService.login(model).subscribe(data=>{
 
         if(data.typeResponse==environment.EXITO){
@@ -61,10 +55,10 @@ export class LoginPage implements OnInit {
           this.router.navigate(['inicio']);
         }
               
-        // this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+        this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
         this.loadingService.closeLoading();
       }); 
-
+    }
   }
 
   registrarPersona(){
