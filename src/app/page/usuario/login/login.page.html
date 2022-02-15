@@ -20,7 +20,7 @@
               Create Your account by filling
               </ion-card-subtitle>
         </ion-card-header>
-        <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="login()">
+        <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
        <ion-card-content>
 
            <ion-item>
@@ -36,7 +36,7 @@
            </ion-item>
 
            <div class="sign-btn-wrap">
-              <ion-button  shape="round" type="submit"  fill="solid" class="sign-btn" [disabled]="!form.valid">Sign Up</ion-button>
+              <ion-button  shape="round" type="ion-button"  fill="solid" class="sign-btn" (click)="login()" [disabled]="!form.valid">Sign Up</ion-button>
              </div>
 
              <div class="sign-btn-wrap">
