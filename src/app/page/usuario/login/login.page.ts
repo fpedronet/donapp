@@ -54,9 +54,10 @@ export class LoginPage implements OnInit {
             
           this.router.navigate(['inicio']);
         }
-              
-        this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+            
         this.loadingService.closeLoading();
+        this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
       }); 
     }
   }
