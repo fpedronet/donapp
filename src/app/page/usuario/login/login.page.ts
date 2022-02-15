@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LoadingService } from '../../components/loading/loading.service';
 
@@ -65,9 +65,6 @@ export class LoginPage implements OnInit {
         this.loadingService.closeLoading();
       }); 
 
-      // this.router.navigate(['inicio']);
-
-    // }
   }
 
   registrarPersona(){

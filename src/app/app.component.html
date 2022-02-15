@@ -9,32 +9,21 @@
           <p>Full Stack</p>
         </ion-label>
       </div>
-      <div class="action-button">
-        <ion-button>
-          <ion-icon slot="start" name="add"></ion-icon>
-          Opcion Uno
-        </ion-button>
-      </div>
 
-      <ion-list class="menu-items" lines="none">
-
-        <ion-item style="cursor: pointer;">
-          <ion-icon name="pie-chart-outline"></ion-icon>
-          <span routerLink="login">Login</span>            
-        </ion-item>
+    <ion-list class="menu-items" lines="none" *ngFor="let m of menus">
 
           <ion-item style="cursor: pointer;">
-            <ion-icon name="pie-chart-outline"></ion-icon>
-            <span routerLink="listapaciente">Paciente</span>            
+            <ion-icon name="{{m.icon}}"></ion-icon>
+            <span routerLink="{{m.url}}">{{m.nombre}}</span>            
           </ion-item>
-
-          <ion-item style="cursor: pointer;">
-            <ion-icon name="browsers-outline"></ion-icon>
-            <span routerLink="crearpaciente">Crear Paciente</span>   
-          </ion-item>
-
       </ion-list>
       
+    <ion-list class="menu-items" lines="none">
+      <ion-item style="cursor: pointer;">
+        <ion-icon name="close-circle-outline"></ion-icon>
+        <span (click)="closeLogin()">Cerrar Sessión</span>            
+      </ion-item>
+    </ion-list>
 
     </ion-content>
   </ion-menu>
