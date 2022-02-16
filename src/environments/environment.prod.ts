@@ -14,5 +14,7 @@ export const environment = {
               {nIdSexo: 2, vDescripcion: 'Hombre'},
               {nIdSexo: 3, vDescripcion: 'Otro'},
               {nIdSexo: 4, vDescripcion: 'Prefiero no decirlo'}
-            ]
+            ],
+
+  listaTipoSangre: ['A+','B+', 'O+', 'AB+', 'A-','B-', 'O-', 'AB-']
 };
