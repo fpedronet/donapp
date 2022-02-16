@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
+import { UsuarioService } from './_service/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,11 @@ export class AppComponent {
   constructor(
     private router: Router,
     private menuService : MenuService,
+    private usuarioService : UsuarioService,
   ) {}
 
   menus: Menu[] = [];
-  nombre: string;
+  user: string;
   dni: string;
   
   ngOnInit(): void {
@@ -28,6 +30,10 @@ export class AppComponent {
     let listaMenu = this.menuService.getListarMenu();
 
     this.menus = listaMenu.filter(x=>x.visual==true);
+
+    let users = this.usuarioService.sessionUsuario();
+    this.user = users.usuario;
+    this.dni = users.documento;
   }
 
   closeLogin(){
