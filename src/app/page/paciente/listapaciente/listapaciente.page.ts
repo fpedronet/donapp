@@ -19,7 +19,7 @@ export class ListapacientePage implements OnInit {
     this.router.navigate(['inicio']);
   }
 
-  crearpaciente(){
+  nuevo(){
     this.router.navigate(['crearpaciente']);
   }
 }

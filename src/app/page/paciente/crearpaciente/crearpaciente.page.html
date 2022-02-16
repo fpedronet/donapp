@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="header-toolbar">
   <ion-toolbar class="header-toolbar">
     <ion-title>
-      LISTA PACIENTE
+      CREAR PACIENTE
     </ion-title>
     <ion-buttons  slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
@@ -10,15 +10,43 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
 
+    <ion-item fill="outline" style="padding-top:2px;margin:6px;">
+      <ion-label position="floating">Código</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item fill="outline" style="padding-top:2px;margin:6px;">
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item fill="outline" style="padding-top:2px;margin:6px;">
+      <ion-label position="floating">Edad</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Código</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Edad</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
 
 <ion-tab-bar>
-  <ion-tab-button tab="account">
+  <ion-tab-button tab="account" (click)="inicio()">
     <ion-icon name="home-outline"></ion-icon>
     <ion-label>Inicio</ion-label>
   </ion-tab-button>
-  <ion-tab-button tab="account">
+  <ion-tab-button tab="account" (click)="regresar()">
     <ion-icon name="return-up-back-outline"></ion-icon>
     <ion-label>Regresar</ion-label>
   </ion-tab-button>
