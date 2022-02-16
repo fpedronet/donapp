@@ -1,5 +1,5 @@
 *{
-    font-family: lato;
+    font-family: unset;
 }
 
 .menu-header-bg{
@@ -12,7 +12,7 @@
     border-radius: 10px 10px 10px 50px;
     margin-left: -18px;
     margin-top: -50px;
-    margin-bottom: 60px;
+    margin-bottom: 54px;
 }
 .header-content{
     position: absolute;
@@ -63,7 +63,7 @@
 
 .menu-items{
     margin: 0px;
-
+    margin-top:-6px;
     ion-icon{
         margin-right: 20px;
         color: #86979f;

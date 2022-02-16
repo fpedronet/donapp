@@ -6,22 +6,34 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoadingService {
 
-  loading:HTMLIonLoadingElement;
+  isLoading = false;
 
   constructor(
     public loadingController: LoadingController
   ) {
-    // this.loading = this.loadingController
    }
 
-  async openLoading() {
-    this.loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Cargando...',
+   async openLoading(message?: string) {
+    this.isLoading = true;
+    this.loadingController.create({
+      message: message ? message : 'Please wait...'
+    }).then(loader => {
+      loader.present().then(() => {
+        if (!this.isLoading) {
+          loader.dismiss();
+        }
+      });
     });
-    await this.loading.present();
   }
+
+
   async closeLoading() {
-    await this.loading.dismiss();
+    this.isLoading = false;
+    this.loadingController.getTop().then(loader => {
+      if (loader) {
+        loader.dismiss();
+      }
+    });
   }
+
 }

@@ -19,7 +19,7 @@
   },
    {
       "url":"/listapaciente",
-      "nombre":"Lista Paciente",
+      "nombre":"Paciente",
       "icon":"pie-chart-outline",
       "visual":true
   }
