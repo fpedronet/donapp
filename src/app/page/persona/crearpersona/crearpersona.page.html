@@ -1,16 +1,12 @@
-<ion-content>
+<ion-header [translucent]="true" class="header-toolbar">
+  <ion-toolbar class="header-toolbar">
+    <ion-title>
+      CREAR USUARIO
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-card class="cardborde">
-      <ion-card-header>
-        <ion-card-title>
-          Registrar usuario
-        </ion-card-title>
-        <ion-card-subtitle>
-          Ingrese datos del usuario
-        </ion-card-subtitle>
-      </ion-card-header>
-    <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
-    <ion-card-content>
+<ion-content>
     <!--div nIdPersona?: number;
     nIdTipoDocu?: number;
     vDocumento?: string;
@@ -26,80 +22,121 @@
     vEmail?: string;
     vDireccion?: string;
     nEsPaciente?: number; ></div-->
+  <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
+    <ion-list>
 
-       <ion-item [disabled]="true">
-           <ion-input name="nIdPersona" type="text" placeholder="id" formControlName="nIdPersona" required>
-           </ion-input>
-       </ion-item>
+      <ion-item [disabled]="true">
+          <ion-input name="nIdPersona" type="text" formControlName="nIdPersona" required>
+          </ion-input>
+      </ion-item>
 
-       <ion-item>
+      <ion-item>
         <ion-label>Tipo de documento</ion-label>
-            <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
-              <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
-            </ion-select>
-        </ion-item>
+        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
+          <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Documento</ion-label>
-          <ion-input name="vDocumento" type="text" formControlName="vDocumento" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Documento</ion-label>
+        <ion-input name="vDocumento" type="text" formControlName="vDocumento" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Nombres</ion-label>
-          <ion-input name="vNombres" type="text" formControlName="vNombres" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nombres</ion-label>
+        <ion-input name="vNombres" type="text" formControlName="vNombres" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Apellido paterno</ion-label>
-          <ion-input name="vApPaterno" type="text" formControlName="vApPaterno" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido paterno</ion-label>
+        <ion-input name="vApPaterno" type="text" formControlName="vApPaterno" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Apellido materno</ion-label>
-          <ion-input name="vApMaterno" type="text" formControlName="vApMaterno" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellido materno</ion-label>
+        <ion-input name="vApMaterno" type="text" formControlName="vApMaterno" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Fecha de nacimiento</ion-label>
-          <ion-input name="dFechaNac" type="date" formControlName="dFechaNac" required [value]="obtenerHoy()">
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Fecha de nacimiento</ion-label>
+        <ion-input name="dFechaNac" type="date" formControlName="dFechaNac" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label>Sexo</ion-label>
-          <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nSexo" required>
-            <ion-select-option *ngFor="let el of listaSexo" [value]="el.nIdSexo">{{el.vDescripcion}}</ion-select-option>
-          </ion-select>
-        </ion-item>
+      <ion-item>
+        <ion-label>Sexo</ion-label>
+        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nSexo" required>
+          <ion-select-option *ngFor="let el of listaSexo" [value]="el.nIdSexo">{{el.vDescripcion}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-        <ion-item>
-          <ion-label>Tipo de sangre</ion-label>
-          <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre" required>
-            <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
-          </ion-select>
-        </ion-item>
+      <ion-item>
+        <ion-label>Tipo de sangre</ion-label>
+        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre" required>
+          <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-         <div class="sign-btn-wrap">
-          <ion-button  shape="round" type="ion-button" fill="solid" class="sign-btn" (click)="guardar()">Crear cuenta</ion-button>
-        </div>
+      <ion-item>
+        <ion-label position="floating">Talla(cm)</ion-label>
+        <ion-input name="nTalla" type="number" formControlName="nTalla" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Talla</ion-label>
-          <ion-input name="nTalla" type="number" formControlName="nTalla" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Peso(kg)</ion-label>
+        <ion-input name="nPeso" type="number" formControlName="nPeso" required>
+        </ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Peso</ion-label>
-          <ion-input name="nPeso" type="number" formControlName="nPeso" required>
-          </ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label position="floating">Celular</ion-label>
+        <ion-input name="vCelular" type="text" formControlName="vCelular" required>
+        </ion-input>
+      </ion-item>
 
-   </ion-card-content>
-    </form>
-  </ion-card>
+      <ion-item>
+        <ion-label position="floating">Dirección</ion-label>
+        <ion-input name="vDireccion" type="text" formControlName="vDireccion" required>
+        </ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Datos de usuario</ion-label>
+      </ion-item>      
+
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input name="vEmail" type="text" formControlName="vEmail" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input name="vContrasena" type="password" formControlName="vContrasena" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item [disabled]="true">
+        <ion-input name="nEsPaciente" type="text" formControlName="nEsPaciente" required>
+        </ion-input>
+      </ion-item>
+
+    </ion-list>
+  </form>
 </ion-content>
+
+<ion-tab-bar>
+  <ion-tab-button tab="account" (click)="irLogin()">
+    <ion-icon name="return-up-back-outline"></ion-icon>
+    <ion-label>Regresar</ion-label>
+  </ion-tab-button>
+  <ion-tab-button tab="account" (click)="guardar()">
+    <ion-icon name="save-outline"></ion-icon>
+    <ion-label>Guardar</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
