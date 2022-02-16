@@ -73,13 +73,16 @@ export class CrearpersonaPage implements OnInit {
     model.nSexo = this.form.value['nSexo'];
     model.vTipoSangre = this.form.value['vTipoSangre'];
     model.nTalla = (this.form.value['nTalla']=='')?0:this.form.value['nTalla'];
+    if(model.nTalla == null) model.nTalla = 0;
     model.nPeso = (this.form.value['nPeso']=='')?0:this.form.value['nPeso'];
+    if(model.nPeso == null) model.nPeso = 0;
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
     model.vEmail = this.form.value['vEmail'];
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
+    //debugger;
     
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
@@ -88,7 +91,7 @@ export class CrearpersonaPage implements OnInit {
 
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
-        this.router.navigate(['inicio']);
+        this.router.navigate(['login']);
         
       }else{
         this.loadingService.closeLoading();
