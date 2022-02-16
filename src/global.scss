@@ -26,6 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+form{
+    margin: 10px;
+}
 .header-toolbar{
     --background: linear-gradient(90deg, #c40000 0%, #fe66dd 100%);
     --color: #fff;
