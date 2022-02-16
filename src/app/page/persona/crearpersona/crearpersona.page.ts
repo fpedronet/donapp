@@ -80,7 +80,7 @@ export class CrearpersonaPage implements OnInit {
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
-
+    
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
       
