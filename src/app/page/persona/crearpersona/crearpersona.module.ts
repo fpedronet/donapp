@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { CrearpersonaPageRoutingModule } from './crearpersona-routing.module';
 
 import { CrearpersonaPage } from './crearpersona.page';
-import { SharedModule } from '../../components/shared.module';
 
 @NgModule({
   imports: [
@@ -15,8 +14,7 @@ import { SharedModule } from '../../components/shared.module';
     FormsModule,
     IonicModule,
     CrearpersonaPageRoutingModule,
-    ReactiveFormsModule   ,
-    SharedModule    
+    ReactiveFormsModule   
   ],
   declarations: [CrearpersonaPage]
 })
