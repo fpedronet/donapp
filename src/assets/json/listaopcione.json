@@ -12,8 +12,14 @@
        "admin":false
    },
    {
+      "url":"/crearpaciente",
+      "nombre":"Crear Paciente",
+      "icon":"pie-chart-outline",
+      "admin":false
+  },
+   {
       "url":"/listapaciente",
-      "nombre":"Paciente",
+      "nombre":"Lista Paciente",
       "icon":"pie-chart-outline",
       "admin":false
   }
