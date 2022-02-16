@@ -35,22 +35,22 @@ export class CrearpersonaPage implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      'nIdPersona': new FormControl('0'),
-      'nIdTipoDocu': new FormControl('0'),
-      'vDocumento': new FormControl(''),
-      'vNombres': new FormControl(''),
-      'vApPaterno': new FormControl(''),
-      'vApMaterno': new FormControl(''),
-      'dFechaNac': new FormControl(this.obtenerHoy()),
-      'nSexo': new FormControl('0'),
-      'vTipoSangre': new FormControl(''),
-      'nTalla': new FormControl('0'),
-      'nPeso': new FormControl('0'),
-      'vCelular': new FormControl(''),
-      'vDireccion': new FormControl(''),
-      'vEmail': new FormControl(''),
-      'vContrasena': new FormControl(''),
-      'nEsPaciente': new FormControl('0')
+      'nIdPersona': new FormControl({value: '0', disabled: true}),
+      'nIdTipoDocu': new FormControl({value: '0', disabled: false}),
+      'vDocumento': new FormControl({value: '', disabled: false}),
+      'vNombres': new FormControl({value: '', disabled: false}),
+      'vApPaterno': new FormControl({value: '', disabled: false}),
+      'vApMaterno': new FormControl({value: '', disabled: false}),
+      'dFechaNac': new FormControl({value: '', disabled: false}),
+      'nSexo': new FormControl({value: '0', disabled: false}),
+      'vTipoSangre': new FormControl({value: '', disabled: false}),
+      'nTalla': new FormControl({value: '0', disabled: false}),
+      'nPeso': new FormControl({value: '0', disabled: false}),
+      'vCelular': new FormControl({value: '', disabled: false}),
+      'vDireccion': new FormControl({value: '', disabled: false}),
+      'vEmail': new FormControl({value: '', disabled: false}),
+      'vContrasena': new FormControl({value: '', disabled: false}),
+      'nEsPaciente': new FormControl({value: '0', disabled: true})
     });
     this.listaSexo = environment.listaSexo;
     this.listaTipoSangre = environment.listaTipoSangre;
@@ -79,17 +79,17 @@ export class CrearpersonaPage implements OnInit {
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
-
-    this.loadingService.openLoading();
+    debugger;
+    //this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
-
+      
       this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
       if(data.typeResponse==environment.EXITO){
-        //this.router.navigate(['login']);
-        this.loadingService.closeLoading();
+        //this.router.navigate(['inicio']);
+        //this.loadingService.closeLoading();
       }else{
-        this.loadingService.closeLoading();
+        //this.loadingService.closeLoading();
       }
 
     });
