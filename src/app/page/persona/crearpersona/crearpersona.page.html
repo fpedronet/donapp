@@ -10,70 +10,23 @@
   <div id="container">
 
     <ion-card class="cardborde">
-      <ion-card-title class="cardtitle">
-          <ion-icon>home</ion-icon> 
-          CREAR CLIENTE
-        </ion-card-title>
-      <!--form id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
+      <ion-content>
 
-          <div [hidden]="true">
-              <mat-form-field appearance="outline">
-                   <input matInput placeholder="Id" formControlName="nIdCliente">
-              </mat-form-field>
+          <div [hidden]="true">            
+            <ion-input matInput placeholder="Id" formControlName="nIdPersona"></ion-input>
           </div>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label>Tipo de documento</ion-label>
+              <ion-input matInput placeholder="Tipo Docu." formControlName="nTipoDocu"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-label>Documento</ion-label>
+              <ion-input matInput placeholder="Documento." formControlName="vDocumento"></ion-input>
+            </ion-col>
+          </ion-row>
 
-          <mat-grid-list cols="2" rowHeight="80px" gutterSize="1px">
-              <mat-grid-tile>
-                  <mat-form-field appearance="outline">
-                      <mat-label>Código</mat-label>
-                      <input matInput placeholder="Codigo" formControlName="nCodigo">
-                  </mat-form-field>
-              </mat-grid-tile>
-
-              <mat-grid-tile>
-                  <section class="example-section" [formGroup]="form">
-                      <p><mat-checkbox formControlName="nEsAdministrador">Administrador</mat-checkbox></p>
-                  </section>
-              </mat-grid-tile>
-          </mat-grid-list>           
-      
-          <mat-form-field appearance="outline">
-              <mat-label>Descripción</mat-label>
-              <input matInput placeholder="Descripción" minlength="1" maxlength="100" required formControlName="cDescripcion" autocomplete="off">
-          </mat-form-field>     
-          
-          <mat-form-field appearance="outline">
-              <mat-label>Ruc</mat-label>
-              <input matInput placeholder="Ruc" minlength="1" maxlength="11" required formControlName="cRuc" autocomplete="off">
-          </mat-form-field>     
-
-          <mat-form-field appearance="outline">
-              <mat-label>Contacto</mat-label>
-              <input matInput placeholder="Contacto" minlength="1" maxlength="50" required formControlName="cContacto" autocomplete="off">
-          </mat-form-field>     
-
-          <mat-form-field appearance="outline">
-              <mat-label>Clave</mat-label>
-              <input matInput placeholder="Clave" minlength="1" maxlength="20" required formControlName="cClave" autocomplete="off">
-          </mat-form-field>  
-
-          <mat-form-field appearance="outline">
-              <mat-select 
-                multiple
-                placeholder="Sistemas" 
-                [(ngModel)]="listaIdSistema"
-                formControlName="nIdSistemas"
-                >
-                <mat-option *ngFor="let el of listaSistema" [value]="el.nIdSistemas">
-                    {{el.cSistemas}}
-                </mat-option>
-            
-              </mat-select>
-            </mat-form-field>            
-            
-         <br>
-
-      </form-->
+      </ion-content>
   </ion-card>    
   </div>
 </ion-content>
