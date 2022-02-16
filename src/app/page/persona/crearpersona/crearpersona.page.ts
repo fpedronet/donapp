@@ -32,25 +32,26 @@ export class CrearpersonaPage implements OnInit {
   listaTipoDocu: TipoDocumento[] = [];
   listaSexo: Sexo[] = [];
   listaTipoSangre: String[] = [];
+  date: Date;
 
   ngOnInit() {
     this.form = new FormGroup({
-      'nIdPersona': new FormControl({value: '0', disabled: true}),
-      'nIdTipoDocu': new FormControl({value: '0', disabled: false}),
+      'nIdPersona': new FormControl({value: 0, disabled: true}),
+      'nIdTipoDocu': new FormControl({value: 0, disabled: false}),
       'vDocumento': new FormControl({value: '', disabled: false}),
       'vNombres': new FormControl({value: '', disabled: false}),
       'vApPaterno': new FormControl({value: '', disabled: false}),
       'vApMaterno': new FormControl({value: '', disabled: false}),
-      'dFechaNac': new FormControl({value: '', disabled: false}),
-      'nSexo': new FormControl({value: '0', disabled: false}),
+      'dFechaNac': new FormControl({value: this.obtenerHoy(), disabled: false}),
+      'nSexo': new FormControl({value: 0, disabled: false}),
       'vTipoSangre': new FormControl({value: '', disabled: false}),
-      'nTalla': new FormControl({value: '0', disabled: false}),
-      'nPeso': new FormControl({value: '0', disabled: false}),
+      'nTalla': new FormControl({value: '', disabled: false}),
+      'nPeso': new FormControl({value: '', disabled: false}),
       'vCelular': new FormControl({value: '', disabled: false}),
       'vDireccion': new FormControl({value: '', disabled: false}),
       'vEmail': new FormControl({value: '', disabled: false}),
       'vContrasena': new FormControl({value: '', disabled: false}),
-      'nEsPaciente': new FormControl({value: '0', disabled: true})
+      'nEsPaciente': new FormControl({value: 0, disabled: true})
     });
     this.listaSexo = environment.listaSexo;
     this.listaTipoSangre = environment.listaTipoSangre;
@@ -71,15 +72,15 @@ export class CrearpersonaPage implements OnInit {
     model.dFechaNac = this.form.value['dFechaNac'];
     model.nSexo = this.form.value['nSexo'];
     model.vTipoSangre = this.form.value['vTipoSangre'];
-    model.nTalla = this.form.value['nTalla'];
-    model.nPeso = this.form.value['nPeso'];
+    model.nTalla = (this.form.value['nTalla']=='')?0:this.form.value['nTalla'];
+    model.nPeso = (this.form.value['nPeso']=='')?0:this.form.value['nPeso'];
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
     model.vEmail = this.form.value['vEmail'];
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
-    debugger;
+    
     //this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
       
@@ -114,5 +115,6 @@ export class CrearpersonaPage implements OnInit {
 
   irLogin(){
     this.router.navigate(['login']);
-  }  
+  }
+  
 }

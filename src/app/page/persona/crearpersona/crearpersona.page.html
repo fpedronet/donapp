@@ -46,12 +46,24 @@
         </ion-input>
       </ion-item>
 
-      <ion-item>  
-        <ion-label>Specific day/month/year</ion-label>  
-        <ion-datetime monthValues= "6,7,8" yearValues="2017,2018"  
-        dayValues= "01,02,03,04,05,06,07,08,09,10,11,12,13,14,15"   
-        displayFormat= "DD/MM/YYYY" > </ion-datetime>  
-      </ion-item>  
+      <ion-item>
+        <ion-label>Fecha de nacimiento*</ion-label>
+        <ion-input
+          value="{{ form.value['dFechaNac'] | date: 'dd-MM-yyyy' }}"
+          id="date"
+          class="ion-text-end"
+        ></ion-input>
+        <ion-popover trigger="date" size="contain" cssClass="ccsClass">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              formControlName="dFechaNac"
+              locale="es-PE"
+              required
+            ></ion-datetime>
+          </ng-template>
+        </ion-popover>      
+      </ion-item>
 
       <ion-item>
         <ion-label>Sexo*</ion-label>
@@ -69,13 +81,13 @@
 
       <ion-item>
         <ion-label position="floating">Talla(cm)*</ion-label>
-        <ion-input name="nTalla" type="number" formControlName="nTalla" required>
+        <ion-input name="nTalla" type="tel" onclick="this.setSelectionRange(0, this.value.length)" formControlName="nTalla" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Peso(kg)*</ion-label>
-        <ion-input name="nPeso" type="number" formControlName="nPeso" required>
+        <ion-input name="nPeso" type="tel" onclick="this.setSelectionRange(0, this.value.length)" formControlName="nPeso" required>
         </ion-input>
       </ion-item>
 
