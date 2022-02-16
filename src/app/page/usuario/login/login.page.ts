@@ -64,7 +64,5 @@ export class LoginPage implements OnInit {
 
   registrarPersona(){
     this.router.navigate(['crearpersona']);
-  }
-
-  
+  }  
 }

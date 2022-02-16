@@ -10,5 +10,11 @@
        "nombre":"Persona",
        "icon":"pie-chart-outline",
        "admin":false
-   }
+   },
+   {
+      "url":"/listapaciente",
+      "nombre":"Paciente",
+      "icon":"pie-chart-outline",
+      "admin":false
+  }
  ]
