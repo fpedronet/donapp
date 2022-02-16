@@ -79,27 +79,28 @@ export class CrearpersonaPage implements OnInit {
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
-    debugger;
-    //this.loadingService.openLoading();
+
+    this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
       
       this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
       if(data.typeResponse==environment.EXITO){
-        //this.router.navigate(['inicio']);
-        //this.loadingService.closeLoading();
+        this.loadingService.closeLoading();
+        this.router.navigate(['inicio']);
+        
       }else{
-        //this.loadingService.closeLoading();
+        this.loadingService.closeLoading();
       }
 
     });
   }
 
   listartipodocumento(){
-    //this.loadingService.openLoading();
+    this.loadingService.openLoading();
     this.tipodocumentoService.listar().subscribe(data=>{
       this.listaTipoDocu= data.items;
-      //this.loadingService.closeLoading();
+      this.loadingService.closeLoading();
     });
   }
 
