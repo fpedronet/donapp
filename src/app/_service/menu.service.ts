@@ -22,7 +22,7 @@ export class MenuService {
       this.menus.url =lista[k].url;
       this.menus.nombre =lista[k].nombre;
       this.menus.icon =lista[k].icon;
-      this.menus.admin=lista[k].admin;
+      this.menus.visual=lista[k].visual;
       this.listamenu.push(this.menus);
    }
 

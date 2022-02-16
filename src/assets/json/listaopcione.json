@@ -3,24 +3,24 @@
       "url":"/inicio",
       "nombre":"Inicio",
       "icon":"pie-chart-outline",
-      "admin":false
+      "visual":true
    },
    {
        "url":"/listapersona",
        "nombre":"Persona",
        "icon":"pie-chart-outline",
-       "admin":false
+       "visual":false
    },
    {
       "url":"/crearpaciente",
       "nombre":"Crear Paciente",
       "icon":"pie-chart-outline",
-      "admin":false
+      "visual":false
   },
    {
       "url":"/listapaciente",
       "nombre":"Lista Paciente",
       "icon":"pie-chart-outline",
-      "admin":false
+      "visual":true
   }
  ]
