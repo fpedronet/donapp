@@ -17,7 +17,9 @@ export class AppComponent {
   ) {}
 
   menus: Menu[] = [];
-
+  nombre: string;
+  dni: string;
+  
   ngOnInit(): void {
     this.listar();   
   }
