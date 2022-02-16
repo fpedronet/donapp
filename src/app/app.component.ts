@@ -23,8 +23,9 @@ export class AppComponent {
   }
 
   listar(){
-    this.menus = this.menuService.getListarMenu();
-    console.log(this.menus)
+    let listaMenu = this.menuService.getListarMenu();
+
+    this.menus = listaMenu.filter(x=>x.visual==true);
   }
 
   closeLogin(){
