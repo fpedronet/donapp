@@ -2,7 +2,20 @@
   font-weight: bold;
 }
 
-:root {
-  --ion-safe-area-top: 20px;
-  --ion-safe-area-bottom: 22px;
+.hacking-datetime {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  position: absolute;
+  bottom: 0;
+  width: 50%;
 }
+
+.popCss {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin-top: -125px !important;
+  margin-left: -100px !important;
+  height: 250px !important;
+  width: 200px !important;
+}   
