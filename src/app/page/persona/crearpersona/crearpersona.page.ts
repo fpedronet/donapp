@@ -42,7 +42,7 @@ export class CrearpersonaPage implements OnInit {
       'vNombres': new FormControl({value: '', disabled: false}),
       'vApPaterno': new FormControl({value: '', disabled: false}),
       'vApMaterno': new FormControl({value: '', disabled: false}),
-      'dFechaNac': new FormControl({value: this.obtenerHoy(), disabled: false}),
+      'dFechaNac': new FormControl({value: this.obtenerFecha(), disabled: false}),
       'nSexo': new FormControl({value: 0, disabled: false}),
       'vTipoSangre': new FormControl({value: '', disabled: false}),
       'nTalla': new FormControl({value: '', disabled: false}),
@@ -51,6 +51,7 @@ export class CrearpersonaPage implements OnInit {
       'vDireccion': new FormControl({value: '', disabled: false}),
       'vEmail': new FormControl({value: '', disabled: false}),
       'vContrasena': new FormControl({value: '', disabled: false}),
+      'vVerifContra': new FormControl({value: '', disabled: false}),
       'nEsPaciente': new FormControl({value: 0, disabled: true})
     });
     this.listaSexo = environment.listaSexo;
@@ -69,7 +70,8 @@ export class CrearpersonaPage implements OnInit {
     model.vNombres = this.form.value['vNombres'];
     model.vApPaterno = this.form.value['vApPaterno'];
     model.vApMaterno = this.form.value['vApMaterno'];
-    model.dFechaNac = this.form.value['dFechaNac'];
+    //Si la fecha es inválida, le da una del futuro, esto únicamente para validar en back
+    model.dFechaNac = (this.form.value['dFechaNac']=='')?this.obtenerFecha(1):this.form.value['dFechaNac'];
     model.nSexo = this.form.value['nSexo'];
     model.vTipoSangre = this.form.value['vTipoSangre'];
     model.nTalla = (this.form.value['nTalla']=='')?0:this.form.value['nTalla'];
@@ -81,8 +83,9 @@ export class CrearpersonaPage implements OnInit {
     model.vEmail = this.form.value['vEmail'];
     model.usuario.vUsuario = this.form.value['vEmail'];
     model.usuario.vContrasena = this.form.value['vContrasena'];
+    model.usuario.vVerifContra = this.form.value['vVerifContra'];
     model.nEsPaciente = this.form.value['nEsPaciente'];
-    //debugger;
+    //debugger;   
     
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
@@ -108,8 +111,11 @@ export class CrearpersonaPage implements OnInit {
     });
   }
 
-  obtenerHoy(){
+  obtenerFecha(yearsDif: number = 0){
     var today = new Date();
+    if(yearsDif !== 0){
+      today.setMonth(today.getMonth() + yearsDif*12);
+    }
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();

@@ -46,7 +46,7 @@
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <!--ion-item>
         <ion-label>Fecha de nacimiento*</ion-label>
         <ion-input
           value="{{ form.value['dFechaNac'] | date: 'dd-MM-yyyy' }}"
@@ -63,6 +63,12 @@
             ></ion-datetime>
           </ng-template>
         </ion-popover>      
+      </ion-item-->
+
+      <ion-item>
+        <ion-label position="stacked">F. de nacimiento*</ion-label>
+        <ion-input name="dFechaNac" type="date" [min]="obtenerFecha(-100)" [max]="obtenerFecha()" formControlName="dFechaNac" required>
+        </ion-input>
       </ion-item>
 
       <ion-item>
@@ -81,25 +87,25 @@
 
       <ion-item>
         <ion-label position="floating">Talla(cm)*</ion-label>
-        <ion-input name="nTalla" type="number" formControlName="nTalla" required>
+        <ion-input name="nTalla" min="0" max="999" maxlength="3" type="number" formControlName="nTalla" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Peso(kg)*</ion-label>
-        <ion-input name="nPeso" type="number" formControlName="nPeso" required>
+        <ion-input name="nPeso" min="0" max="999" maxlength="3" type="number" formControlName="nPeso" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Celular*</ion-label>
-        <ion-input name="vCelular" maxlength="20" type="tel" inputmode="tel" formControlName="vCelular" required>
+        <ion-input name="vCelular" placeholder="ej. +51 999999999" maxlength="20" type="tel" inputmode="tel" formControlName="vCelular" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Dirección*</ion-label>
-        <ion-input name="vDireccion" maxlength="100" type="text" formControlName="vDireccion" required>
+        <ion-input name="vDireccion" placeholder="ej. Jr. León Velarde 609, Cercado de Lima" maxlength="100" type="text" formControlName="vDireccion" required>
         </ion-input>
       </ion-item>
       
@@ -109,13 +115,19 @@
 
       <ion-item>
         <ion-label position="floating">Email*</ion-label>
-        <ion-input name="vEmail" maxlength="50" type="email" inputmode="email" formControlName="vEmail" required>
+        <ion-input name="vEmail" placeholder="ej. ejemplo@correo.com" maxlength="50" type="email" inputmode="email" formControlName="vEmail" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña*</ion-label>
         <ion-input name="vContrasena" maxlength="20" type="password" formControlName="vContrasena" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Verificar contraseña*</ion-label>
+        <ion-input name="vVerifContra" maxlength="20" type="password" formControlName="vVerifContra" required>
         </ion-input>
       </ion-item>
 

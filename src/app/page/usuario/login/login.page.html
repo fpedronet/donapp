@@ -1,10 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <!-- <ion-title>signup</ion-title> -->
-    <ion-buttons slot="start">
+    <!--ion-buttons slot="start">
       <ion-back-button defaulthref="login" text="">
       </ion-back-button>
-      </ion-buttons>
+      </ion-buttons-->
   </ion-toolbar>
 
 </ion-header>
@@ -14,11 +14,11 @@
     <ion-card class="ion-no-margin">
         <ion-card-header>
             <ion-card-title>
-              Sistema de donaciones
+              DonApp
             </ion-card-title>
             <ion-card-subtitle>
-              Create Your account by filling
-              </ion-card-subtitle>
+              Sistema de citas e información de donaciones
+            </ion-card-subtitle>
         </ion-card-header>
         <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
        <ion-card-content>
@@ -30,7 +30,7 @@
            </ion-item>
 
            <ion-item>
-               <ion-input name="vContrasena" type="password" placeholder="********" formControlName="vContrasena">
+               <ion-input name="vContrasena" type="password" placeholder="Contraseña" formControlName="vContrasena">
                  <ion-icon name="lock-closed" ></ion-icon>
                </ion-input>
            </ion-item>

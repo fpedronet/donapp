@@ -1,6 +1,7 @@
 export class Usuario{
     nIdUsuario?: number;
     vContrasena? : string;
+    vVerifContra? : string;
     vUsuario? : string;
 }
 export class TokenUsuario{
