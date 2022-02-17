@@ -21,6 +21,8 @@ export class AppComponent {
   menus: Menu[] = [];
   user: string;
   dni: string;
+
+  userActive: boolean = false;
   
   ngOnInit(): void {
     this.listar();   
@@ -32,15 +34,18 @@ export class AppComponent {
     this.menus = listaMenu.filter(x=>x.visual==true);
 
     let users = this.usuarioService.sessionUsuario();
+    
     if(users!=null){
       this.user = users.usuario;
       this.dni = users.documento;
+      this.userActive = true;
     }
   }
 
   closeLogin(){
     localStorage.clear();
     this.router.navigate(['']);
+    this.userActive = false;
   }
   
 }
