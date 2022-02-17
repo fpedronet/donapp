@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Persona } from 'src/app/_model/persona';
 import { Usuario } from 'src/app/_model/usuario';
 import { Sexo } from 'src/app/_model/sexo';
@@ -21,6 +21,7 @@ export class CrearpersonaPage implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private personaService : PersonaService,
     private tipodocumentoService : TipodocumentoService,
     private loadingService : LoadingService,   
@@ -33,6 +34,8 @@ export class CrearpersonaPage implements OnInit {
   listaSexo: Sexo[] = [];
   listaTipoSangre: String[] = [];
   date: Date;
+
+  id: number = 0;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -57,6 +60,41 @@ export class CrearpersonaPage implements OnInit {
     this.listaSexo = environment.listaSexo;
     this.listaTipoSangre = environment.listaTipoSangre;
     this.listartipodocumento();
+
+    this.route.params.subscribe((data: Params)=>{
+      this.id = (data["id"]==undefined)? 0:data["id"];
+      this.obtener();
+    });
+  }
+
+  obtener(){
+    if(this.id!=0){
+      this.loadingService.openLoading();
+      this.personaService.obtener(this.id).subscribe(data=>{
+
+        this.form = new FormGroup({
+          'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),
+          'nIdTipoDocu': new FormControl({value: data.nIdTipoDocu, disabled: false}),
+          'vDocumento': new FormControl({value: data.vDocumento, disabled: false}),
+          'vNombres': new FormControl({value: data.vNombres, disabled: false}),
+          'vApPaterno': new FormControl({value: data.vApPaterno, disabled: false}),
+          'vApMaterno': new FormControl({value: data.vApMaterno, disabled: false}),
+          'dFechaNac': new FormControl({value: data.dFechaNac, disabled: false}),
+          'nSexo': new FormControl({value: data.nSexo, disabled: false}),
+          'vTipoSangre': new FormControl({value: data.vTipoSangre, disabled: false}),
+          'nTalla': new FormControl({value: data.nTalla, disabled: false}),
+          'nPeso': new FormControl({value: data.nPeso, disabled: false}),
+          'vCelular': new FormControl({value: data.vCelular, disabled: false}),
+          'vDireccion': new FormControl({value: data.vDireccion, disabled: false}),
+          'vEmail': new FormControl({value: data.vEmail, disabled: true}),
+          'vContrasena': new FormControl({value: '', disabled: false}),
+          'vVerifContra': new FormControl({value: '', disabled: false}),
+          'nEsPaciente': new FormControl({value: data.nEsPaciente, disabled: true})
+        });
+        this.loadingService.closeLoading();
+
+      });      
+    }
   }
 
   guardar(){
@@ -81,7 +119,9 @@ export class CrearpersonaPage implements OnInit {
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
     model.vEmail = this.form.value['vEmail'];
+    model.vEmail.toLowerCase();
     model.usuario.vUsuario = this.form.value['vEmail'];
+    model.usuario.vUsuario.toLowerCase();
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];
     model.nEsPaciente = this.form.value['nEsPaciente'];

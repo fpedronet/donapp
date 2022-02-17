@@ -6,6 +6,12 @@
       "visual":true
    },
    {
+      "url":"/crearpersona",
+      "nombre":"Editar perfil",
+      "icon":"person-outline",
+      "visual":false
+   },
+   {
        "url":"/listapersona",
        "nombre":"Persona",
        "icon":"pie-chart-outline",
@@ -16,11 +22,11 @@
       "nombre":"Crear Paciente",
       "icon":"pie-chart-outline",
       "visual":false
-  },
+   },
    {
       "url":"/listapaciente",
       "nombre":"Paciente",
       "icon":"pie-chart-outline",
-      "visual":true
-  }
+      "visual":false
+   }
  ]

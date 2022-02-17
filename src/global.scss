@@ -33,3 +33,7 @@ form{
     --background: linear-gradient(90deg, #c40000 0%, #fe66dd 100%);
     --color: #fff;
 }
+
+.menu-content-open{
+    pointer-events: all;
+}

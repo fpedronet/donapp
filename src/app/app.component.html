@@ -5,7 +5,9 @@
       <div class="header-content">
         <img src="/assets/logo.png" />
         <ion-label>
-          <h2>{{user}}</h2>
+          <h2>{{nombres}}</h2>
+          <h2>{{apellidos}}</h2>
+            <!--h2>{{user}}</h2-->
           <p>{{dni}}</p>
         </ion-label>
       </div>
@@ -23,7 +25,7 @@
         <ion-menu-toggle autoHide="true">
             <ion-item style="cursor: pointer;">
               <ion-icon name="close-circle-outline"></ion-icon>
-              <span (click)="closeLogin()">Cerrar Sessión</span>            
+              <span (click)="closeLogin()">Cerrar Sesión</span>            
             </ion-item>
         </ion-menu-toggle>        
     </ion-list>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
@@ -14,12 +14,20 @@ export class AppComponent {
   
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private menuService : MenuService,
     private usuarioService : UsuarioService,
-  ) {}
+  ) {
+    router.events.subscribe((val) => {
+      // see also 
+      this.muestraCamposUser()
+  });
+  }
 
   menus: Menu[] = [];
   user: string;
+  nombres: string;
+  apellidos: string;
   dni: string;
 
   userActive: boolean = false;
@@ -33,10 +41,19 @@ export class AppComponent {
 
     this.menus = listaMenu.filter(x=>x.visual==true);
 
+    this.muestraCamposUser();
+  }
+
+  muestraCamposUser(){
     let users = this.usuarioService.sessionUsuario();
     
+    this.userActive = false;
+    
     if(users!=null){
+      //debugger;
       this.user = users.usuario;
+      this.nombres = users.nombres;
+      this.apellidos = users.appaterno + ' ' + users.apmaterno;
       this.dni = users.documento;
       this.userActive = true;
     }
