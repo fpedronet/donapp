@@ -33,13 +33,10 @@ export class ToastService {
       icon:  this.icons,
       duration: 3000,
       color: this.color,
+      position: 'top',
+      animated: true,
       buttons: [
         {
-          side: 'start',
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        }, {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
