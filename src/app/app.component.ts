@@ -32,8 +32,10 @@ export class AppComponent {
     this.menus = listaMenu.filter(x=>x.visual==true);
 
     let users = this.usuarioService.sessionUsuario();
-    this.user = users.usuario;
-    this.dni = users.documento;
+    if(users!=null){
+      this.user = users.usuario;
+      this.dni = users.documento;
+    }
   }
 
   closeLogin(){
