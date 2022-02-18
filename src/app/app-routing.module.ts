@@ -37,6 +37,15 @@ const routes: Routes = [
     canActivate: [GuardService],
     loadChildren: () => import('./page/persona/listapersona/listapersona.module').then( m => m.ListapersonaPageModule)
   },
+  {
+    path: 'crearcita',
+    loadChildren: () => import('./page/cita/crearcita/crearcita.module').then( m => m.CrearcitaPageModule)
+  },
+  {
+    path: 'listacita',
+    loadChildren: () => import('./page/cita/listacita/listacita.module').then( m => m.ListacitaPageModule)
+  },
+
 
 ];
 

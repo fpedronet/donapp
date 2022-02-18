@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
     let model = new Usuario();
 
     model.vUsuario = this.form.value['vUsuario'];
-    model.vContrasena= this.form.value['vContrasena'];
+    model.vContrasena= this.form.value['vContrasena'].toLowerCase();
 
     if(model.vUsuario=="" || model.vContrasena==""){
 

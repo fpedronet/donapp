@@ -9,6 +9,8 @@ import { PersonaService } from 'src/app/_service/persona.service';
 import { TipodocumentoService } from 'src/app/_service/tipodocumento.service';
 import { UsuarioService } from 'src/app/_service/usuario.service';
 import { environment } from 'src/environments/environment';
+import jsonSexo from 'src/assets/json/listasexo.json';
+import jsonTipoSangre from 'src/assets/json/listasangre.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 
@@ -57,14 +59,38 @@ export class CrearpersonaPage implements OnInit {
       'vVerifContra': new FormControl({value: '', disabled: false}),
       'nEsPaciente': new FormControl({value: 0, disabled: true})
     });
-    this.listaSexo = environment.listaSexo;
-    this.listaTipoSangre = environment.listaTipoSangre;
+
+    this.listarsexo();
+    this.listartiposangre();
     this.listartipodocumento();
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.obtener();
     });
+  }
+
+  listarsexo(){
+    this.listaSexo = [];
+
+    for(var k in jsonSexo) {
+      let sexo:Sexo = {};
+
+      sexo.nIdSexo = jsonSexo[k].nIdSexo;
+      sexo.vDescripcion = jsonSexo[k].vDescripcion;
+      
+      this.listaSexo.push(sexo);
+    }
+  }
+
+  listartiposangre(){
+    this.listaTipoSangre= [];
+
+    for(var k in jsonTipoSangre) {
+      let tipoSangre = jsonTipoSangre[k].tipo;
+      
+      this.listaTipoSangre.push(tipoSangre);
+    }
   }
 
   obtener(){
@@ -118,9 +144,9 @@ export class CrearpersonaPage implements OnInit {
     if(model.nPeso == null) model.nPeso = 0;
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
-    model.vEmail = this.form.value['vEmail'];
-    model.vEmail.toLowerCase();
-    model.usuario.vUsuario = this.form.value['vEmail'];
+    let email = this.form.value['vEmail'].toLowerCase();
+    model.vEmail = email
+    model.usuario.vUsuario = email;
     model.usuario.vUsuario.toLowerCase();
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];

@@ -16,7 +16,7 @@ export class TipodocumentoService {
   private url: string = `${environment.UrlApi}/tipodocumento`;
   
   listar() {
-
+    debugger;
     let href = `${this.url}/GetAllTipoDocumento`;
     let urls = `${href}`;
 

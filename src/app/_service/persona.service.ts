@@ -15,7 +15,7 @@ export class PersonaService {
 
   private url: string = `${environment.UrlApi}/persona`;
   
-  listar(data: string, page: number,pages: number) {
+  listar(data: string, page: number, pages: number) {
 
     let href = `${this.url}/GetAllPersona`;
     let urls = `${href}?data=${data}&page=${page+1}&pages=${pages}`;
@@ -28,8 +28,8 @@ export class PersonaService {
     return this.http.get<Persona>(urls);
   }
 
-  guardar(persona: Persona){
+  guardar(model: Persona){
     let urls = `${this.url}/PostSavePersona`;
-    return this.http.post<Response>(urls, persona);
+    return this.http.post<Response>(urls, model);
   }
 }
