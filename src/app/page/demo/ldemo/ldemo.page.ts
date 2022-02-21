@@ -20,7 +20,15 @@ export class LdemoPage implements OnInit {
   }
 
   nuevo(){
-    this.router.navigate(['cdemo']);
+    this.router.navigate(['cdemo/create']);
+  }
+
+  ver(){
+    this.router.navigate(['cdemo/ver/1/true']);
+  }
+
+  edit(){
+    this.router.navigate(['cdemo/edit/1']);
   }
 
 }

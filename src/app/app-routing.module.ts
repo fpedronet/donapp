@@ -13,15 +13,12 @@ const routes: Routes = [
   
   {path: 'crearcita',loadChildren: () => import('./page/cita/crearcita/crearcita.module').then( m => m.CrearcitaPageModule)},
   {path: 'listacita',loadChildren: () => import('./page/cita/listacita/listacita.module').then( m => m.ListacitaPageModule)},
-  {
-    path: 'ldemo',
-    loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)
-  },
-  {
-    path: 'cdemo',
-    loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)
-  },
-
+  
+  
+  {path: 'ldemo',loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
+  {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
+  {path: 'cdemo/edit/:id',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
+  {path: 'cdemo/ver/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
 
 
 ];

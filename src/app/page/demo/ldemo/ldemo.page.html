@@ -20,13 +20,18 @@
           <p>Nombre: Francisco</p>
           <p>Edad: 33</p>
         </ion-label>
-        <ion-badge slot="end" color="danger">001</ion-badge>
+          <ion-button size="medium" slot="end" (click)="ver()">
+            <ion-icon name="eye-outline"></ion-icon>
+          </ion-button>  
+          <ion-button size="medium" color="success" slot="end" (click)="edit()">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>         
       </ion-item>
 
-      <ion-item-options side="end">
+      <!-- <ion-item-options side="end">
         <ion-item-option color="warning">editar</ion-item-option>
         <ion-item-option color="danger">eliminar</ion-item-option>
-      </ion-item-options>
+      </ion-item-options> -->
 
     </ion-item-sliding>
 
