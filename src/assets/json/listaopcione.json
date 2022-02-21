@@ -18,14 +18,14 @@
        "visual":false
    },
    {
-      "url":"/crearpaciente",
-      "nombre":"Crear Paciente",
+      "url":"/cdemo",
+      "nombre":"Crear Demo",
       "icon":"pie-chart-outline",
       "visual":false
    },
    {
-      "url":"/listapaciente",
-      "nombre":"Paciente",
+      "url":"/ldemo",
+      "nombre":"Demo",
       "icon":"pie-chart-outline",
       "visual":true
    }

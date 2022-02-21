@@ -6,11 +6,6 @@ const routes: Routes = [
   {path: 'login',canActivate: [GuardService], loadChildren: () => import('./page/usuario/login/login.module').then( m => m.LoginPageModule)},
   {path: '',redirectTo: 'login',pathMatch: 'full'},
   
-  {path: 'listapaciente',canActivate: [GuardService],loadChildren: () => import('./page/paciente/listapaciente/listapaciente.module').then( m => m.ListapacientePageModule)},
-  {path: 'crearpaciente',canActivate: [GuardService],loadChildren: () => import('./page/paciente/crearpaciente/crearpaciente.module').then( m => m.CrearpacientePageModule)},
-  {path: 'crearpaciente',canActivate: [GuardService],loadChildren: () => import('./page/paciente/crearpaciente/crearpaciente.module').then( m => m.CrearpacientePageModule)},
-  {path: 'crearpaciente',canActivate: [GuardService],loadChildren: () => import('./page/paciente/crearpaciente/crearpaciente.module').then( m => m.CrearpacientePageModule)},
-  
   {path: 'inicio',canActivate: [GuardService],loadChildren: () => import('./page/inicio/inicio.module').then( m => m.InicioPageModule)},
   
   {path: 'crearpersona',loadChildren: () => import('./page/persona/crearpersona/crearpersona.module').then( m => m.CrearpersonaPageModule)},
@@ -18,6 +13,15 @@ const routes: Routes = [
   
   {path: 'crearcita',loadChildren: () => import('./page/cita/crearcita/crearcita.module').then( m => m.CrearcitaPageModule)},
   {path: 'listacita',loadChildren: () => import('./page/cita/listacita/listacita.module').then( m => m.ListacitaPageModule)},
+  {
+    path: 'ldemo',
+    loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)
+  },
+  {
+    path: 'cdemo',
+    loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)
+  },
+
 
 
 ];

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-crearpaciente',
-  templateUrl: './crearpaciente.page.html',
-  styleUrls: ['./crearpaciente.page.scss'],
+  selector: 'app-ldemo',
+  templateUrl: './ldemo.page.html',
+  styleUrls: ['./ldemo.page.scss'],
 })
-export class CrearpacientePage implements OnInit {
+export class LdemoPage implements OnInit {
 
   constructor(
     private router: Router,
@@ -19,8 +19,8 @@ export class CrearpacientePage implements OnInit {
     this.router.navigate(['inicio']);
   }
 
-  regresar(){
-    this.router.navigate(['listapaciente']);
+  nuevo(){
+    this.router.navigate(['cdemo']);
   }
 
 }
