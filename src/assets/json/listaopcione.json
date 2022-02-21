@@ -27,6 +27,6 @@
       "url":"/listapaciente",
       "nombre":"Paciente",
       "icon":"pie-chart-outline",
-      "visual":false
+      "visual":true
    }
  ]
