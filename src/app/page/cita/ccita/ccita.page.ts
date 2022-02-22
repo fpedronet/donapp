@@ -13,11 +13,11 @@ import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
-  selector: 'app-crearcita',
-  templateUrl: './crearcita.page.html',
-  styleUrls: ['./crearcita.page.scss'],
+  selector: 'app-ccita',
+  templateUrl: './ccita.page.html',
+  styleUrls: ['./ccita.page.scss'],
 })
-export class CrearcitaPage implements OnInit {
+export class CcitaPage implements OnInit {
 
   constructor(
     private router: Router,

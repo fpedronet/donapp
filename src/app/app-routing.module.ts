@@ -8,17 +8,15 @@ const routes: Routes = [
   
   {path: 'inicio',canActivate: [GuardService],loadChildren: () => import('./page/inicio/inicio.module').then( m => m.InicioPageModule)},
   
-  {path: 'crearpersona',loadChildren: () => import('./page/persona/crearpersona/crearpersona.module').then( m => m.CrearpersonaPageModule)},
-  {path: 'listapersona',canActivate: [GuardService],loadChildren: () => import('./page/persona/listapersona/listapersona.module').then( m => m.ListapersonaPageModule)},
+  {path: 'lpersona',canActivate: [GuardService],loadChildren: () => import('./page/persona/lpersona/lpersona.module').then( m => m.LpersonaPageModule)},
+  {path: 'cpersona',loadChildren: () => import('./page/persona/cpersona/cpersona.module').then( m => m.CpersonaPageModule)},
   
-  {path: 'crearcita',loadChildren: () => import('./page/cita/crearcita/crearcita.module').then( m => m.CrearcitaPageModule)},
-  {path: 'listacita',loadChildren: () => import('./page/cita/listacita/listacita.module').then( m => m.ListacitaPageModule)},
-  
+  {path: 'lcita',loadChildren: () => import('./page/cita/lcita/lcita.module').then( m => m.LcitaPageModule)},
+  {path: 'ccita',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   
   {path: 'ldemo',loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
   {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
-  {path: 'cdemo/edit/:id',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
-  {path: 'cdemo/ver/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
+  {path: 'cdemo/edit/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
 
 
 ];

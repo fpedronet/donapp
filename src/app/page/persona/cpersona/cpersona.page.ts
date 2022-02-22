@@ -15,11 +15,11 @@ import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
-  selector: 'app-crearpersona',
-  templateUrl: './crearpersona.page.html',
-  styleUrls: ['./crearpersona.page.scss'],
+  selector: 'app-cpersona',
+  templateUrl: './cpersona.page.html',
+  styleUrls: ['./cpersona.page.scss'],
 })
-export class CrearpersonaPage implements OnInit {
+export class CpersonaPage implements OnInit {
 
   constructor(
     private router: Router,

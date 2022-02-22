@@ -6,13 +6,13 @@
       "visual":true
    },
    {
-      "url":"/crearpersona",
+      "url":"/cpersona",
       "nombre":"Editar perfil",
       "icon":"person-outline",
       "visual":false
    },
    {
-       "url":"/listapersona",
+       "url":"/lpersona",
        "nombre":"Persona",
        "icon":"pie-chart-outline",
        "visual":false

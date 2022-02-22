@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListacitaPageRoutingModule } from './listacita-routing.module';
+import { LcitaPageRoutingModule } from './lcita-routing.module';
 
-import { ListacitaPage } from './listacita.page';
+import { LcitaPage } from './lcita.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListacitaPageRoutingModule
+    LcitaPageRoutingModule
   ],
-  declarations: [ListacitaPage]
+  declarations: [LcitaPage]
 })
-export class ListacitaPageModule {}
+export class LcitaPageModule {}

@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CrearcitaPageRoutingModule } from './crearcita-routing.module';
+import { CpersonaPageRoutingModule } from './cpersona-routing.module';
 
-import { CrearcitaPage } from './crearcita.page';
+import { CpersonaPage } from './cpersona.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CrearcitaPageRoutingModule,
-    ReactiveFormsModule
+    CpersonaPageRoutingModule,
+    ReactiveFormsModule   
   ],
-  declarations: [CrearcitaPage]
+  declarations: [CpersonaPage]
 })
-export class CrearcitaPageModule {}
+export class CpersonaPageModule {}
