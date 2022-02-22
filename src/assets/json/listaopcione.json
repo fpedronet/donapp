@@ -13,15 +13,27 @@
    },
    {
        "url":"/lpersona",
-       "nombre":"Persona",
+       "nombre":"Personas",
        "icon":"pie-chart-outline",
        "visual":false
+   },
+   {
+      "url":"/ccita/create/1",
+      "nombre":"Cita",
+      "icon":"person-outline",
+      "visual":true
+   },
+   {
+       "url":"/lcita",
+       "nombre":"Citas",
+       "icon":"pie-chart-outline",
+       "visual":true
    },
    {
       "url":"/cdemo",
       "nombre":"Crear Demo",
       "icon":"pie-chart-outline",
-      "visual":false
+      "visual":true
    },
    {
       "url":"/ldemo",

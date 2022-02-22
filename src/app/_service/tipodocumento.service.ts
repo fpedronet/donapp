@@ -16,10 +16,15 @@ export class TipodocumentoService {
   private url: string = `${environment.UrlApi}/tipodocumento`;
   
   listar() {
-    //debugger;
     let href = `${this.url}/GetAllTipoIdentidad`;
     let urls = `${href}`;
-
-    return this.http.get<dataCollection>(urls);
+    
+    try{
+      return this.http.get<dataCollection>(urls);
+    }
+    catch{
+      return undefined
+    }
+    
   }
 }

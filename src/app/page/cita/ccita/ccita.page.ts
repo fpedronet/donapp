@@ -9,8 +9,12 @@ import { environment } from 'src/environments/environment';
 import jsonDepartamento from 'src/assets/json/ubigeo/departamentos.json';
 import jsonProvincia from 'src/assets/json/ubigeo/provincias.json';
 import jsonDistrito from 'src/assets/json/ubigeo/distritos.json';
+import jsonTipoCita from 'src/assets/json/listacita.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
+import { TipoCita } from 'src/app/_model/tipocita';
+import { Banco } from 'src/app/_model/banco';
+import { Campana } from 'src/app/_model/campana';
 
 @Component({
   selector: 'app-ccita',
@@ -29,28 +33,54 @@ export class CcitaPage implements OnInit {
 
   form: FormGroup = new FormGroup({});
   loading:any;
+
+  listaTipoCitas: TipoCita[] = [];
+  tipoCita: TipoCita = new TipoCita(0, 'Tipo cita no identificado');
+
   listaDepartamentos: Departamento[] = [];
-  curProv: string = '';
   listaProvincias: Provincia[] = [];
+  listaBancos: Banco[] = [];
+  listaCampanas: Campana[] = [];  
 
   id: number = 0;
+  tipo: number = 0;
 
   ngOnInit() {
     this.form = new FormGroup({
       'nIdCita': new FormControl({value: 0, disabled: true}),
+      'nIdBanco': new FormControl({value: 0, disabled: true}),
+      'nIdCampana': new FormControl({value: 0, disabled: true}),
       'vIdDepartamento': new FormControl({value: "00", disabled: false}),
       'vIdProvincia': new FormControl({value: "0000", disabled: false})
     });
 
-    this.listardepartamentos()
+    this.listartipocita();
+    this.listarubigeo();    
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
-      this.obtener();
+      this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
+      //this.obtener();
+      if(this.tipo !== 0){
+        this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == this.tipo);
+      }      
     });
   }
 
-  listardepartamentos(){
+  listartipocita(){
+    this.listaTipoCitas = [];
+
+    for(var i in jsonTipoCita) {
+      let tipo: TipoCita = {};
+
+      tipo.nIdTipoCita = jsonTipoCita[i].nIdTipoCita;
+      tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
+
+      this.listaTipoCitas.push(tipo);
+    }
+  }
+
+  listarubigeo(){
     this.listaDepartamentos = [];
 
     for(var i in jsonDepartamento) {
@@ -78,14 +108,24 @@ export class CcitaPage implements OnInit {
   updateDpto(idDpto: string){
     let curDpto = this.listaDepartamentos.find(e => e.vUbigeo === idDpto)
     this.listaProvincias = curDpto.listaProvincias;
-    //this.form.value["vIdProvincia"] = "00"
-    //this.curProv = "00"
+    //Reinicia provincia
+    this.form.patchValue({
+      vIdProvincia: "0000",
+    });
   }
 
   obtener(){
     if(this.id!=0){
       this.loadingService.openLoading();
       this.citaService.obtener(this.id).subscribe(data=>{
+        //Selecciona el tipo de cita
+        if(this.id !== 0){
+          this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
+        }
+
+        //Extrae listas para combobox de bancos y campañas
+        this.listaBancos = data.listaBancos;
+        this.listaCampanas = data.listaCampanas;
 
         this.form = new FormGroup({
           /*'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),

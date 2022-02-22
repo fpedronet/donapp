@@ -64,10 +64,10 @@ export class CpersonaPage implements OnInit {
     this.listartiposangre();
     this.listartipodocumento();
 
-    this.route.params.subscribe((data: Params)=>{
+    /*this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.obtener();
-    });
+    });*/
   }
 
   listarsexo(){
@@ -87,7 +87,7 @@ export class CpersonaPage implements OnInit {
     this.listaTipoSangre= [];
 
     for(var k in jsonTipoSangre) {
-      let tipoSangre = jsonTipoSangre[k].tipo;
+      let tipoSangre = jsonTipoSangre[k];
       
       this.listaTipoSangre.push(tipoSangre);
     }
@@ -96,30 +96,36 @@ export class CpersonaPage implements OnInit {
   obtener(){
     if(this.id!=0){
       this.loadingService.openLoading();
-      this.personaService.obtener(this.id).subscribe(data=>{
+      try{
+        this.personaService.obtener(this.id).subscribe(data=>{
 
-        this.form = new FormGroup({
-          'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),
-          'nIdTipoDocu': new FormControl({value: data.nIdTipoDocu, disabled: false}),
-          'vDocumento': new FormControl({value: data.vDocumento, disabled: false}),
-          'vNombres': new FormControl({value: data.vNombres, disabled: false}),
-          'vApPaterno': new FormControl({value: data.vApPaterno, disabled: false}),
-          'vApMaterno': new FormControl({value: data.vApMaterno, disabled: false}),
-          'dFechaNac': new FormControl({value: data.dFechaNac, disabled: false}),
-          'nSexo': new FormControl({value: data.nSexo, disabled: false}),
-          'vTipoSangre': new FormControl({value: data.vTipoSangre, disabled: false}),
-          'nTalla': new FormControl({value: data.nTalla, disabled: false}),
-          'nPeso': new FormControl({value: data.nPeso, disabled: false}),
-          'vCelular': new FormControl({value: data.vCelular, disabled: false}),
-          'vDireccion': new FormControl({value: data.vDireccion, disabled: false}),
-          'vEmail': new FormControl({value: data.vEmail, disabled: true}),
-          'vContrasena': new FormControl({value: '', disabled: false}),
-          'vVerifContra': new FormControl({value: '', disabled: false}),
-          'nEsPaciente': new FormControl({value: data.nEsPaciente, disabled: true})
+          this.form = new FormGroup({
+            'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),
+            'nIdTipoDocu': new FormControl({value: data.nIdTipoDocu, disabled: false}),
+            'vDocumento': new FormControl({value: data.vDocumento, disabled: false}),
+            'vNombres': new FormControl({value: data.vNombres, disabled: false}),
+            'vApPaterno': new FormControl({value: data.vApPaterno, disabled: false}),
+            'vApMaterno': new FormControl({value: data.vApMaterno, disabled: false}),
+            'dFechaNac': new FormControl({value: data.dFechaNac, disabled: false}),
+            'nSexo': new FormControl({value: data.nSexo, disabled: false}),
+            'vTipoSangre': new FormControl({value: data.vTipoSangre, disabled: false}),
+            'nTalla': new FormControl({value: data.nTalla, disabled: false}),
+            'nPeso': new FormControl({value: data.nPeso, disabled: false}),
+            'vCelular': new FormControl({value: data.vCelular, disabled: false}),
+            'vDireccion': new FormControl({value: data.vDireccion, disabled: false}),
+            'vEmail': new FormControl({value: data.vEmail, disabled: true}),
+            'vContrasena': new FormControl({value: '', disabled: false}),
+            'vVerifContra': new FormControl({value: '', disabled: false}),
+            'nEsPaciente': new FormControl({value: data.nEsPaciente, disabled: true})
+          });
+          this.loadingService.closeLoading();
+  
         });
+      }
+      catch{
+        this.toastService.showNotification(0,'Mensaje','Error en el servidor');
         this.loadingService.closeLoading();
-
-      });      
+      }      
     }
   }
 
@@ -171,8 +177,14 @@ export class CpersonaPage implements OnInit {
 
   listartipodocumento(){
     this.loadingService.openLoading();
+    
     this.tipodocumentoService.listar().subscribe(data=>{
-      this.listaTipoDocu= data.items;
+      if(data === undefined){
+        this.toastService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        this.listaTipoDocu= data.items;
+      }      
       this.loadingService.closeLoading();
     });
   }

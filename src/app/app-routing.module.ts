@@ -12,7 +12,8 @@ const routes: Routes = [
   {path: 'cpersona',loadChildren: () => import('./page/persona/cpersona/cpersona.module').then( m => m.CpersonaPageModule)},
   
   {path: 'lcita',loadChildren: () => import('./page/cita/lcita/lcita.module').then( m => m.LcitaPageModule)},
-  {path: 'ccita',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
+  {path: 'ccita/create/:tipo',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
+  {path: 'ccita/edit/:id/:ver',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   
   {path: 'ldemo',loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
   {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},

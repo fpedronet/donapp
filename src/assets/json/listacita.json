@@ -1,0 +1,14 @@
+[
+    {
+        "nIdTipoCita":1,
+        "vDescripcion":"Donación a banco de sangre"
+    },
+    {
+        "nIdTipoCita":2,
+        "vDescripcion":"Donación a campana"
+    },
+    {
+        "nIdTipoCita":3,
+        "vDescripcion":"Donación para apoyar a un paciente"
+    }
+]

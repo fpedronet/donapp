@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CitaService } from 'src/app/_service/cita.service';
+import { LoadingService } from '../../components/loading/loading.service';
+import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
   selector: 'app-lcita',
@@ -7,7 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LcitaPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private citaService: CitaService,
+    private loadingService : LoadingService,   
+    private toastService : ToastService
+  ) { }
 
   ngOnInit() {
   }
