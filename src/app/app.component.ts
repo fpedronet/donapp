@@ -29,6 +29,7 @@ export class AppComponent {
   nombres: string;
   apellidos: string;
   dni: string;
+  correoVerif: boolean = false;
 
   userActive: boolean = false;
   
@@ -56,6 +57,7 @@ export class AppComponent {
       this.apellidos = users.appaterno + ' ' + users.apmaterno;
       this.dni = users.documento;
       this.userActive = true;
+      this.correoVerif = (users.correoverif == '0');
     }
   }
 

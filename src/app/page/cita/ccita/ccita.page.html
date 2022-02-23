@@ -11,12 +11,26 @@
     <ion-list>
 
       <ion-item>
-        <ion-label>{{tipoCita.vDescripcion}}</ion-label>
+        <ion-label class="title-label">{{tipoCita.vDescripcion}}</ion-label>
       </ion-item>
 
-      <ion-item [disabled]="true">
+      <ion-item *ngIf="false">
           <ion-input name="nIdCita" type="text" formControlName="nIdCita" required>
           </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-radio-group value="1" allow-empty-selection="false" name="radio-group" (ionChange)="seleccionaTipoDonacion($event)" required #radioGroup>
+          <ion-label>Tipo de donación*</ion-label>
+          <ion-row>
+            <ion-col *ngFor="let el of listaTipoDonaciones">
+              <ion-item>
+                <ion-label>{{el.vDescripcion}}</ion-label>
+                <ion-radio slot="start" value="{{el.nIdTipoDonacion}}" checked></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>    
+        </ion-radio-group>
       </ion-item>
 
       <ion-item>
@@ -28,13 +42,13 @@
 
       <ion-item>
         <ion-label>Provincia*</ion-label>
-        <ion-select [disabled]="listaProvincias.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" required>
+        <ion-select #PROV [disabled]="listaProvincias.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
           <ion-select-option *ngFor="let el of listaProvincias" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <!--DONACIÓN A BANCO-->
-      <ion-item [disabled]="tipoCita.nIdTipoCita!==1">
+      <!--DONACIÓN A BANCO O DIRIGIDA-->
+      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label>Banco*</ion-label>
         <ion-select [disabled]="listaBancos.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
@@ -42,11 +56,27 @@
       </ion-item>
 
       <!--DONACIÓN A CAMPAÑA-->
-      <ion-item [disabled]="tipoCita.nIdTipoCita!==2">
+      <ion-item *ngIf="tipoCita.nIdTipoCita===2">
         <ion-label>Campaña*</ion-label>
         <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
+      </ion-item>      
+
+      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
+        <ion-datetime
+          [firstDayOfWeek]="1"
+          [min]="obtenerFecha()"
+          hour-cycle="h12"
+          color="danger"
+          minute-values="0,15,30,45"
+          formControlName="dProgramacion"
+          required>
+          <div slot="title">Fecha y hora programada*</div>
+          <ion-buttons slot="buttons">
+            <ion-button (click)="resetHour()">Reiniciar</ion-button>
+          </ion-buttons>
+        </ion-datetime>
       </ion-item>
 
     </ion-list>

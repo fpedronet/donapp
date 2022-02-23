@@ -1,8 +1,13 @@
 export class Usuario{
     nIdUsuario?: number;
+    vUsuario? : string;
     vContrasena? : string;
     vVerifContra? : string;
-    vUsuario? : string;
+    vIdenGmail?: string;
+    vIdenFacebook?: string;
+    nCorreoVerif?: number;
+    dFechaRegistro?: Date;
+    dFechaUltSesion?: Date;
 }
 export class TokenUsuario{
     idUsuario?: number;
@@ -12,6 +17,7 @@ export class TokenUsuario{
     nombres?: string;
     apPaterno?: string;
     apMaterno?: string;
+    nCorreoVerif?: number;
     access_token? : string;
     typeResponse? : number;
     message? : string;

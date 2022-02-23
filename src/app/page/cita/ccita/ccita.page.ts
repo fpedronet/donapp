@@ -10,11 +10,13 @@ import jsonDepartamento from 'src/assets/json/ubigeo/departamentos.json';
 import jsonProvincia from 'src/assets/json/ubigeo/provincias.json';
 import jsonDistrito from 'src/assets/json/ubigeo/distritos.json';
 import jsonTipoCita from 'src/assets/json/listacita.json';
+import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { TipoCita } from 'src/app/_model/tipocita';
 import { Banco } from 'src/app/_model/banco';
 import { Campana } from 'src/app/_model/campana';
+import { TipoDonacion } from 'src/app/_model/tipodonacion';
 
 @Component({
   selector: 'app-ccita',
@@ -35,12 +37,24 @@ export class CcitaPage implements OnInit {
   loading:any;
 
   listaTipoCitas: TipoCita[] = [];
+  listaTipoDonaciones: TipoDonacion[] = [];
   tipoCita: TipoCita = new TipoCita(0, 'Tipo cita no identificado');
+  tipoDonacion: TipoDonacion;
 
+  //Los totales de departamentos y provincias están en el json
   listaDepartamentos: Departamento[] = [];
   listaProvincias: Provincia[] = [];
-  listaBancos: Banco[] = [];
-  listaCampanas: Campana[] = [];  
+
+  //Lista total
+  listaTotBancos: Banco[] = [];
+  listaTotCampanas: Campana[] = [];
+  
+  //Lista de los que se muestran actualmente
+  listaBancos: Banco[] = [];  
+  listaCampanas: Campana[] = [];
+
+  //Hora redondeada a 15 min más cercana
+  horaIni: string = this.horaCuartoCercana();
 
   id: number = 0;
   tipo: number = 0;
@@ -51,16 +65,21 @@ export class CcitaPage implements OnInit {
       'nIdBanco': new FormControl({value: 0, disabled: true}),
       'nIdCampana': new FormControl({value: 0, disabled: true}),
       'vIdDepartamento': new FormControl({value: "00", disabled: false}),
-      'vIdProvincia': new FormControl({value: "0000", disabled: false})
+      'vIdProvincia': new FormControl({value: "0000", disabled: false}),
+      'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
+      'vIdReceptor': new FormControl({value: '', disabled: false}),
     });
 
     this.listartipocita();
+    this.listartipodonacion();
     this.listarubigeo();    
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
-      //this.obtener();
+
+      this.obtener();
+      
       if(this.tipo !== 0){
         this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == this.tipo);
       }      
@@ -78,6 +97,22 @@ export class CcitaPage implements OnInit {
 
       this.listaTipoCitas.push(tipo);
     }
+  }
+
+  listartipodonacion(){
+    this.listaTipoDonaciones = [];
+
+    for(var i in jsonTipoDonacion) {
+      let tipo: TipoDonacion = {};
+
+      tipo.nIdTipoDonacion = jsonTipoDonacion[i].nIdTipoDonacion;
+      tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
+
+      this.listaTipoDonaciones.push(tipo);
+    }
+
+    //Tipo donación por defecto
+    this.tipoDonacion = this.listaTipoDonaciones[0];
   }
 
   listarubigeo(){
@@ -107,34 +142,66 @@ export class CcitaPage implements OnInit {
 
   updateDpto(idDpto: string){
     let curDpto = this.listaDepartamentos.find(e => e.vUbigeo === idDpto)
-    this.listaProvincias = curDpto.listaProvincias;
-    //Reinicia provincia
-    this.form.patchValue({
-      vIdProvincia: "0000",
-    });
+    if(curDpto !== undefined){
+      this.listaProvincias = curDpto.listaProvincias;
+      //Si hay solo un elemento lo preselecciona, sino deselecciona
+      let selValue = (this.listaProvincias.length === 1)?this.listaProvincias[0].vUbigeo:"0000"
+      this.form.patchValue({
+        vIdProvincia: selValue
+      });
+    }    
+  }
+
+  updateProv(idProv: string){
+    let curProv = this.listaProvincias.find(e => e.vUbigeo === idProv)
+    if(curProv !== undefined){
+      if(this.tipo == 1 || this.tipo == 3){
+        //Filtra los bancos cuyo ubigeo coincide con el de provincia al inicio
+        this.listaBancos = this.listaTotBancos.filter(e => e.vUbigeo.startsWith(curProv.vUbigeo));
+        //Si hay solo un elemento lo preselecciona, sino deselecciona
+        let selValue = (this.listaBancos.length === 1)?this.listaBancos[0].nIdBanco:0;
+        this.form.patchValue({
+          nIdBanco: selValue
+        });
+      }
+      else if(this.tipo == 2){
+        //Filtra las campañas cuyo ubigeo coincide con el de provincia al inicio
+        this.listaCampanas = this.listaTotCampanas.filter(e => e.vUbigeo.startsWith(curProv.vUbigeo));
+        //Si hay solo un elemento lo preselecciona, sino deselecciona
+        let selValue = (this.listaCampanas.length === 1)?this.listaCampanas[0].nIdCampana:0;
+        this.form.patchValue({
+          nIdCampana: selValue
+        });
+      }
+    }    
   }
 
   obtener(){
-    if(this.id!=0){
-      this.loadingService.openLoading();
-      this.citaService.obtener(this.id).subscribe(data=>{
-        //Selecciona el tipo de cita
-        if(this.id !== 0){
-          this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
-        }
+    this.loadingService.openLoading();
+    this.citaService.obtener(this.id).subscribe(data=>{
+      
+      //Extrae listas para combobox de bancos y campañas
+      this.listaTotBancos = data.listaBancos;
+      this.listaTotCampanas = data.listaCampanas;
 
-        //Extrae listas para combobox de bancos y campañas
-        this.listaBancos = data.listaBancos;
-        this.listaCampanas = data.listaCampanas;
+      if(this.id !== 0){
+        //Selecciona el tipo de cita
+        this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
+
+        this.seleccionaTipoDonacion(undefined, data.nTipoDonacion);
 
         this.form = new FormGroup({
-          /*'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),
-          'nIdTipoDocu': new FormControl({value: data.nIdTipoDocu, disabled: false}),*/
+          'nIdCita': new FormControl({value: data.nIdCita, disabled: true}),
+          'nIdBanco': new FormControl({value: data.nIdBanco, disabled: false}),
+          'nIdCampana': new FormControl({value: data.nIdCampana, disabled: false}),
+          'dProgramacion': new FormControl({value: data.dProgramacion, disabled: false}),
+          'vIdReceptor': new FormControl({value: data.vIdReceptor, disabled: false}),
         });
-        this.loadingService.closeLoading();
+      }      
+      
+      this.loadingService.closeLoading();
 
-      });      
-    }
+    });
   }
 
   guardar(){
@@ -142,7 +209,13 @@ export class CcitaPage implements OnInit {
     let model = new Cita();
 
     model.nIdCita = this.form.value['nIdCita'];
-    //debugger;   
+    model.nIdBanco = this.form.value['nIdBanco'];
+    model.nIdCampana = this.form.value['nIdCampana'];
+    model.nIdDonante = 0, //Se registra el del mismo usuario en el back
+    model.dProgramacion = this.form.value['dProgramacion'];
+    model.nTipoCita = this.tipoCita.nIdTipoCita;
+    model.nTipoDonacion = this.tipoDonacion.nIdTipoDonacion;
+    model.vIdReceptor = this.form.value['vIdReceptor'];
     
     this.loadingService.openLoading();
     this.citaService.guardar(model).subscribe(data=>{
@@ -160,8 +233,49 @@ export class CcitaPage implements OnInit {
     });
   }
 
+  seleccionaTipoDonacion(event, idTipoDonacion = 0){
+    let value = (idTipoDonacion === 0)?event.detail.value:idTipoDonacion;
+    this.tipoDonacion = this.listaTipoDonaciones.find(e => e.nIdTipoDonacion == value);
+  }
+
+  obtenerFecha(yearsDif: number = 0, monthsDif: number = 0){
+    var today = new Date();
+    if(yearsDif !== 0){
+      today.setMonth(today.getMonth() + yearsDif*12 + monthsDif);
+    }
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
+  horaCuartoCercana(){
+    //debugger;
+    var today = new Date();
+    today.setSeconds(0, 0);
+
+    let minutes = today.getMinutes();
+    let mod = minutes % 15;
+
+    today.setMinutes(today.getMinutes() + (15-mod));
+
+    var dd = String(today.getDate()).padStart(2, '0');
+    var MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var mm = today.getMinutes();
+    //2012-12-15T13:47:20.789
+    return yyyy + '-' + MM + '-' + dd + 'T' + hh + ':' + mm;
+  }
+
   irHome(){
     this.router.navigate(['inicio']);
   }
 
+  resetHour(){
+    this.form.patchValue({
+      dProgramacion: this.horaIni
+    });
+  }
 }

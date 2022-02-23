@@ -1,0 +1,10 @@
+[
+    {
+        "nIdTipoDonacion":1,
+        "vDescripcion":"Sangre"
+    },
+    {
+        "nIdTipoDonacion":2,
+        "vDescripcion":"Plaquetas"
+    }
+]

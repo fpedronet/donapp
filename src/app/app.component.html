@@ -14,21 +14,30 @@
 
     <ion-list class="menu-items" lines="none" *ngFor="let m of menus">
         <ion-menu-toggle autoHide="true">
-            <ion-item style="cursor: pointer;">
-              <ion-icon name="{{m.icon}}"></ion-icon>
-              <span routerLink="{{m.url}}">{{m.nombre}}</span>            
+            <ion-item style="cursor: pointer;" [routerDirection]="'back'" [routerLink]="[m.url]">
+              <ion-icon [name]="m.icon"></ion-icon>
+              <ion-label>
+                {{m.nombre}}
+              </ion-label>
+              <span routerLink="{{m.url}}"></span>            
             </ion-item>
         </ion-menu-toggle>          
     </ion-list>
       
     <ion-list class="menu-items" lines="none">
         <ion-menu-toggle autoHide="true">
-            <ion-item style="cursor: pointer;">
+            <ion-item style="cursor: pointer;" [routerDirection]="'root'" (click)="closeLogin()">
               <ion-icon name="close-circle-outline"></ion-icon>
-              <span (click)="closeLogin()">Cerrar Sesión</span>            
+              <ion-label>
+                Cerrar Sesión
+              </ion-label>        
             </ion-item>
         </ion-menu-toggle>        
     </ion-list>
+
+    <ion-label *ngIf="correoVerif">
+      Correo no verificado
+    </ion-label>
 
     </ion-content>
   </ion-menu>

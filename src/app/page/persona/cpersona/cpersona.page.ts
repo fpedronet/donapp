@@ -189,10 +189,10 @@ export class CpersonaPage implements OnInit {
     });
   }
 
-  obtenerFecha(yearsDif: number = 0){
+  obtenerFecha(yearsDif: number = 0, monthsDif: number = 0){
     var today = new Date();
     if(yearsDif !== 0){
-      today.setMonth(today.getMonth() + yearsDif*12);
+      today.setMonth(today.getMonth() + yearsDif*12 + monthsDif);
     }
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
