@@ -8,6 +8,8 @@ import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
 import { ToastService } from '../../components/toast/toast.service';
 
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,11 +22,14 @@ export class LoginPage implements OnInit {
     private usuarioService : UsuarioService,
     private loadingService : LoadingService,   
     private toastService : ToastService
-  ) { }
+  ) { 
+    GoogleAuth.initialize()
+  }
 
   form: FormGroup = new FormGroup({});
   loading:any;
-
+  userinfo: any;
+  
   ngOnInit() {
     
     this.form = new FormGroup({
@@ -60,6 +65,11 @@ export class LoginPage implements OnInit {
 
       }); 
     }
+  }
+
+  googleSignup(){
+    let users = GoogleAuth.signIn();
+    this.userinfo = users;
   }
 
   registrarPersona(){
