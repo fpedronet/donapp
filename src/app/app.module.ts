@@ -30,7 +30,7 @@ import { InterceptorService } from './_interceptors/interceptor.service';
     { 
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })

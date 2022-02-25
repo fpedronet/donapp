@@ -12,8 +12,9 @@ import jsonSexo from 'src/assets/json/listasexo.json';
 import jsonTipoSangre from 'src/assets/json/listasangre.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
-import { UsuarioService } from 'src/app/_service/usuario.service';
-
+// import { UsuarioService } from 'src/app/_service/usuario.service';
+// import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+// import { Http } from '@capacitor-community/http';
 
 @Component({
   selector: 'app-cpersona',
@@ -29,9 +30,26 @@ export class CpersonaPage implements OnInit {
     private tipodocumentoService : TipodocumentoService,
     private loadingService : LoadingService,   
     private toastService : ToastService,
-    private usuarioService: UsuarioService
+    // private usuarioService: UsuarioService
     
   ) { 
+
+    // this.route.queryParams.subscribe(params => {
+    //   debugger;
+    //   let data = this.router.getCurrentNavigation().extras.state;
+    //   if (data) {
+    //     // if (data.user.type === 'existing') {
+    //     //   let token = data.user.accessToken;
+    //     //   this.getUserProfileData(token);
+    //     // }
+    //     // else {
+    //       // this.user = data.user;
+    //     // }
+
+    //     // this.signOut();
+    //   }
+    // });
+
   }
 
   form: FormGroup = new FormGroup({});
@@ -40,17 +58,17 @@ export class CpersonaPage implements OnInit {
   listaSexo: Sexo[] = [];
   listaTipoSangre: String[] = [];
   date: Date;
-
+  user: any;
   id: number = 0;
 
   ngOnInit() {
-    let user = this.usuarioService.sessionGoogle();
+    // let user = this.usuarioService.sessionGoogle();
 
     this.form = new FormGroup({
       'nIdPersona': new FormControl({value: 0, disabled: true}),
       'nIdTipoDocu': new FormControl({value: 0, disabled: false}),
       'vDocumento': new FormControl({value: '', disabled: false}),
-      'vNombres': new FormControl({value: user.name, disabled: false}),
+      'vNombres': new FormControl({value: '', disabled: false}),
       'vApPaterno': new FormControl({value: '', disabled: false}),
       'vApMaterno': new FormControl({value: '', disabled: false}),
       'dFechaNac': new FormControl({value: this.obtenerFecha(), disabled: false}),
@@ -60,7 +78,7 @@ export class CpersonaPage implements OnInit {
       'nPeso': new FormControl({value: '', disabled: false}),
       'vCelular': new FormControl({value: '', disabled: false}),
       'vDireccion': new FormControl({value: '', disabled: false}),
-      'vEmail': new FormControl({value: user.email, disabled: false}),
+      'vEmail': new FormControl({value: '', disabled: false}),
       'vContrasena': new FormControl({value: '', disabled: false}),
       'vVerifContra': new FormControl({value: '', disabled: false}),
       'nEsPaciente': new FormControl({value: 0, disabled: true})
@@ -212,4 +230,21 @@ export class CpersonaPage implements OnInit {
     this.router.navigate(['login']);
   }
   
+
+  // signOut() {
+  //   GoogleAuth.signOut().then(() => {
+  //     this.router.navigate(['/']);
+  //   });
+  // }
+
+  // async getUserProfileData(token) {
+  //   debugger;
+  //   const options = {
+  //     url: `https://www.googleapis.com/oauth2/v2/userinfo?key=452716635907-p5msqilrnhs7jigp47b4q4vv8q6btjhe.apps.googleusercontent.com&oauth_token=${token}`,
+  //     headers:{'Content-Type': 'application/json'}
+  //   };
+  //   console.log(token);
+  //   const response = await Http.request({ ...options, method: 'GET' });
+  //   this.user = response.data;
+  // }
 }
