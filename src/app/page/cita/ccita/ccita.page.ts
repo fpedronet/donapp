@@ -61,7 +61,6 @@ export class CcitaPage implements OnInit {
   listaCampanas: Campana[] = [];
 
   //Hora redondeada a 15 min más cercana
-  horaIni: string = this.horaCuartoCercana();
 
   minFechaCita: string = '';
   maxFechaCita: string = '';
@@ -157,7 +156,7 @@ export class CcitaPage implements OnInit {
     for(var i in jsonDiaSemana) {
       let dia: DiaSemana = {};
 
-      dia.nIdDiaSemana = jsonDiaSemana[i].nIdDiaSemana;
+      dia.nIdDiaSemana = jsonDiaSemana[i].nIdSemana;
       dia.vDescripcion = jsonDiaSemana[i].vDescripcion;
       dia.vAbrev = jsonDiaSemana[i].vAbrev;
 
@@ -210,21 +209,57 @@ export class CcitaPage implements OnInit {
     this.horarioAtencion = []; //Reinicio horario de atención
     let curBanco = this.listaBancos.find(e => e.nIdBanco === idBanco)
     if(curBanco !== undefined){
-      debugger;
+      //debugger;
+      this.fillHorarios(curBanco);
       this.setHorarioAtencion(curBanco.listaHorarios)
+    }
+  }
+
+  fillHorarios(b: Banco){
+    //debugger;
+    if(b.listaHorarios === undefined || b.listaHorarios === null){
+      b.listaHorarios = [];
+
+      var rangos: string[] = [];
+      let horas1: string[] = [];
+      let horas2: string[] = [];
+      let horario: HorarioAtencion;
+
+      if(b.listaAten !== undefined){
+        for(let i = 0; i < b.listaAten.length; i++){
+          if(b.listaAten[i] !== null){
+            rangos = b.listaAten[i].split(',');
+    
+            horas1 = rangos[0].split('-');
+            horas2 = ['',''];
+            if (rangos.length > 1)
+                horas2 = rangos[1].split('-');
+    
+            horario = new HorarioAtencion(i+1, horas1[0], horas1[1], horas2[0], horas2[1]);
+            b.listaHorarios.push(horario);
+          }
+        }
+      }
+      
     }
   }
 
   setHorarioAtencion(horarios: HorarioAtencion[]){
     this.horarioAtencion = []
+    var diaHorario: string;
+    var diaSemana: DiaSemana;
     if(horarios !== undefined){
       horarios.forEach(h => {
-
-        let diaHorario: string;
-        let diaSemana: DiaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
-        diaHorario = diaSemana.vDescripcion + ': ' + h.vHoraFin1 + '-' + h.vHoraIni1
-
-        this.horarioAtencion.push(diaHorario);
+        //debugger;
+        diaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
+        if(diaSemana !== undefined){
+          diaHorario = diaSemana.vAbrev + ': ' + h.vHoraIni1 + ' - ' + h.vHoraFin1;
+          if(h.vHoraIni2 !== ''){
+            diaHorario = diaHorario + ' y ' + h.vHoraIni2 + ' - ' + h.vHoraFin2;
+          }
+          this.horarioAtencion.push(diaHorario);
+        }
+        
       });
     }
   }
@@ -279,6 +314,8 @@ export class CcitaPage implements OnInit {
     model.nTipoCita = this.tipoCita.nIdTipoCita;
     model.nTipoDonacion = this.tipoDonacion.nIdTipoDonacion;
     model.vIdReceptor = this.form.value['vIdReceptor'];
+
+    debugger;
     
     this.loadingService.openLoading();
     this.citaService.guardar(model).subscribe(data=>{
@@ -307,11 +344,11 @@ export class CcitaPage implements OnInit {
       day.setMonth(day.getMonth() + yearsDif*12 + monthsDif);
     }
 
-    return format(day, 'yyy-MM-dd') + 'T09:00:00.000Z';
+    return format(day, 'yyy-MM-dd') + 'T08:00:00.000Z';
   }
 
   horaCuartoCercana(difHoras: number = 0){
-    //debugger;
+    debugger;
     var day = new Date();
     day.setSeconds(0, 0);
 
@@ -325,7 +362,9 @@ export class CcitaPage implements OnInit {
     var hh = day.getHours();
     var mm = day.getMinutes();
     //2012-12-15T13:47:20.789
-    return format(day, 'yyy-MM-dd') + 'T' + hh + ':' + mm;
+    var fechaStr = format(day, 'yyy-MM-dd') + 'T';
+    var horaStr =  hh.toString().padStart(2, '00') + ':' + mm.toString().padStart(2, '00') + ':00.000';
+    return fechaStr + horaStr;
   }
 
   irHome(){
@@ -335,7 +374,7 @@ export class CcitaPage implements OnInit {
   resetHour(){
     debugger;
     this.form.patchValue({
-      dProgramacion: this.horaIni
+      dProgramacion: this.horaCuartoCercana()
     });
   }
 }
