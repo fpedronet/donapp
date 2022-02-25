@@ -1,0 +1,51 @@
+<ion-header class="header-toolbar">
+  <ion-toolbar class="header-toolbar">
+    <ion-title>
+      VERIFICAR CORREO
+    </ion-title>
+    <ion-buttons  slot="start">
+      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label class="title-label">Escribe el código</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col>
+      <span>
+        Se acaba de enviar un correo electrónico con un código de verificación a {{correo}}
+      </span>
+    </ion-col>
+  </ion-row>
+  <ion-row text-center>
+    <ion-col size="3">
+      <ion-input name="vCar1" formmControl="vCar1" #otp1 required maxLength="1" (keyup)="otpController($event,otp2,'')"></ion-input>
+    </ion-col>
+    <ion-col size="3">
+      <ion-input name="vCar2" formmControl="vCar2" #otp2 required maxLength="1" (keyup)="otpController($event,otp3,otp1)"></ion-input>
+    </ion-col>
+    <ion-col size="3">
+      <ion-input name="vCar3" formmControl="vCar3" #otp3 required maxLength="1" (keyup)="otpController($event,otp4,otp2)"></ion-input>
+    </ion-col>
+    <ion-col size="3">
+      <ion-input name="vCar4" formmControl="vCar4" #otp4 required maxLength="1" (keyup)="otpController($event,'',otp3)"></ion-input>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button color="light" (click)="enviarCodigo()">
+        Reenviar código
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button color="danger" (click)="verificarCodigo()">
+        Enviar
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

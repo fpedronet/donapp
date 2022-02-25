@@ -36,7 +36,7 @@
             "url":"/ccita/create/2",
             "nombre":"En campana",
             "icon":"megaphone-outline",
-            "visual":false
+            "visual":true
          },
          {
             "url":"/ccita/create/3",
@@ -63,6 +63,13 @@
    {
       "url":"/ldemo",
       "nombre":"Demo",
+      "icon":"pie-chart-outline",
+      "visual":true,
+      "subPages":null
+   },
+   {
+      "url":"/verifcorreo",
+      "nombre":"Verif. correo",
       "icon":"pie-chart-outline",
       "visual":true,
       "subPages":null

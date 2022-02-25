@@ -62,17 +62,17 @@ export class CcitaPage implements OnInit {
 
   //Hora redondeada a 15 min más cercana
 
-  minFechaCita: string = '';
-  maxFechaCita: string = '';
+  minFechaCita: string = 'default';
+  maxFechaCita: string = 'default';
 
   id: number = 0;
   tipo: number = 0;
 
   ngOnInit() {
     this.form = new FormGroup({
-      'nIdCita': new FormControl({value: 0, disabled: true}),
-      'nIdBanco': new FormControl({value: 0, disabled: true}),
-      'nIdCampana': new FormControl({value: 0, disabled: true}),
+      'nIdCita': new FormControl({value: 0, disabled: false}),
+      'nIdBanco': new FormControl({value: 0, disabled: false}),
+      'nIdCampana': new FormControl({value: 0, disabled: false}),
       'vIdDepartamento': new FormControl({value: "00", disabled: false}),
       'vIdProvincia': new FormControl({value: "0000", disabled: false}),
       'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
@@ -267,7 +267,7 @@ export class CcitaPage implements OnInit {
   obtener(){
     this.loadingService.openLoading();
     this.citaService.obtener(this.id).subscribe(data=>{
-      debugger;
+      //debugger;
       
       //Extrae listas para combobox de bancos y campañas
       this.listaTotBancos = data.listaBancos;
@@ -287,7 +287,7 @@ export class CcitaPage implements OnInit {
         this.seleccionaTipoDonacion(undefined, data.nTipoDonacion);
 
         this.form = new FormGroup({
-          'nIdCita': new FormControl({value: data.nIdCita, disabled: true}),
+          'nIdCita': new FormControl({value: data.nIdCita, disabled: false}),
           'nIdBanco': new FormControl({value: data.nIdBanco, disabled: false}),
           'nIdCampana': new FormControl({value: data.nIdCampana, disabled: false}),
           'vIdDepartamento': new FormControl({value: "00", disabled: false}),
@@ -348,7 +348,7 @@ export class CcitaPage implements OnInit {
   }
 
   horaCuartoCercana(difHoras: number = 0){
-    debugger;
+    //debugger;
     var day = new Date();
     day.setSeconds(0, 0);
 
@@ -372,7 +372,6 @@ export class CcitaPage implements OnInit {
   }
 
   resetHour(){
-    debugger;
     this.form.patchValue({
       dProgramacion: this.horaCuartoCercana()
     });

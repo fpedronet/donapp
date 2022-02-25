@@ -80,7 +80,8 @@
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-datetime
           [firstDayOfWeek]="1"
-              
+          [min]="minFechaCita"
+          [max]="maxFechaCita"
           size="cover"
           color="danger"
           locale="es-PE"
