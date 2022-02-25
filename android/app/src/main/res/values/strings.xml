@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">donapp</string>
     <string name="title_activity_main">donapp</string>
-    <string name="package_name">com.developodo.donapp</string>
-    <string name="custom_url_scheme">com.developodo.donapp</string>
+    <string name="package_name">com.sistemas.donapp</string>
+    <string name="custom_url_scheme">com.sistemas.donapp</string>
+    <string name="server_client_id">452716635907-p5msqilrnhs7jigp47b4q4vv8q6btjhe.apps.googleusercontent.com</string>
 </resources>

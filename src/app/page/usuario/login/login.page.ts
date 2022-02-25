@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
     private loadingService : LoadingService,   
     private toastService : ToastService
   ) { 
-    GoogleAuth.initialize()
+     GoogleAuth.initialize();
   }
 
   form: FormGroup = new FormGroup({});
@@ -67,7 +67,50 @@ export class LoginPage implements OnInit {
     }
   }
 
-  googleSignup(){
+
+
+  // googleSignup() {
+  //   debugger;
+  //   GoogleAuth.refresh().then((data) => {
+  //     debugger;
+  //     if (data.accessToken) {
+  //       let navigationExtras: NavigationExtras = {
+  //         state: {
+  //           user: { type: 'existing', accessToken: data.accessToken, idToken: data.idToken }
+  //         }
+  //       };
+  //       this.router.navigate(['cpersona'], navigationExtras);
+  //     }
+  //   }).catch(e => {
+  //     if (e.type === 'userLoggedOut') {
+  //       this.doLogin();
+  //     }
+  //   });
+
+  //   this.doLogin();
+  // }
+
+  // async doLogin() {
+  //   debugger;
+  //   const user = await GoogleAuth.signIn();
+  //   console.log(user);
+  //   if (user) {
+  //     this.goToHome(user);
+  //   }
+  // }
+
+  // goToHome(user) {
+  //   debugger;
+  //   let navigationExtras: NavigationExtras = { state: { user: user } };
+  //   this.router.navigate(['cpersona'], navigationExtras);
+  // }
+
+
+
+
+
+
+ googleSignup(){
     const googleUser = GoogleAuth.signIn().then(
       (res) =>{
         console.log("logueo = " + res);
@@ -76,12 +119,12 @@ export class LoginPage implements OnInit {
         this.router.navigate(['cpersona']);
       },
       (error) =>{
+        debugger;
         console.log("error sss = " + error);
       }
     );
 
    this.userInfo = googleUser;
-   console.log("logueo = " + googleUser);
   }
 
   registrarPersona(){

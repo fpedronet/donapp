@@ -1,14 +1,14 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.developodo.donapp',
+  appId: 'com.sistemas.donapp',
   appName: 'donapp',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {
     GoogleAuth: {
       scopes: ['profile', 'email'],
-      serverClientId: '18554699769-jbnc3dtjpncab79dtgcn4e1mngbk0fe0.apps.googleusercontent.com',
+      serverClientId: '452716635907-p5msqilrnhs7jigp47b4q4vv8q6btjhe.apps.googleusercontent.com',
       forceCodeForRefreshToken: true,
     },
   },
