@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
@@ -17,6 +18,7 @@ export class AppComponent {
     private route: ActivatedRoute,
     private menuService : MenuService,
     private usuarioService : UsuarioService,
+    private menu: MenuController
   ) {
     router.events.subscribe((val) => {
       // see also 
@@ -41,6 +43,11 @@ export class AppComponent {
     let listaMenu = this.menuService.getListarMenu();
 
     this.menus = listaMenu.filter(x=>x.visual==true);
+    this.menus.forEach(m => {
+      if(m.subPages !== null){
+        m.subPages = m.subPages.filter(x=>x.visual==true);
+      }
+    });
 
     this.muestraCamposUser();
   }
@@ -61,10 +68,27 @@ export class AppComponent {
     }
   }
 
+  toggleDetails(p) {
+    if (p.showDetails) {
+        p.showDetails = false;
+        //p.icon = 'ios-arrow-down';
+    } else {
+        p.showDetails = true;
+        //p.icon = 'ios-arrow-up';
+
+    }
+  }
+
   closeLogin(){
     localStorage.clear();
     this.router.navigate(['']);
     this.userActive = false;
   }
   
+  openPage(url: string){
+    if(url !== ''){
+      this.menu.close();
+      this.router.navigate([url]);
+    }    
+  }
 }

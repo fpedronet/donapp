@@ -10,22 +10,43 @@ export class MenuService {
 
   constructor() { }
 
-  menus: Menu = {};
+  menu: Menu = {};
+  subMenu: Menu = {};
   listamenu: Menu[] = [];
   
   getListarMenu(){  
     this.listamenu= [];
 
-    for(var k in lista) {
-      this.menus ={};
+    for(var i in lista) {
+      this.menu = {};
 
-      this.menus.url =lista[k].url;
-      this.menus.nombre =lista[k].nombre;
-      this.menus.icon =lista[k].icon;
-      this.menus.visual=lista[k].visual;
-      this.listamenu.push(this.menus);
+      this.menu.url =lista[i].url;
+      this.menu.nombre = lista[i].nombre;
+      this.menu.icon = lista[i].icon;
+      this.menu.visual= lista[i].visual;
+
+      this.menu.subPages = [];
+      if(lista[i].subPages != null){
+        for(var j in lista[i].subPages){
+          this.subMenu = {};
+  
+          this.subMenu.url = lista[i].subPages[j].url;
+          this.subMenu.nombre = lista[i].subPages[j].nombre;
+          this.subMenu.icon = lista[i].subPages[j].icon;
+          this.subMenu.visual = lista[i].subPages[j].visual;
+          this.subMenu.subPages = null;
+          this.subMenu.showDetails=false;
+          this.menu.subPages.push(this.subMenu);
+        }
+      }
+      else{
+        this.menu.subPages = null;
+      }
+
+      this.menu.showDetails=false;
+      this.listamenu.push(this.menu);
    }
-
+   //debugger;
 
    return this.listamenu;
   }

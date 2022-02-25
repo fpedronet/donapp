@@ -1,3 +1,5 @@
+import { HorarioAtencion } from "./horarioatencion";
+
 export class Banco{
     nIdBanco?: number;
     vDescripcion? : string;
@@ -6,4 +8,5 @@ export class Banco{
     vDireccion? : string;
     vUbigeo? : string;
     nDistancia?: number;
+    listaHorarios?: HorarioAtencion[] = [];
 }

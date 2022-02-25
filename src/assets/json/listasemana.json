@@ -1,0 +1,37 @@
+[
+    {
+        "nIdSemana":1,
+        "vDescripcion":"Lunes",
+        "vAbrev":"Lu"
+    },
+    {
+        "nIdSemana":2,
+        "vDescripcion":"Martes",
+        "vAbrev":"Ma"        
+    },
+    {
+        "nIdSemana":3,
+        "vDescripcion":"Miércoles",
+        "vAbrev":"Mi"
+    },
+    {
+        "nIdSemana":4,
+        "vDescripcion":"Jueves",
+        "vAbrev":"Ju"
+    },
+    {
+        "nIdSemana":5,
+        "vDescripcion":"Viernes",
+        "vAbrev":"Vi"
+    },
+    {
+        "nIdSemana":6,
+        "vDescripcion":"Sábado",
+        "vAbrev":"Sá"
+    },
+    {
+        "nIdSemana":7,
+        "vDescripcion":"Domingo",
+        "vAbrev":"Do"
+    }
+]
