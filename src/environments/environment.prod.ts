@@ -5,7 +5,8 @@ export const environment = {
   UrlImage:'../../../../assets/',
 
   TOKEN_NAME: 'access_token',
-
+  TOKEN_GOOGLE: 'access_google',
+  
   ERROR: 0,
   EXITO: 1,
   ALERT: 2

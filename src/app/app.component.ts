@@ -22,6 +22,7 @@ export class AppComponent {
       // see also 
       this.muestraCamposUser()
   });
+
   }
 
   menus: Menu[] = [];
@@ -62,6 +63,15 @@ export class AppComponent {
   }
 
   closeLogin(){
+    // GoogleAuth.signOut().then(() => {
+    //   debugger;
+    //   localStorage.clear();
+    //   this.router.navigate(['']);
+    // },
+    // err =>{
+    //   console.log(err);
+    // });
+   
     localStorage.clear();
     this.router.navigate(['']);
     this.userActive = false;

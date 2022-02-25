@@ -7,12 +7,13 @@ import { Sexo } from 'src/app/_model/sexo';
 import { TipoDocumento } from 'src/app/_model/tipodocumento';
 import { PersonaService } from 'src/app/_service/persona.service';
 import { TipodocumentoService } from 'src/app/_service/tipodocumento.service';
-import { UsuarioService } from 'src/app/_service/usuario.service';
 import { environment } from 'src/environments/environment';
 import jsonSexo from 'src/assets/json/listasexo.json';
 import jsonTipoSangre from 'src/assets/json/listasangre.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
+import { UsuarioService } from 'src/app/_service/usuario.service';
+
 
 @Component({
   selector: 'app-cpersona',
@@ -27,8 +28,11 @@ export class CpersonaPage implements OnInit {
     private personaService : PersonaService,
     private tipodocumentoService : TipodocumentoService,
     private loadingService : LoadingService,   
-    private toastService : ToastService
-  ) { }
+    private toastService : ToastService,
+    private usuarioService: UsuarioService
+    
+  ) { 
+  }
 
   form: FormGroup = new FormGroup({});
   loading:any;
@@ -40,11 +44,13 @@ export class CpersonaPage implements OnInit {
   id: number = 0;
 
   ngOnInit() {
+    let user = this.usuarioService.sessionGoogle();
+
     this.form = new FormGroup({
       'nIdPersona': new FormControl({value: 0, disabled: true}),
       'nIdTipoDocu': new FormControl({value: 0, disabled: false}),
       'vDocumento': new FormControl({value: '', disabled: false}),
-      'vNombres': new FormControl({value: '', disabled: false}),
+      'vNombres': new FormControl({value: user.name, disabled: false}),
       'vApPaterno': new FormControl({value: '', disabled: false}),
       'vApMaterno': new FormControl({value: '', disabled: false}),
       'dFechaNac': new FormControl({value: this.obtenerFecha(), disabled: false}),
@@ -54,7 +60,7 @@ export class CpersonaPage implements OnInit {
       'nPeso': new FormControl({value: '', disabled: false}),
       'vCelular': new FormControl({value: '', disabled: false}),
       'vDireccion': new FormControl({value: '', disabled: false}),
-      'vEmail': new FormControl({value: '', disabled: false}),
+      'vEmail': new FormControl({value: user.email, disabled: false}),
       'vContrasena': new FormControl({value: '', disabled: false}),
       'vVerifContra': new FormControl({value: '', disabled: false}),
       'nEsPaciente': new FormControl({value: 0, disabled: true})
@@ -68,6 +74,7 @@ export class CpersonaPage implements OnInit {
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.obtener();
     });*/
+
   }
 
   listarsexo(){

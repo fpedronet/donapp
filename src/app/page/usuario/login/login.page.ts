@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
 
   form: FormGroup = new FormGroup({});
   loading:any;
-  userinfo: any;
+  userInfo = null;
   
   ngOnInit() {
     
@@ -68,8 +68,20 @@ export class LoginPage implements OnInit {
   }
 
   googleSignup(){
-    let users = GoogleAuth.signIn();
-    this.userinfo = users;
+    const googleUser = GoogleAuth.signIn().then(
+      (res) =>{
+        console.log("logueo = " + res);
+        let google = res.email+"|"+res.name+"|"+res.familyName+"|"+res.givenName+"|"+res.imageUrl;
+        localStorage.setItem(environment.TOKEN_GOOGLE, google!);
+        this.router.navigate(['cpersona']);
+      },
+      (error) =>{
+        console.log("error sss = " + error);
+      }
+    );
+
+   this.userInfo = googleUser;
+   console.log("logueo = " + googleUser);
   }
 
   registrarPersona(){

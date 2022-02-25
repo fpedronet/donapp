@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from 'src/environments/environment';
-import { TokenUsuario, Usuario } from '../_model/usuario';
+import { GoogleUsuario, TokenUsuario, Usuario } from '../_model/usuario';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,6 @@ export class UsuarioService {
     return this.http.post<TokenUsuario>(urls, usuario);
   }
 
-  isLogin() {
-    let token = localStorage.getItem(environment.TOKEN_NAME);
-    return token != null;
-  }
-
   sessionUsuario(){
     let helper = new JwtHelperService();
     let token = localStorage.getItem(environment.TOKEN_NAME);
@@ -42,6 +38,25 @@ export class UsuarioService {
     }
   }
 
+  sessionGoogle(){
+    let model = new GoogleUsuario();
+    let token = localStorage.getItem(environment.TOKEN_GOOGLE);
+
+    if(token!=null&& token!="" && token!=undefined){
+
+      let split = token.split("|");
+
+      model.email= split[0];
+      model.name= split[1];
+      model.familyName= split[2];
+      model.givenName= split[3];
+      model.imageUrl= split[4];
+    }
+
+    return model;
+  }
+
+  
   closeLogin(){
     localStorage.clear();
     this.router.navigate(['']);

@@ -9,6 +9,15 @@ export class Usuario{
     dFechaRegistro?: Date;
     dFechaUltSesion?: Date;
 }
+
+export class GoogleUsuario{
+    email?: string;
+    name?: string;
+    familyName?: string;
+    givenName?: string;
+    imageUrl?: string;
+}
+
 export class TokenUsuario{
     idUsuario?: number;
     usuario? : string;
