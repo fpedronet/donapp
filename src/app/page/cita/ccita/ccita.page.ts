@@ -11,12 +11,16 @@ import jsonProvincia from 'src/assets/json/ubigeo/provincias.json';
 import jsonDistrito from 'src/assets/json/ubigeo/distritos.json';
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
+import jsonDiaSemana from 'src/assets/json/listasemana.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { TipoCita } from 'src/app/_model/tipocita';
 import { Banco } from 'src/app/_model/banco';
 import { Campana } from 'src/app/_model/campana';
 import { TipoDonacion } from 'src/app/_model/tipodonacion';
+import { compareAsc, format } from 'date-fns';
+import { DiaSemana } from 'src/app/_model/diasemana';
+import { HorarioAtencion } from 'src/app/_model/horarioatencion';
 
 @Component({
   selector: 'app-ccita',
@@ -35,6 +39,9 @@ export class CcitaPage implements OnInit {
 
   form: FormGroup = new FormGroup({});
   loading:any;
+
+  listaDiaSemana: DiaSemana[] = [];
+  horarioAtencion: string[] = [];
 
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
@@ -56,6 +63,9 @@ export class CcitaPage implements OnInit {
   //Hora redondeada a 15 min más cercana
   horaIni: string = this.horaCuartoCercana();
 
+  minFechaCita: string = '';
+  maxFechaCita: string = '';
+
   id: number = 0;
   tipo: number = 0;
 
@@ -72,7 +82,8 @@ export class CcitaPage implements OnInit {
 
     this.listartipocita();
     this.listartipodonacion();
-    this.listarubigeo();    
+    this.listarubigeo();
+    this.listardiasemana();
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
@@ -140,6 +151,20 @@ export class CcitaPage implements OnInit {
     }
   }
 
+  listardiasemana(){
+    this.listaDiaSemana = [];
+
+    for(var i in jsonDiaSemana) {
+      let dia: DiaSemana = {};
+
+      dia.nIdDiaSemana = jsonDiaSemana[i].nIdDiaSemana;
+      dia.vDescripcion = jsonDiaSemana[i].vDescripcion;
+      dia.vAbrev = jsonDiaSemana[i].vAbrev;
+
+      this.listaDiaSemana.push(dia);
+    }
+  }
+
   updateDpto(idDpto: string){
     let curDpto = this.listaDepartamentos.find(e => e.vUbigeo === idDpto)
     if(curDpto !== undefined){
@@ -148,6 +173,11 @@ export class CcitaPage implements OnInit {
       let selValue = (this.listaProvincias.length === 1)?this.listaProvincias[0].vUbigeo:"0000"
       this.form.patchValue({
         vIdProvincia: selValue
+      });
+      //Reinicio banco y campaña
+      this.form.patchValue({
+        nIdBanco: 0,
+        nIdCampana: 0
       });
     }    
   }
@@ -176,13 +206,44 @@ export class CcitaPage implements OnInit {
     }    
   }
 
+  updateBanco(idBanco: number){
+    this.horarioAtencion = []; //Reinicio horario de atención
+    let curBanco = this.listaBancos.find(e => e.nIdBanco === idBanco)
+    if(curBanco !== undefined){
+      debugger;
+      this.setHorarioAtencion(curBanco.listaHorarios)
+    }
+  }
+
+  setHorarioAtencion(horarios: HorarioAtencion[]){
+    this.horarioAtencion = []
+    if(horarios !== undefined){
+      horarios.forEach(h => {
+
+        let diaHorario: string;
+        let diaSemana: DiaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
+        diaHorario = diaSemana.vDescripcion + ': ' + h.vHoraFin1 + '-' + h.vHoraIni1
+
+        this.horarioAtencion.push(diaHorario);
+      });
+    }
+  }
+
   obtener(){
     this.loadingService.openLoading();
     this.citaService.obtener(this.id).subscribe(data=>{
+      debugger;
       
       //Extrae listas para combobox de bancos y campañas
       this.listaTotBancos = data.listaBancos;
       this.listaTotCampanas = data.listaCampanas;
+
+      //Configurar calendario
+      this.minFechaCita = this.horaCuartoCercana(data.nCitaHorasMin);
+      this.maxFechaCita = this.horaCuartoCercana(data.nCitaHorasMax);
+      this.form.patchValue({
+        dProgramacion: this.minFechaCita
+      });
 
       if(this.id !== 0){
         //Selecciona el tipo de cita
@@ -194,6 +255,8 @@ export class CcitaPage implements OnInit {
           'nIdCita': new FormControl({value: data.nIdCita, disabled: true}),
           'nIdBanco': new FormControl({value: data.nIdBanco, disabled: false}),
           'nIdCampana': new FormControl({value: data.nIdCampana, disabled: false}),
+          'vIdDepartamento': new FormControl({value: "00", disabled: false}),
+          'vIdProvincia': new FormControl({value: "0000", disabled: false}),
           'dProgramacion': new FormControl({value: data.dProgramacion, disabled: false}),
           'vIdReceptor': new FormControl({value: data.vIdReceptor, disabled: false}),
         });
@@ -239,34 +302,30 @@ export class CcitaPage implements OnInit {
   }
 
   obtenerFecha(yearsDif: number = 0, monthsDif: number = 0){
-    var today = new Date();
+    var day = new Date();
     if(yearsDif !== 0){
-      today.setMonth(today.getMonth() + yearsDif*12 + monthsDif);
+      day.setMonth(day.getMonth() + yearsDif*12 + monthsDif);
     }
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
 
-    return yyyy + '-' + mm + '-' + dd;
+    return format(day, 'yyy-MM-dd') + 'T09:00:00.000Z';
   }
 
-  horaCuartoCercana(){
+  horaCuartoCercana(difHoras: number = 0){
     //debugger;
-    var today = new Date();
-    today.setSeconds(0, 0);
+    var day = new Date();
+    day.setSeconds(0, 0);
 
-    let minutes = today.getMinutes();
+    let minutes = day.getMinutes();
     let mod = minutes % 15;
 
-    today.setMinutes(today.getMinutes() + (15-mod));
+    day.setMinutes(day.getMinutes() + (15-mod));
+    
+    day.setHours(day.getHours() + difHoras);
 
-    var dd = String(today.getDate()).padStart(2, '0');
-    var MM = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    var hh = today.getHours();
-    var mm = today.getMinutes();
+    var hh = day.getHours();
+    var mm = day.getMinutes();
     //2012-12-15T13:47:20.789
-    return yyyy + '-' + MM + '-' + dd + 'T' + hh + ':' + mm;
+    return format(day, 'yyy-MM-dd') + 'T' + hh + ':' + mm;
   }
 
   irHome(){
@@ -274,6 +333,7 @@ export class CcitaPage implements OnInit {
   }
 
   resetHour(){
+    debugger;
     this.form.patchValue({
       dProgramacion: this.horaIni
     });

@@ -1,7 +1,7 @@
 [
     {
         "nIdTipoCita":1,
-        "vDescripcion":"Donación a banco de sangre"
+        "vDescripcion":"Donación a banco"
     },
     {
         "nIdTipoCita":2,
@@ -9,6 +9,6 @@
     },
     {
         "nIdTipoCita":3,
-        "vDescripcion":"Donación para apoyar a un paciente"
+        "vDescripcion":"Donación para apoyo a paciente"
     }
 ]

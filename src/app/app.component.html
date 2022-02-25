@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu *ngIf="userActive" menuId="main-menu" contentId="main">
+  <ion-menu auto *ngIf="userActive" menuId="main-menu" contentId="main" side="start" type="overlay">
     <ion-content>
       <div class="menu-header-bg">Menu</div>
       <div class="header-content">
@@ -12,32 +12,53 @@
         </ion-label>
       </div>
 
-    <ion-list class="menu-items" lines="none" *ngFor="let m of menus">
-        <ion-menu-toggle autoHide="true">
-            <ion-item style="cursor: pointer;" [routerDirection]="'back'" [routerLink]="[m.url]">
-              <ion-icon [name]="m.icon"></ion-icon>
-              <ion-label>
-                {{m.nombre}}
-              </ion-label>
-              <span routerLink="{{m.url}}"></span>            
-            </ion-item>
-        </ion-menu-toggle>          
-    </ion-list>
-      
-    <ion-list class="menu-items" lines="none">
-        <ion-menu-toggle autoHide="true">
-            <ion-item style="cursor: pointer;" [routerDirection]="'root'" (click)="closeLogin()">
-              <ion-icon name="close-circle-outline"></ion-icon>
-              <ion-label>
-                Cerrar Sesión
-              </ion-label>        
-            </ion-item>
-        </ion-menu-toggle>        
-    </ion-list>
+      <ion-list class="menu-items">
+        <ion-item ion-item *ngFor="let m of menus" (click)="toggleDetails(m)" [routerDirection]="'back'">
+          <ion-grid>
 
-    <ion-label *ngIf="correoVerif">
-      Correo no verificado
-    </ion-label>
+            <ion-row>
+              
+              <ion-col size="10" (click)="openPage(m.url)">
+                <ion-icon [name]="m.icon"></ion-icon>
+              
+                <span *ngIf="m.url === ''">{{m.nombre}}</span>
+                <span *ngIf="m.url !== ''" menuClose>{{m.nombre}}</span>
+              </ion-col>
+              
+              <ion-col size="2">
+                <ion-icon float-right *ngIf="m.subPages != null && !m.showDetails" name="arrow-down" item-right></ion-icon>
+                <ion-icon float-right *ngIf="m.subPages != null && m.showDetails" name="arrow-up" item-right></ion-icon>
+              </ion-col>
+              
+            </ion-row>
+            
+            <ion-row *ngIf="m.showDetails && m.subPages != null">
+              <ion-list>
+                <ion-item (click)="openPage(subP.url)" ion-item *ngFor="let subP of m.subPages" style="padding: 0; margin: 0" [routerDirection]="'back'">
+                  <ion-icon [name]="subP.icon"></ion-icon>
+                  <span menuClose>{{subP.nombre}}</span>
+                </ion-item>
+              </ion-list>
+            </ion-row>
+          </ion-grid>        
+        </ion-item>
+
+        <ion-item [routerDirection]="'back'">
+          <ion-grid>
+            <ion-row>
+              <ion-col (click)="closeLogin()">
+                <ion-icon name="log-out-outline"></ion-icon>
+                <span menuClose>Cerrar sesión</span>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>        
+        </ion-item>
+        
+      </ion-list>
+
+      <ion-label *ngIf="correoVerif">
+        Correo no verificado
+      </ion-label>
 
     </ion-content>
   </ion-menu>

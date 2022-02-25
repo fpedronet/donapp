@@ -3,4 +3,6 @@ export class Menu {
     nombre?: string;
     icon?: string;
     visual?:boolean;
+    showDetails?:boolean;
+    subPages?:Menu[];
 }

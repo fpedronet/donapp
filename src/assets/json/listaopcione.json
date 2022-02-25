@@ -2,43 +2,69 @@
    {
       "url":"/inicio",
       "nombre":"Inicio",
-      "icon":"pie-chart-outline",
-      "visual":true
+      "icon":"home-outline",
+      "visual":true,
+      "subPages":null
    },
    {
       "url":"/cpersona",
       "nombre":"Editar perfil",
       "icon":"person-outline",
-      "visual":false
+      "visual":false,
+      "subPages":null
    },
    {
        "url":"/lpersona",
        "nombre":"Personas",
        "icon":"pie-chart-outline",
-       "visual":false
+       "visual":false,
+       "subPages":null
    },
    {
-      "url":"/ccita/create/1",
-      "nombre":"Citas banco",
-      "icon":"person-outline",
-      "visual":true
+      "url":"",
+      "nombre":"Agendar cita",
+      "icon":"today-outline",
+      "visual":true,
+      "subPages":[
+         {
+            "url":"/ccita/create/1",
+            "nombre":"En banco",
+            "icon":"business-outline",
+            "visual":true
+         },
+         {
+            "url":"/ccita/create/2",
+            "nombre":"En campana",
+            "icon":"megaphone-outline",
+            "visual":false
+         },
+         {
+            "url":"/ccita/create/3",
+            "nombre":"A paciente",
+            "icon":"accessibility-outline",
+            "visual":true
+         }
+      ]
    },
    {
        "url":"/lcita",
-       "nombre":"Citas",
-       "icon":"pie-chart-outline",
-       "visual":true
+       "nombre":"Citas pendientes",
+       "icon":"timer-outline",
+       "visual":true,
+       "subPages":null
    },
    {
       "url":"/cdemo",
       "nombre":"Crear Demo",
       "icon":"pie-chart-outline",
-      "visual":true
+      "visual":false,
+      "subPages":null
    },
    {
       "url":"/ldemo",
       "nombre":"Demo",
       "icon":"pie-chart-outline",
-      "visual":true
+      "visual":true,
+      "subPages":null
    }
  ]

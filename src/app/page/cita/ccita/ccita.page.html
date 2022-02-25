@@ -3,6 +3,9 @@
     <ion-title>
       CREAR CITA
     </ion-title>
+    <ion-buttons  slot="start">
+      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -50,7 +53,7 @@
       <!--DONACIÓN A BANCO O DIRIGIDA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label>Banco*</ion-label>
-        <ion-select [disabled]="listaBancos.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" required>
+        <ion-select #BANCO [disabled]="listaBancos.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -61,15 +64,25 @@
         <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
-      </ion-item>      
+      </ion-item>
+      
+      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
+        <ion-list *ngIf="horarioAtencion.length !== 0">
+          <span *nFor="let el of horarioAtencion">
+            {{el}}
+          </span>
+        </ion-list>
+      </ion-item>
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-datetime
           [firstDayOfWeek]="1"
-          [min]="obtenerFecha()"
-          hour-cycle="h12"
+          [min]="minFechaCita"
+          [max]="maxFechaCita"          
+          size="cover"
           color="danger"
           minute-values="0,15,30,45"
+          excludedDays="6,7"
           formControlName="dProgramacion"
           required>
           <div slot="title">Fecha y hora programada*</div>
