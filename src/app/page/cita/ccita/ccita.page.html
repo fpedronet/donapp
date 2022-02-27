@@ -66,11 +66,14 @@
         </ion-select>
       </ion-item>
       
-      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
-        <ion-list *ngIf="horarioAtencion.length !== 0">
-          <span *nFor="let el of horarioAtencion">
-            {{el}}
-          </span>
+      <ion-item *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
+        <ion-label position="stacked">Horario de atención:</ion-label>
+        <ion-list style="padding: 0; margin-top: 5px;">
+          <ion-item *ngFor="let el of horarioAtencion">
+            <span>
+              {{el}}
+            </span>
+          </ion-item>    
         </ion-list>
       </ion-item>
 
@@ -78,9 +81,10 @@
         <ion-datetime
           [firstDayOfWeek]="1"
           [min]="minFechaCita"
-          [max]="maxFechaCita"          
+          [max]="maxFechaCita"
           size="cover"
           color="danger"
+          locale="es-PE"
           minute-values="0,15,30,45"
           excludedDays="6,7"
           formControlName="dProgramacion"

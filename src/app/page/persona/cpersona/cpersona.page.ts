@@ -65,7 +65,7 @@ export class CpersonaPage implements OnInit {
     // let user = this.usuarioService.sessionGoogle();
 
     this.form = new FormGroup({
-      'nIdPersona': new FormControl({value: 0, disabled: true}),
+      'nIdPersona': new FormControl({value: 0, disabled: false}),
       'nIdTipoDocu': new FormControl({value: 0, disabled: false}),
       'vDocumento': new FormControl({value: '', disabled: false}),
       'vNombres': new FormControl({value: '', disabled: false}),
