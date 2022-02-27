@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
     private loadingService : LoadingService,   
     private toastService : ToastService
   ) { 
-     GoogleAuth.initialize();
+    GoogleAuth.initialize();
   }
 
   form: FormGroup = new FormGroup({});
@@ -67,63 +67,19 @@ export class LoginPage implements OnInit {
     }
   }
 
-
-
-  // googleSignup() {
-  //   debugger;
-  //   GoogleAuth.refresh().then((data) => {
-  //     debugger;
-  //     if (data.accessToken) {
-  //       let navigationExtras: NavigationExtras = {
-  //         state: {
-  //           user: { type: 'existing', accessToken: data.accessToken, idToken: data.idToken }
-  //         }
-  //       };
-  //       this.router.navigate(['cpersona'], navigationExtras);
-  //     }
-  //   }).catch(e => {
-  //     if (e.type === 'userLoggedOut') {
-  //       this.doLogin();
-  //     }
-  //   });
-
-  //   this.doLogin();
-  // }
-
-  // async doLogin() {
-  //   debugger;
-  //   const user = await GoogleAuth.signIn();
-  //   console.log(user);
-  //   if (user) {
-  //     this.goToHome(user);
-  //   }
-  // }
-
-  // goToHome(user) {
-  //   debugger;
-  //   let navigationExtras: NavigationExtras = { state: { user: user } };
-  //   this.router.navigate(['cpersona'], navigationExtras);
-  // }
-
-
-
-
-
-
  googleSignup(){
-    const googleUser = GoogleAuth.signIn().then(
-      (res) =>{
-        console.log("logueo = " + res);
-        let google = res.email+"|"+res.name+"|"+res.familyName+"|"+res.givenName+"|"+res.imageUrl;
-        localStorage.setItem(environment.TOKEN_GOOGLE, google!);
-        this.router.navigate(['cpersona']);
-      },
-      (error) =>{
-        debugger;
-        console.log("error sss = " + error);
-      }
-    );
+    // const googleUser = GoogleAuth.signIn().then(
+    //   (res) =>{
+    //     let google = res.email+"|"+res.name+"|"+res.familyName+"|"+res.givenName+"|"+res.imageUrl;
+    //     localStorage.setItem(environment.TOKEN_GOOGLE, google!);
+    //     this.router.navigate(['cpersona']);
+    //   },
+    //   (error) =>{
+    //     console.log("error sss = " + error);
+    //   }
+    // );
 
+   let googleUser = GoogleAuth.signIn();
    this.userInfo = googleUser;
   }
 

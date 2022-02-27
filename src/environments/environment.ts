@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  UrlApi:'http://localhost:48395/api',
+  UrlApi:'http://localhost:48394/api',
   UrlImage:'../../../../assets/',
 
   TOKEN_NAME: 'access_token',

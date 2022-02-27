@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -38,15 +38,6 @@ export class UsuarioService {
     }
   }
 
-  otros(){
-debugger;
-    let helper = new JwtHelperService();
-    var token ="ya29.A0ARrdaM8hLghMH1HwMhL-aK-AlbsrwSvPV3kTBx3ilo-IRK2bbTSEKzLNlh_-AMuPOhaE72tlU2AAIcSUZFMV2svsKGfNS20GkELSM0Lp6u8GtrQSSlnBc2aEQ8rP8Cxws03iHSlONO7P4K2FP8YezIchcg6F";
-
-      let decodedToken = helper.decodeToken(token!);      
-      return decodedToken;
-
-  }
   sessionGoogle(){
     let model = new GoogleUsuario();
     let token = localStorage.getItem(environment.TOKEN_GOOGLE);

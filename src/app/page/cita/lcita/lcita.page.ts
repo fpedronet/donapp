@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Cita } from 'src/app/_model/cita';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IonInfiniteScroll } from '@ionic/angular';
+
 import { CitaService } from 'src/app/_service/cita.service';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
+import { da } from 'date-fns/locale';
 
 @Component({
   selector: 'app-lcita',
@@ -11,6 +15,8 @@ import { ToastService } from '../../components/toast/toast.service';
 })
 export class LcitaPage implements OnInit {
 
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -19,7 +25,58 @@ export class LcitaPage implements OnInit {
     private toastService : ToastService
   ) { }
 
+  dataSource: Cita[] = [];
+  dataCita: Cita[] = [];
+  total: number = 0;
+  data: string = "";
+  page: number= 0;
+
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(event?) {
+    setTimeout(() => {
+      this.citaService.listar(this.data, this.page, 10).subscribe(data=>{
+
+        this.dataSource = data.items;
+
+        this.dataSource.forEach(element => {          
+          let model = new Cita();
+
+          model.nIdCita= element.nIdCita;
+          model.nIdDonante= element.nIdDonante;
+          model.dProgramacion= element.dProgramacion;
+
+          this.dataCita.push(model);
+        });
+        
+        this.total += data.pagination.pages;
+
+        if(this.total == data.pagination.total){
+          this.infiniteScroll.complete();
+          this.infiniteScroll.disabled = true;
+          return;
+        }
+      });      
+
+      this.infiniteScroll.complete();
+
+      this.page++;
+
+    }, 500);
+  }
+
+  inicio(){
+    this.router.navigate(['inicio']);
+  }
+
+  nuevo(){
+    this.router.navigate(['ccita/create']);
+  }
+
+  edit(){
+    this.router.navigate(['ccita/edit/1']);
   }
 
 }
