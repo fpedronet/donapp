@@ -60,17 +60,25 @@ export class CpersonaPage implements OnInit {
   date: Date;
   user: any;
   id: number = 0;
+  verifcado: number = 0;
+  email: String = "";
+  $disable :boolean = false;
 
   ngOnInit() {
+
     let user = this.usuarioService.sessionGoogle();
+
+    this.verifcado = (user.verifcado=="" || user.verifcado==null || user.verifcado==undefined)? 0: 1
+    this.email = user.email;
+    this.$disable = (this.verifcado== 1) ? true: false;
 
     this.form = new FormGroup({
       'nIdPersona': new FormControl({value: 0, disabled: false}),
       'nIdTipoDocu': new FormControl({value: 0, disabled: false}),
       'vDocumento': new FormControl({value: '', disabled: false}),
-      'vNombres': new FormControl({value: user.givenName, disabled: false}),
-      'vApPaterno': new FormControl({value: user.familyName, disabled: false}),
-      'vApMaterno': new FormControl({value: user.familyName, disabled: false}),
+      'vNombres': new FormControl({value: user.nombre, disabled: false}),
+      'vApPaterno': new FormControl({value: user.apePaterno, disabled: false}),
+      'vApMaterno': new FormControl({value: user.apeMaterno, disabled: false}),
       'dFechaNac': new FormControl({value: this.obtenerFecha(), disabled: false}),
       'nSexo': new FormControl({value: 0, disabled: false}),
       'vTipoSangre': new FormControl({value: '', disabled: false}),
@@ -78,7 +86,7 @@ export class CpersonaPage implements OnInit {
       'nPeso': new FormControl({value: '', disabled: false}),
       'vCelular': new FormControl({value: '', disabled: false}),
       'vDireccion': new FormControl({value: '', disabled: false}),
-      'vEmail': new FormControl({value: user.email, disabled: false}),
+      'vEmail': new FormControl({value: user.email, disabled: this.$disable}),
       'vContrasena': new FormControl({value: '', disabled: false}),
       'vVerifContra': new FormControl({value: '', disabled: false}),
       'nEsPaciente': new FormControl({value: 0, disabled: true})
@@ -175,13 +183,16 @@ export class CpersonaPage implements OnInit {
     if(model.nPeso == null) model.nPeso = 0;
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
-    let email = this.form.value['vEmail'].toLowerCase();
+
+    let email = (this.verifcado == 1)? this.email : this.form.value['vEmail'].toLowerCase();
     model.vEmail = email
     model.usuario.vUsuario = email;
     model.usuario.vUsuario.toLowerCase();
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];
+    model.usuario.nCorreoVerif = this.verifcado;
     model.nEsPaciente = this.form.value['nEsPaciente'];
+    
     //debugger;   
     
     this.loadingService.openLoading();

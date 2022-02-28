@@ -51,15 +51,21 @@ export class UsuarioService {
     let token = localStorage.getItem(environment.TOKEN_GOOGLE);
 
     if(token!=null&& token!="" && token!=undefined){
-debugger;
+
       let key = this.EncrDecr.get(token);
 
       let split = key.split("|");
 
       model.email= split[0];
-      model.givenName= split[1];
-      model.familyName= split[2];
-      model.imageUrl= split[3];
+      model.nombre= split[1];
+
+      let apellidoSplit = split[2];
+      let apellido = apellidoSplit.split(' ');
+
+      model.apePaterno= apellido[0];
+      model.apeMaterno= (apellido.length == 2)? apellido[1] : (apellido[1]+ " " + apellido[2]);
+
+      model.verifcado= split[3];
     }
 
     return model;

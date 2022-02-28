@@ -80,7 +80,7 @@ export class LoginPage implements OnInit {
 
         this.loadingService.openLoading();
         this.usuarioService.loginGoogle(model).subscribe(data=>{
-debugger;
+          
           let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+1;
 
           let key = this.EncrDecr.set(google);
