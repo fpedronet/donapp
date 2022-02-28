@@ -37,27 +37,36 @@ export class LcitaPage implements OnInit {
 
   loadData(event?) {
     setTimeout(() => {
+
+      this.page = (this.data !="")? 0: this.page;
+
       this.citaService.listar(this.data, this.page, 10).subscribe(data=>{
 
         this.dataSource = data.items;
 
-        this.dataSource.forEach(element => {          
-          let model = new Cita();
+        if(this.dataSource.length>0){
+          this.dataSource.forEach(element => {          
+            let model = new Cita();
+  
+            model.nIdCita= element.nIdCita;
+            model.nIdDonante= element.nIdDonante;
+            model.dProgramacion= element.dProgramacion;
+  
+            this.dataCita.push(model);
+          });
 
-          model.nIdCita= element.nIdCita;
-          model.nIdDonante= element.nIdDonante;
-          model.dProgramacion= element.dProgramacion;
+          this.total += data.pagination.pages;
 
-          this.dataCita.push(model);
-        });
+          if(this.total == data.pagination.total){
+            this.infiniteScroll.complete();
+            this.infiniteScroll.disabled = true;
+            return;
+          }
+
+        }else{
+          this.dataCita = [];
+        }    
         
-        this.total += data.pagination.pages;
-
-        if(this.total == data.pagination.total){
-          this.infiniteScroll.complete();
-          this.infiniteScroll.disabled = true;
-          return;
-        }
       });      
 
       this.infiniteScroll.complete();
