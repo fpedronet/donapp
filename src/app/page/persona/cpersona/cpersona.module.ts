@@ -14,7 +14,7 @@ import { CpersonaPage } from './cpersona.page';
     FormsModule,
     IonicModule,
     CpersonaPageRoutingModule,
-    ReactiveFormsModule   
+    ReactiveFormsModule
   ],
   declarations: [CpersonaPage]
 })

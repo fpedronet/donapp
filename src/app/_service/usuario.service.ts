@@ -68,7 +68,8 @@ export class UsuarioService {
     this.router.navigate(['']);
   }
 
-  verificarCorreo(usuario: number){
+  verificarCorreo(usuario: Usuario){
+    //debugger;
     let urls = `${this.url}/PostValidarCorreo`;
     return this.http.post<Response>(urls, usuario);
   }

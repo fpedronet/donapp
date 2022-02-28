@@ -22,7 +22,7 @@ export class AppComponent {
   ) {
     router.events.subscribe((val) => {
       // see also 
-      this.muestraCamposUser()
+      this.listar();
   });
 
   }
@@ -37,20 +37,21 @@ export class AppComponent {
   userActive: boolean = false;
   
   ngOnInit(): void {
-    this.listar();   
+    //this.listar();   
   }
 
   listar(){
-    let listaMenu = this.menuService.getListarMenu();
+    this.muestraCamposUser();
 
-    this.menus = listaMenu.filter(x=>x.visual==true);
+    let listaMenu = this.menuService.getListarMenu();
+    //debugger;
+
+    this.menus = listaMenu.filter(x => ((x.visual==true) && (this.correoVerif==true||x.visualVerificado==true)));
     this.menus.forEach(m => {
       if(m.subPages !== null){
-        m.subPages = m.subPages.filter(x=>x.visual==true);
+        m.subPages = m.subPages.filter(x => ((x.visual==true) && (this.correoVerif==true||x.visualVerificado==true)));
       }
-    });
-
-    this.muestraCamposUser();
+    });    
   }
 
   muestraCamposUser(){
@@ -65,7 +66,7 @@ export class AppComponent {
       this.apellidos = users.appaterno + ' ' + users.apmaterno;
       this.dni = users.documento;
       this.userActive = true;
-      this.correoVerif = (users.correoverif == '0');
+      this.correoVerif = (users.correoverif == '1');
     }
   }
 

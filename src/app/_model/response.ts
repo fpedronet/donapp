@@ -3,5 +3,5 @@ export class Response {
     message?: string;
     stId?: number;
     inId?: number;
-    cdigo?: string;
+    codigo?: string;
 }
