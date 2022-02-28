@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
     }else{
 
       this.loadingService.openLoading();
-      this.usuarioService.login(model).subscribe(data=>{
+      this.usuarioService.loginMobil(model).subscribe(data=>{
 
         if(data.typeResponse==environment.EXITO){
           localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
@@ -68,19 +68,41 @@ export class LoginPage implements OnInit {
   }
 
  googleSignup(){
-    // const googleUser = GoogleAuth.signIn().then(
-    //   (res) =>{
-    //     let google = res.email+"|"+res.name+"|"+res.familyName+"|"+res.givenName+"|"+res.imageUrl;
-    //     localStorage.setItem(environment.TOKEN_GOOGLE, google!);
-    //     this.router.navigate(['cpersona']);
-    //   },
-    //   (error) =>{
-    //     console.log("error sss = " + error);
-    //   }
-    // );
+    const googleUser = GoogleAuth.signIn().then(
+      (res) =>{
 
-   let googleUser = GoogleAuth.signIn();
-   this.userInfo = googleUser;
+        let model = new Usuario();
+
+        model.vUsuario = res.email;
+        model.tipologeo = "gmail";
+
+        this.usuarioService.loginGoogle(model).subscribe(data=>{
+debugger;
+          let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+res.imageUrl;
+
+          localStorage.setItem(environment.TOKEN_GOOGLE, google!);
+
+          if(data.typeResponse==environment.EXITO){
+
+            localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+              
+            this.router.navigate(['inicio']);
+
+            this.loadingService.closeLoading();
+            this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+          }else{
+            this.router.navigate(['cpersona']);
+          }          
+        });
+      },
+      (error) =>{
+        console.log("error sss = " + error);
+      }
+    );
+
+  //  let googleUser = GoogleAuth.signIn();
+  //  this.userInfo = googleUser;
   }
 
   registrarPersona(){

@@ -5,6 +5,7 @@ import { Response } from '../_model/response';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from 'src/environments/environment';
+import { Response } from '../_model/response';
 import { GoogleUsuario, TokenUsuario, Usuario } from '../_model/usuario';
 
 
@@ -20,8 +21,14 @@ export class UsuarioService {
     private router: Router
   ) { }
 
-  login(usuario: Usuario){
+  loginMobil(usuario: Usuario){
     let urls = `${this.url}/PostLogin`;
+
+    return this.http.post<TokenUsuario>(urls, usuario);
+  }
+
+  loginGoogle(usuario: Usuario){
+    let urls = `${this.url}/PostValidarUsuarioGoogle`;
 
     return this.http.post<TokenUsuario>(urls, usuario);
   }
@@ -48,10 +55,9 @@ export class UsuarioService {
       let split = token.split("|");
 
       model.email= split[0];
-      model.name= split[1];
+      model.givenName= split[1];
       model.familyName= split[2];
-      model.givenName= split[3];
-      model.imageUrl= split[4];
+      model.imageUrl= split[3];
     }
 
     return model;

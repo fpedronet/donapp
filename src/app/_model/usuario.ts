@@ -8,13 +8,13 @@ export class Usuario{
     nCorreoVerif?: number;
     dFechaRegistro?: Date;
     dFechaUltSesion?: Date;
+    tipologeo?: string;
 }
 
 export class GoogleUsuario{
     email?: string;
-    name?: string;
-    familyName?: string;
     givenName?: string;
+    familyName?: string;
     imageUrl?: string;
 }
 
