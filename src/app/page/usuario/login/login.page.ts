@@ -76,8 +76,9 @@ export class LoginPage implements OnInit {
         model.vUsuario = res.email;
         model.tipologeo = "gmail";
 
+        this.loadingService.openLoading();
         this.usuarioService.loginGoogle(model).subscribe(data=>{
-debugger;
+
           let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+res.imageUrl;
 
           localStorage.setItem(environment.TOKEN_GOOGLE, google!);
@@ -92,8 +93,10 @@ debugger;
             this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
           }else{
+            this.loadingService.closeLoading();
             this.router.navigate(['cpersona']);
-          }          
+          }  
+
         });
       },
       (error) =>{
