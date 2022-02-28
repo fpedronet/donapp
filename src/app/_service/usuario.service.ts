@@ -5,7 +5,6 @@ import { Response } from '../_model/response';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from 'src/environments/environment';
-import { Response } from '../_model/response';
 import { GoogleUsuario, TokenUsuario, Usuario } from '../_model/usuario';
 
 

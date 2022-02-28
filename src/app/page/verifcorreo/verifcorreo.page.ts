@@ -34,6 +34,7 @@ export class VerifcorreoPage implements OnInit {
 
   codigoGenerado: string = '';
   codigoLeido: string = '';
+  horaEnvioCodigo: Date;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -75,6 +76,7 @@ export class VerifcorreoPage implements OnInit {
     this.loadingService.openLoading();
     this.emailService.verificar(this.correo).subscribe(data=>{      
       this.codigoGenerado = data;
+      this.horaEnvioCodigo = new Date();
       this.loadingService.closeLoading();
     })
   }
@@ -86,6 +88,8 @@ export class VerifcorreoPage implements OnInit {
     let vCar4 = this.form.value['vCar4'];
     
     this.codigoLeido = vCar1 + vCar2 + vCar3 + vCar4;
+
+    debugger;
 
     if(this.codigoLeido.length !== 4){
       this.toastService.showNotification(2,'Mensaje','Ingrese el código de 4 dígitos');
