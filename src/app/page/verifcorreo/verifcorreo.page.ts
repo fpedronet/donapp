@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonaService } from 'src/app/_service/persona.service';
+import { UsuarioService } from 'src/app/_service/usuario.service';
 import { EmailService } from 'src/app/_service/email.service';
 import { LoadingService } from '../components/loading/loading.service';
 import { ToastService } from '../components/toast/toast.service';
 import { Persona } from 'src/app/_model/persona';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-verifcorreo',
@@ -18,6 +20,7 @@ export class VerifcorreoPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private personaService : PersonaService,
+    private usuarioService : UsuarioService,
     private emailService : EmailService,
     private loadingService : LoadingService,   
     private toastService : ToastService,
@@ -93,9 +96,24 @@ export class VerifcorreoPage implements OnInit {
       }
       else{
         //Correo verificado
-        this.toastService.showNotification(1,'Mensaje','Su correo ha sido verificado');
-        this.router.navigate(['inicio']);
+        this.actualizaEstadoVerificado();
       }
     }
+  }
+
+  actualizaEstadoVerificado(){
+    this.loadingService.openLoading();
+    this.usuarioService.verificarCorreo(this.persona.nIdPersona).subscribe(data=>{   
+
+      this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+      if(data.typeResponse==environment.EXITO){
+        this.loadingService.closeLoading();
+        this.router.navigate(['inicio']);
+        
+      }else{
+        this.loadingService.closeLoading();
+      }
+    });
   }
 }
