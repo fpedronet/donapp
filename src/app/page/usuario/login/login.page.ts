@@ -7,6 +7,7 @@ import { LoadingService } from '../../components/loading/loading.service';
 import { Usuario } from 'src/app/_model/usuario';
 import { UsuarioService } from 'src/app/_service/usuario.service';
 import { ToastService } from '../../components/toast/toast.service';
+import { EncrDecrService } from 'src/app/_service/encr-decr.service';
 
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     private router: Router,
     private usuarioService : UsuarioService,
     private loadingService : LoadingService,   
-    private toastService : ToastService
+    private toastService : ToastService,
+    private EncrDecr: EncrDecrService
   ) { 
     GoogleAuth.initialize();
   }
@@ -78,10 +80,12 @@ export class LoginPage implements OnInit {
 
         this.loadingService.openLoading();
         this.usuarioService.loginGoogle(model).subscribe(data=>{
+          
+          let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+1;
 
-          let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+res.imageUrl;
+          let key = this.EncrDecr.set(google);
 
-          localStorage.setItem(environment.TOKEN_GOOGLE, google!);
+          localStorage.setItem(environment.TOKEN_GOOGLE, key);
 
           if(data.typeResponse==environment.EXITO){
 

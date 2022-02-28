@@ -13,9 +13,10 @@ export class Usuario{
 
 export class GoogleUsuario{
     email?: string;
-    givenName?: string;
-    familyName?: string;
-    imageUrl?: string;
+    nombre?: string;
+    apePaterno?: string;
+    apeMaterno?: string;
+    verifcado?: string;
 }
 
 export class TokenUsuario{

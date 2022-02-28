@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from 'src/environments/environment';
 import { GoogleUsuario, TokenUsuario, Usuario } from '../_model/usuario';
+import { EncrDecrService } from './encr-decr.service';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class UsuarioService {
   
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private EncrDecr: EncrDecrService,
   ) { }
 
   loginMobil(usuario: Usuario){
@@ -51,12 +53,20 @@ export class UsuarioService {
 
     if(token!=null&& token!="" && token!=undefined){
 
-      let split = token.split("|");
+      let key = this.EncrDecr.get(token);
+
+      let split = key.split("|");
 
       model.email= split[0];
-      model.givenName= split[1];
-      model.familyName= split[2];
-      model.imageUrl= split[3];
+      model.nombre= split[1];
+
+      let apellidoSplit = split[2];
+      let apellido = apellidoSplit.split(' ');
+
+      model.apePaterno= apellido[0];
+      model.apeMaterno= (apellido.length == 2)? apellido[1] : (apellido[1]+ " " + apellido[2]);
+
+      model.verifcado= split[3];
     }
 
     return model;
