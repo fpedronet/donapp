@@ -1,5 +1,6 @@
 import { Banco } from "./banco";
 import { Campana } from "./campana";
+import { HorarioAtencion } from "./horarioatencion";
 
 export class Cita{
     nIdCita?: number;    
@@ -21,6 +22,7 @@ export class Cita{
     nCitaHorasMin? : number = 2; //Cantidad de tiempo mínimo para reservar una cita
     nCitaHorasMax? : number = 24*30; //Cantidad de tiempo máximo para reservar una cita
     dRegistro? : Date;
+    listaHorarios: HorarioAtencion[]=[]
 }
 
 export class CitaRequest{
