@@ -8,6 +8,8 @@ export class Cita{
     nIdDonante? : number;
     dProgramacion? : Date;
     fechaProgramada? : string;
+    vBanco? : string;
+    vTipoCita? : string;
     nTipoCita? : number;
     nTipoDonacion? : number;
     vIdReceptor? : string;

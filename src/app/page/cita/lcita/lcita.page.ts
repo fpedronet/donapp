@@ -49,8 +49,8 @@ export class LcitaPage implements OnInit {
             let model = new Cita();
   
             model.fechaProgramada= element.fechaProgramada;
-            model.nIdDonante= element.nIdDonante;
-            model.dProgramacion= element.dProgramacion;
+            model.vTipoCita= element.vTipoCita;
+            model.vBanco= element.vBanco;
   
             this.dataCita.push(model);
           });
