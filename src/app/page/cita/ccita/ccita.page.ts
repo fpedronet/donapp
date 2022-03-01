@@ -62,8 +62,10 @@ export class CcitaPage implements OnInit {
 
   //Hora redondeada a 15 min más cercana
 
-  minFechaCita: string = 'default';
-  maxFechaCita: string = 'default';
+  minFechaCita: string = new Date().toISOString();
+  maxFechaCita: string = new Date().toISOString();
+  dProgramacion: Date = new Date();
+  programadoFormatted: string = '';
 
   id: number = 0;
   tipo: number = 0;
@@ -215,6 +217,14 @@ export class CcitaPage implements OnInit {
     }
   }
 
+  actualizaProgramacion(value){
+    //console.log(value);
+    var dateString = value.toString().slice(0,19)
+    console.log(dateString);
+    this.dProgramacion = new Date(dateString)
+    this.programadoFormatted = format(this.dProgramacion, 'd-MMM-yyyy, HH:mm')
+  }
+
   fillHorarios(b: Banco){
     //debugger;
     if(b.listaHorarios === undefined || b.listaHorarios === null){
@@ -279,6 +289,7 @@ export class CcitaPage implements OnInit {
       this.form.patchValue({
         dProgramacion: this.minFechaCita
       });
+      this.programadoFormatted = format(new Date(this.minFechaCita), 'd-MMM-yyyy, HH:mm')
 
       if(this.id !== 0){
         //Selecciona el tipo de cita
@@ -310,12 +321,12 @@ export class CcitaPage implements OnInit {
     model.nIdBanco = this.form.value['nIdBanco'];
     model.nIdCampana = this.form.value['nIdCampana'];
     model.nIdDonante = 0, //Se registra el del mismo usuario en el back
-    model.dProgramacion = this.form.value['dProgramacion'];
+    model.dProgramacion = this.dProgramacion;
     model.nTipoCita = this.tipoCita.nIdTipoCita;
     model.nTipoDonacion = this.tipoDonacion.nIdTipoDonacion;
     model.vIdReceptor = this.form.value['vIdReceptor'];
 
-    debugger;
+    //debugger;
     
     this.loadingService.openLoading();
     this.citaService.guardar(model).subscribe(data=>{
@@ -324,7 +335,7 @@ export class CcitaPage implements OnInit {
 
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
-        this.router.navigate(['inicio']);
+        this.router.navigate(['lcita']);
         
       }else{
         this.loadingService.closeLoading();
@@ -344,7 +355,7 @@ export class CcitaPage implements OnInit {
       day.setMonth(day.getMonth() + yearsDif*12 + monthsDif);
     }
 
-    return format(day, 'yyy-MM-dd') + 'T08:00:00.000Z';
+    return format(day, 'yyyy-MM-dd') + 'T08:00:00.000Z';
   }
 
   horaCuartoCercana(difHoras: number = 0){

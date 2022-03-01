@@ -78,7 +78,17 @@
       </ion-item>
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
+        <ion-label>
+          F. programada*
+        </ion-label>
+        <ion-text slot="end">
+          {{programadoFormatted}}
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">        
         <ion-datetime
+          #PROG
           [firstDayOfWeek]="1"
           [min]="minFechaCita"
           [max]="maxFechaCita"
@@ -88,11 +98,11 @@
           minute-values="0,15,30,45"
           excludedDays="6,7"
           formControlName="dProgramacion"
+          (ionChange)="actualizaProgramacion(PROG.value)"
           required>
-          <!--div slot="title">Fecha y hora programada*</div-->
-          <ion-buttons slot="buttons">
+          <!--ion-buttons slot="buttons">
             <ion-button (click)="resetHour()">Reiniciar</ion-button>
-          </ion-buttons>
+          </ion-buttons-->
         </ion-datetime>
       </ion-item>
 
