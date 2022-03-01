@@ -24,6 +24,7 @@ export class MenuService {
       this.menu.nombre = lista[i].nombre;
       this.menu.icon = lista[i].icon;
       this.menu.visual= lista[i].visual;
+      this.menu.visualVerificado= lista[i].visualVerificado;
 
       this.menu.subPages = [];
       if(lista[i].subPages != null){
@@ -34,6 +35,7 @@ export class MenuService {
           this.subMenu.nombre = lista[i].subPages[j].nombre;
           this.subMenu.icon = lista[i].subPages[j].icon;
           this.subMenu.visual = lista[i].subPages[j].visual;
+          this.subMenu.visualVerificado = lista[i].subPages[j].visualVerificado;
           this.subMenu.subPages = null;
           this.subMenu.showDetails=false;
           this.menu.subPages.push(this.subMenu);

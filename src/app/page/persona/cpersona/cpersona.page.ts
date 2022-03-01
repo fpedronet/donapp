@@ -197,6 +197,7 @@ export class CpersonaPage implements OnInit {
     
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
+      debugger;
       
       this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 

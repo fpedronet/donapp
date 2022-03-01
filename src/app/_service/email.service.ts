@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Response } from '../_model/response';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class EmailService {
 
   verificar(email: string){
     let urls = `${this.url}/GetValidarUsuario?email=${email}`;
-    return this.http.get<string>(urls);
+    return this.http.get<Response>(urls);
   }
   
 }

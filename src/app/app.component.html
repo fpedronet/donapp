@@ -43,6 +43,17 @@
           </ion-grid>        
         </ion-item>
 
+        <ion-item *ngIf="!correoVerif" [routerDirection]="'back'">
+          <ion-grid>
+            <ion-row>
+              <ion-col (click)="openPage('/verifcorreo')">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+                <span menuClose>Verif. correo</span>  
+              </ion-col>
+            </ion-row>
+          </ion-grid>        
+        </ion-item>
+
         <ion-item [routerDirection]="'back'">
           <ion-grid>
             <ion-row>
@@ -55,10 +66,6 @@
         </ion-item>
         
       </ion-list>
-
-      <ion-label *ngIf="correoVerif">
-        Correo no verificado
-      </ion-label>
 
     </ion-content>
   </ion-menu>

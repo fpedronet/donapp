@@ -4,6 +4,7 @@
       "nombre":"Inicio",
       "icon":"home-outline",
       "visual":true,
+      "visualVerificado":true,
       "subPages":null
    },
    {
@@ -11,6 +12,7 @@
       "nombre":"Editar perfil",
       "icon":"person-outline",
       "visual":false,
+      "visualVerificado":true,
       "subPages":null
    },
    {
@@ -18,6 +20,7 @@
        "nombre":"Personas",
        "icon":"pie-chart-outline",
        "visual":false,
+       "visualVerificado":true,
        "subPages":null
    },
    {
@@ -25,24 +28,28 @@
       "nombre":"Agendar cita",
       "icon":"today-outline",
       "visual":true,
+      "visualVerificado":false,
       "subPages":[
          {
             "url":"/ccita/create/1",
             "nombre":"En banco",
             "icon":"business-outline",
-            "visual":true
+            "visual":true,
+            "visualVerificado":true
          },
          {
             "url":"/ccita/create/2",
             "nombre":"En campana",
             "icon":"megaphone-outline",
-            "visual":true
+            "visual":true,
+            "visualVerificado":true
          },
          {
             "url":"/ccita/create/3",
             "nombre":"A paciente",
             "icon":"accessibility-outline",
-            "visual":true
+            "visual":true,
+            "visualVerificado":true
          }
       ]
    },
@@ -51,6 +58,7 @@
        "nombre":"Citas pendientes",
        "icon":"timer-outline",
        "visual":true,
+       "visualVerificado":true,
        "subPages":null
    },
    {
@@ -58,6 +66,7 @@
       "nombre":"Crear Demo",
       "icon":"pie-chart-outline",
       "visual":false,
+      "visualVerificado":true,
       "subPages":null
    },
    {
@@ -65,13 +74,7 @@
       "nombre":"Demo",
       "icon":"pie-chart-outline",
       "visual":true,
-      "subPages":null
-   },
-   {
-      "url":"/verifcorreo",
-      "nombre":"Verif. correo",
-      "icon":"pie-chart-outline",
-      "visual":true,
+      "visualVerificado":true,
       "subPages":null
    }
  ]
