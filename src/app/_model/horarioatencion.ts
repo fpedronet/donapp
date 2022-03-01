@@ -1,5 +1,7 @@
 export class HorarioAtencion {
-    constructor(_nDia?: number, _vHoraIni1?: string, _vHoraFin1?: string, _vHoraIni2?: string, _vHoraFin2?: string) {
+    constructor(_nIdBanco?: number, _nDia?: number, _vHoraIni1?: string, _vHoraFin1?: string, _vHoraIni2?: string, _vHoraFin2?: string) {
+        this.nIdHorario = 0;
+        this.nIdBanco = _nIdBanco
         this.nDia = _nDia;
         this.vHoraIni1 = _vHoraIni1;
         this.vHoraFin1 = _vHoraFin1;
