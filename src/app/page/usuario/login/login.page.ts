@@ -104,7 +104,8 @@ export class LoginPage implements OnInit {
         });
       },
       (error) =>{
-        console.log("error sss = " + error);
+        debugger;
+        console.log("error sss = " + error.error);
       }
     );
 

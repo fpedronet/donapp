@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="header-toolbar">
   <ion-toolbar class="header-toolbar">
     <ion-title>
-      LISTA DEMO
+      LISTA CITA
     </ion-title>
     <ion-buttons  slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
@@ -12,21 +12,39 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="loadData()" color="default"></ion-searchbar>
   
+  <ion-item>
+    <ion-label>Tipo Cita</ion-label>
+    <ion-select class="custom-options" multiple="true" cancelText="Cancear" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
+      <ion-select-option *ngFor="let el of listaTipoCitas" [value]="el.nIdTipoCita">{{el.vDescripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tipo Donación</ion-label>
+    <ion-select class="custom-options" multiple="true" cancelText="Cancear" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
+      <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-list>
     <ion-item-sliding>
 
       <ion-item *ngFor="let user of dataCita">
         <ion-label>
-          <h2>F. Prog. : {{user.fechaProgramada}}</h2>
-          <p>Tipo Cita: {{user.vTipoCita}}</p>
-          <p>Banco: {{user.vBanco}}</p>
+          <h2 style="font-family: cursive;">{{user.fechaProgramada}}
+            <img style="width: 32px;" src="{{user.vIcon}}"/>
+          </h2>
+          <p>{{user.vBanco}}</p>
+          <p>{{user.vTipoCita}}</p>
+          <p>{{user.vTipoDonacion}}</p>
+         
         </ion-label>
 
         <div>
-          <ion-button size="medium" slot="end" (click)="edit()">
+          <ion-button size="medium" slot="end" (click)="edit(user.nIdCita, false)">
             <ion-icon name="eye-outline"></ion-icon>
           </ion-button>  
-          <ion-button size="medium" color="success" slot="end" (click)="edit()">
+          <ion-button size="medium" color="success" slot="end" (click)="edit(user.nIdCita, true)">
             <ion-icon name="create-outline"></ion-icon>
           </ion-button> 
         </div>

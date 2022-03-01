@@ -1,4 +1,3 @@
-import { Cita } from 'src/app/_model/cita';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -6,7 +5,13 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { CitaService } from 'src/app/_service/cita.service';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
-import { da } from 'date-fns/locale';
+
+import jsonTipoCita from 'src/assets/json/listacita.json';
+import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
+
+import { TipoCita } from 'src/app/_model/tipocita';
+import { TipoDonacion } from 'src/app/_model/tipodonacion';
+import { Cita, CitaRequest } from 'src/app/_model/cita';
 
 @Component({
   selector: 'app-lcita',
@@ -27,41 +32,64 @@ export class LcitaPage implements OnInit {
 
   dataSource: Cita[] = [];
   dataCita: Cita[] = [];
+  listaTipoCitas: TipoCita[] = [];
+  listaTipoDonaciones: TipoDonacion[] = [];
+  selectTipoCita: number[] = [];
+  selectTipoDonacion: number[] = [];
+
   total: number = 0;
   data: string = "";
   page: number= 0;
 
   ngOnInit() {
+    this.listartipocita();
+    this.listartipodonacion();
     this.loadData();
   }
 
   loadData(event?) {
     setTimeout(() => {
 
-      // this.page = (this.data !="")? 0: this.page;
+      let model = new CitaRequest;
+      model.data= this.data;
+      model.listaTipocita= this.selectTipoCita;
+      model.listTipodonacion= this.selectTipoDonacion;
+      model.page= this.page;
+      model.pages= 10;
 
-      this.citaService.listar(this.data, this.page, 10).subscribe(data=>{
+      this.loadingService.openLoading();
+      this.citaService.listar(model).subscribe(data=>{
 
-        this.dataSource = data.items;
+      this.dataSource = data.items;
 
-        // if(this.dataSource.length>0){
+        // if(this.dataSource.length > 0){
+
          this.dataSource.forEach(element => {          
             let model = new Cita();
   
+            model.nIdCita= element.nIdCita;
             model.fechaProgramada= element.fechaProgramada;
             model.vTipoCita= element.vTipoCita;
+            model.vTipoDonacion= element.vTipoDonacion;
+            model.vIcon= "../../../../assets/"+element.vIcon;
             model.vBanco= element.vBanco;
   
             this.dataCita.push(model);
           });
 
+          this.loadingService.closeLoading();
+
+          //  this.dataCita = this.dataSource;
           this.total += data.pagination.pages;
 
-          if(this.total == data.pagination.total){
+          if(this.total >= data.pagination.total){
             this.infiniteScroll.complete();
             this.infiniteScroll.disabled = true;
-            return;
+            this.page = 0;
+
+            return false;
           }
+       
       });      
 
       this.infiniteScroll.complete();
@@ -69,6 +97,37 @@ export class LcitaPage implements OnInit {
       this.page++;
 
     }, 500);
+  }
+
+  buscar(){
+    this.dataCita = [];
+    this.loadData();
+  }
+
+  listartipocita(){
+    this.listaTipoCitas = [];
+
+    for(var i in jsonTipoCita) {
+      let tipo: TipoCita = {};
+
+      tipo.nIdTipoCita = jsonTipoCita[i].nIdTipoCita;
+      tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
+
+      this.listaTipoCitas.push(tipo);
+    }
+  }
+
+  listartipodonacion(){
+    this.listaTipoDonaciones = [];
+
+    for(var i in jsonTipoDonacion) {
+      let tipo: TipoDonacion = {};
+
+      tipo.nIdTipoDonacion = jsonTipoDonacion[i].nIdTipoDonacion;
+      tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
+
+      this.listaTipoDonaciones.push(tipo);
+    }
   }
 
   inicio(){
@@ -79,8 +138,8 @@ export class LcitaPage implements OnInit {
     this.router.navigate(['ccita/create']);
   }
 
-  edit(){
-    this.router.navigate(['ccita/edit/1']);
+  edit(id: number, ver: boolean){
+    this.router.navigate(['ccita/edit/'+id+'/'+ver]);
   }
 
 }

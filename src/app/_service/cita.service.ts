@@ -1,3 +1,4 @@
+import { CitaRequest } from './../_model/cita';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
@@ -14,12 +15,10 @@ export class CitaService {
 
   private url: string = `${environment.UrlApi}/cita`;
 
-  listar(data: string, page: number, pages: number) {
+  listar(model: CitaRequest) {
+    let urls = `${this.url}/GetAllCita`;
 
-    let href = `${this.url}/GetAllCita`;
-    let urls = `${href}?data=${data}&page=${page+1}&pages=${pages}`;
-
-    return this.http.get<dataCollection>(urls);
+    return this.http.post<dataCollection>(urls,model);
   }
 
   obtener(id: number){
