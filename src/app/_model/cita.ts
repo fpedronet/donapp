@@ -7,6 +7,7 @@ export class Cita{
     nIdCampana? : number;
     nIdDonante? : number;
     dProgramacion? : Date;
+    fechaProgramada? : string;
     nTipoCita? : number;
     nTipoDonacion? : number;
     vIdReceptor? : string;

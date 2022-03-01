@@ -17,16 +17,20 @@
 
       <ion-item *ngFor="let user of dataCita">
         <ion-label>
-          <h2>Donante {{user.nIdCita}}</h2>
+          <h2>F. Prog. : {{user.fechaProgramada}}</h2>
           <p>Nombre: {{user.nIdDonante}}</p>
-          <p>F. Programada: {{user.dProgramacion}}</p>
+          <p>F. Programada: </p>
         </ion-label>
+
+        <div>
           <ion-button size="medium" slot="end" (click)="edit()">
             <ion-icon name="eye-outline"></ion-icon>
           </ion-button>  
           <ion-button size="medium" color="success" slot="end" (click)="edit()">
             <ion-icon name="create-outline"></ion-icon>
-          </ion-button>         
+          </ion-button> 
+        </div>
+        
       </ion-item>
 
 

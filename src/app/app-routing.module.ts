@@ -17,7 +17,8 @@ const routes: Routes = [
   
   {path: 'ldemo',loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
   {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
-  {path: 'cdemo/edit/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},  {
+  {path: 'cdemo/edit/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
+  {
     path: 'verifcorreo',
     loadChildren: () => import('./page/verifcorreo/verifcorreo.module').then( m => m.VerifcorreoPageModule)
   },

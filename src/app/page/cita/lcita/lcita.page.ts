@@ -38,17 +38,17 @@ export class LcitaPage implements OnInit {
   loadData(event?) {
     setTimeout(() => {
 
-      this.page = (this.data !="")? 0: this.page;
+      // this.page = (this.data !="")? 0: this.page;
 
       this.citaService.listar(this.data, this.page, 10).subscribe(data=>{
 
         this.dataSource = data.items;
 
-        if(this.dataSource.length>0){
-          this.dataSource.forEach(element => {          
+        // if(this.dataSource.length>0){
+         this.dataSource.forEach(element => {          
             let model = new Cita();
   
-            model.nIdCita= element.nIdCita;
+            model.fechaProgramada= element.fechaProgramada;
             model.nIdDonante= element.nIdDonante;
             model.dProgramacion= element.dProgramacion;
   
@@ -62,11 +62,6 @@ export class LcitaPage implements OnInit {
             this.infiniteScroll.disabled = true;
             return;
           }
-
-        }else{
-          this.dataCita = [];
-        }    
-        
       });      
 
       this.infiniteScroll.complete();
