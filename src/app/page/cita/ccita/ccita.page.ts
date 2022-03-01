@@ -43,6 +43,9 @@ export class CcitaPage implements OnInit {
   listaDiaSemana: DiaSemana[] = [];
   horarioAtencion: string[] = [];
 
+  //Lista de horarios para validación de horario en back
+  horarioBanco: HorarioAtencion[]=[];
+
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
   tipoCita: TipoCita = new TipoCita(0, 'Tipo cita no identificado');
@@ -80,6 +83,8 @@ export class CcitaPage implements OnInit {
       'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
       'vIdReceptor': new FormControl({value: '', disabled: false}),
     });
+
+    this.dProgramacion = new Date(this.horaCuartoCercana());
 
     this.listartipocita();
     this.listartipodonacion();
@@ -245,12 +250,13 @@ export class CcitaPage implements OnInit {
             if (rangos.length > 1)
                 horas2 = rangos[1].split('-');
     
-            horario = new HorarioAtencion(i+1, horas1[0], horas1[1], horas2[0], horas2[1]);
+            horario = new HorarioAtencion(b.nIdBanco, i+1, horas1[0], horas1[1], horas2[0], horas2[1]);
             b.listaHorarios.push(horario);
           }
         }
       }
       
+      this.horarioBanco = b.listaHorarios;
     }
   }
 
@@ -325,6 +331,7 @@ export class CcitaPage implements OnInit {
     model.nTipoCita = this.tipoCita.nIdTipoCita;
     model.nTipoDonacion = this.tipoDonacion.nIdTipoDonacion;
     model.vIdReceptor = this.form.value['vIdReceptor'];
+    model.listaHorarios = this.horarioBanco;
 
     //debugger;
     
@@ -383,8 +390,6 @@ export class CcitaPage implements OnInit {
   }
 
   resetHour(){
-    this.form.patchValue({
-      dProgramacion: this.horaCuartoCercana()
-    });
+
   }
 }

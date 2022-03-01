@@ -1,6 +1,5 @@
 import { Banco } from "./banco";
 import { Campana } from "./campana";
-import { pagination } from "./pagination";
 
 export class Cita{
     nIdCita?: number;    
