@@ -61,6 +61,7 @@ export class LcitaPage implements OnInit {
       this.citaService.listar(model).subscribe(data=>{
 
       this.dataSource = data.items;
+        //debugger;
 
         // if(this.dataSource.length > 0){
 
@@ -69,10 +70,12 @@ export class LcitaPage implements OnInit {
   
             model.nIdCita= element.nIdCita;
             model.fechaProgramada= element.fechaProgramada;
+            model.nTipoCita= element.nTipoCita;
             model.vTipoCita= element.vTipoCita;
             model.vTipoDonacion= element.vTipoDonacion;
             model.vIcon= "../../../../assets/"+element.vIcon;
             model.vBanco= element.vBanco;
+            model.vCampana= element.vCampana;
   
             this.dataCita.push(model);
           });

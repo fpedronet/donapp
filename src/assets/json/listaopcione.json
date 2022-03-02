@@ -11,7 +11,7 @@
       "url":"/cpersona",
       "nombre":"Editar perfil",
       "icon":"person-outline",
-      "visual":false,
+      "visual":true,
       "visualVerificado":true,
       "subPages":null
    },
@@ -58,7 +58,7 @@
        "nombre":"Citas pendientes",
        "icon":"timer-outline",
        "visual":true,
-       "visualVerificado":true,
+       "visualVerificado":false,
        "subPages":null
    },
    {
@@ -73,7 +73,7 @@
       "url":"/ldemo",
       "nombre":"Demo",
       "icon":"pie-chart-outline",
-      "visual":true,
+      "visual":false,
       "visualVerificado":true,
       "subPages":null
    }

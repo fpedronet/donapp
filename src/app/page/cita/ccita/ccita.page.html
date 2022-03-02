@@ -23,13 +23,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-radio-group value="1" allow-empty-selection="false" name="radio-group" (ionChange)="seleccionaTipoDonacion($event)" required #radioGroup>
+        <ion-radio-group value="1" allow-empty-selection="false" name="radio-group" (ionChange)="seleccionaTipoDonacion($event)" required #radioGroup >
           <ion-label>Tipo de donación*</ion-label>
           <ion-row>
             <ion-col *ngFor="let el of listaTipoDonaciones">
               <ion-item>
                 <ion-label>{{el.vDescripcion}}</ion-label>
-                <ion-radio slot="start" value="{{el.nIdTipoDonacion}}" checked></ion-radio>
+                <ion-radio slot="start" value="{{el.nIdTipoDonacion}}" checked [disabled]="!ver"></ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>    
@@ -38,14 +38,14 @@
 
       <ion-item>
         <ion-label>Departamento*</ion-label>
-        <ion-select #DPTO interface="action-sheet" placeholder="Seleccione" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" required>
+        <ion-select #DPTO interface="action-sheet" placeholder="Seleccione" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!ver" required>
           <ion-select-option *ngFor="let el of listaDepartamentos" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Provincia*</ion-label>
-        <ion-select #PROV [disabled]="listaProvincias.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
+        <ion-select #PROV [disabled]="listaProvincias.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
           <ion-select-option *ngFor="let el of listaProvincias" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -53,7 +53,7 @@
       <!--DONACIÓN A BANCO O DIRIGIDA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label>Banco*</ion-label>
-        <ion-select #BANCO [disabled]="listaBancos.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
+        <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -61,7 +61,7 @@
       <!--DONACIÓN A CAMPAÑA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===2">
         <ion-label>Campaña*</ion-label>
-        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" required>
+        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" [disabled]="!ver" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>

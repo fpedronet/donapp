@@ -10,6 +10,8 @@ export class Cita{
     dProgramacion? : Date;
     fechaProgramada? : string;
     vBanco? : string;
+    vCampana? : string;
+    vUbigeo? : string;
     vTipoCita? : string;
     vTipoDonacion? : string;
     vIcon? : string;

@@ -72,6 +72,7 @@ export class CcitaPage implements OnInit {
 
   id: number = 0;
   tipo: number = 0;
+  ver: boolean = true;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -94,6 +95,8 @@ export class CcitaPage implements OnInit {
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
+      debugger;
+      this.ver = (data["ver"]==undefined)? true:data["ver"]=="true";
 
       this.obtener();
       
@@ -283,7 +286,6 @@ export class CcitaPage implements OnInit {
   obtener(){
     this.loadingService.openLoading();
     this.citaService.obtener(this.id).subscribe(data=>{
-      //debugger;
       
       //Extrae listas para combobox de bancos y campañas
       this.listaTotBancos = data.listaBancos;
@@ -300,18 +302,37 @@ export class CcitaPage implements OnInit {
       if(this.id !== 0){
         //Selecciona el tipo de cita
         this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
+        this.tipo = this.tipoCita.nIdTipoCita;
 
         this.seleccionaTipoDonacion(undefined, data.nTipoDonacion);
 
+        //debugger;
+
         this.form = new FormGroup({
           'nIdCita': new FormControl({value: data.nIdCita, disabled: false}),
-          'nIdBanco': new FormControl({value: data.nIdBanco, disabled: false}),
-          'nIdCampana': new FormControl({value: data.nIdCampana, disabled: false}),
-          'vIdDepartamento': new FormControl({value: "00", disabled: false}),
+          'nIdBanco': new FormControl({value: 0, disabled: false}),
+          'nIdCampana': new FormControl({value: 0, disabled: false}),
+          'vIdDepartamento': new FormControl({value: data.vUbigeo.slice(0,2), disabled: false}),
           'vIdProvincia': new FormControl({value: "0000", disabled: false}),
-          'dProgramacion': new FormControl({value: data.dProgramacion, disabled: false}),
+          'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
           'vIdReceptor': new FormControl({value: data.vIdReceptor, disabled: false}),
         });
+
+        //Modificar directamente el form no activa los eventos de cambio
+        this.updateDpto(data.vUbigeo.slice(0,2));
+        this.form.patchValue({
+          vIdProvincia: data.vUbigeo.slice(0,4)
+        });
+        debugger;
+        this.updateProv(data.vUbigeo.slice(0,4));
+        this.form.patchValue({
+          nIdBanco: data.nIdBanco,
+          nIdCampana: data.nIdCampana
+        });
+        this.updateBanco(data.nIdBanco);
+
+        //this.programadoFormatted = format(data.dProgramacion, 'd-MMM-yyyy, HH:mm')
+
       }      
       
       this.loadingService.closeLoading();

@@ -14,14 +14,14 @@
   
   <ion-item>
     <ion-label>Tipo Cita</ion-label>
-    <ion-select class="custom-options" multiple="true" cancelText="Cancear" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
+    <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
       <ion-select-option *ngFor="let el of listaTipoCitas" [value]="el.nIdTipoCita">{{el.vDescripcion}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label>Tipo Donación</ion-label>
-    <ion-select class="custom-options" multiple="true" cancelText="Cancear" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
+    <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
       <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
     </ion-select>
   </ion-item>
@@ -29,13 +29,20 @@
   <ion-list>
     <ion-item-sliding>
 
+      <ion-item *ngIf="dataCita.length === 0">
+        <ion-label>
+          <h2 style="font-family: cursive;">No se encontraron resultados</h2>         
+        </ion-label>
+      </ion-item>
+
       <ion-item *ngFor="let user of dataCita">
         <ion-label>
           <h2 style="font-family: cursive;">{{user.fechaProgramada}}
             <img style="width: 32px;" src="{{user.vIcon}}"/>
           </h2>
-          <p>{{user.vBanco}}</p>
           <p>{{user.vTipoCita}}</p>
+          <p *ngIf="user.nTipoCita == 1 || user.nTipoCita == 3">{{user.vBanco}}</p>
+          <p *ngIf="user.nTipoCita == 2">{{user.vCampana}}</p> 
           <p>{{user.vTipoDonacion}}</p>
          
         </ion-label>
@@ -44,9 +51,9 @@
           <ion-button size="medium" slot="end" (click)="edit(user.nIdCita, false)">
             <ion-icon name="eye-outline"></ion-icon>
           </ion-button>  
-          <ion-button size="medium" color="success" slot="end" (click)="edit(user.nIdCita, true)">
+          <!--ion-button size="medium" color="success" slot="end" (click)="edit(user.nIdCita, true)">
             <ion-icon name="create-outline"></ion-icon>
-          </ion-button> 
+          </ion-button--> 
         </div>
         
       </ion-item>

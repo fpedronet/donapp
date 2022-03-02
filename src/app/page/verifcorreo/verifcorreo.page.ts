@@ -169,7 +169,7 @@ export class VerifcorreoPage implements OnInit {
 
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
-        this.router.navigate(['inicio']);
+        this.usuarioService.closeLogin();
         
       }else{
         this.loadingService.closeLoading();
