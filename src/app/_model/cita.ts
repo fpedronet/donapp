@@ -1,5 +1,6 @@
 import { Banco } from "./banco";
 import { Campana } from "./campana";
+import { Feriado } from "./feriado";
 import { HorarioAtencion } from "./horarioatencion";
 
 export class Cita{
@@ -20,6 +21,7 @@ export class Cita{
     vIdReceptor? : string;
     listaBancos? : Banco[] = [];
     listaCampanas? : Campana[] = [];
+    listaFeriados? : Feriado[] = [];
     //Parámetros para configurar calendario
     nCitaHorasMin? : number = 2; //Cantidad de tiempo mínimo para reservar una cita
     nCitaHorasMax? : number = 24*30; //Cantidad de tiempo máximo para reservar una cita

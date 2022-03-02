@@ -21,6 +21,7 @@ import { TipoDonacion } from 'src/app/_model/tipodonacion';
 import { compareAsc, format } from 'date-fns';
 import { DiaSemana } from 'src/app/_model/diasemana';
 import { HorarioAtencion } from 'src/app/_model/horarioatencion';
+import { Feriado } from 'src/app/_model/feriado';
 
 @Component({
   selector: 'app-ccita',
@@ -58,6 +59,7 @@ export class CcitaPage implements OnInit {
   //Lista total
   listaTotBancos: Banco[] = [];
   listaTotCampanas: Campana[] = [];
+  listaFeriados: Feriado[] = [];
   
   //Lista de los que se muestran actualmente
   listaBancos: Banco[] = [];  
@@ -289,6 +291,9 @@ export class CcitaPage implements OnInit {
       //Extrae listas para combobox de bancos y campañas
       this.listaTotBancos = data.listaBancos;
       this.listaTotCampanas = data.listaCampanas;
+      this.listaFeriados = data.listaFeriados;
+
+      //debugger;
 
       //Configurar calendario
       this.minFechaCita = this.horaCuartoCercana(data.nCitaHorasMin);
@@ -353,6 +358,7 @@ export class CcitaPage implements OnInit {
     model.nTipoDonacion = this.tipoDonacion.nIdTipoDonacion;
     model.vIdReceptor = this.form.value['vIdReceptor'];
     model.listaHorarios = this.horarioBanco;
+    model.listaFeriados = this.listaFeriados;
 
     //debugger;
     
@@ -406,8 +412,11 @@ export class CcitaPage implements OnInit {
     return fechaStr + horaStr;
   }
 
-  irHome(){
-    this.router.navigate(['inicio']);
+  regresar(){
+    if(this.ver)
+      this.router.navigate(['inicio']);
+    else
+      this.router.navigate(['lcita']);
   }
 
   resetHour(){

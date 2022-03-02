@@ -138,7 +138,7 @@ export class LcitaPage implements OnInit {
   }
 
   nuevo(){
-    this.router.navigate(['ccita/create']);
+    this.router.navigate(['ccita/create/1']);
   }
 
   edit(id: number, ver: boolean){
