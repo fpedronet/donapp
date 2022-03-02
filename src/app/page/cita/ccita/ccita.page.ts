@@ -95,7 +95,6 @@ export class CcitaPage implements OnInit {
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
-      debugger;
       this.ver = (data["ver"]==undefined)? true:data["ver"]=="true";
 
       this.obtener();
@@ -314,7 +313,7 @@ export class CcitaPage implements OnInit {
           'nIdCampana': new FormControl({value: 0, disabled: false}),
           'vIdDepartamento': new FormControl({value: data.vUbigeo.slice(0,2), disabled: false}),
           'vIdProvincia': new FormControl({value: "0000", disabled: false}),
-          'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
+          'dProgramacion': new FormControl({value: data.dProgramacion, disabled: false}),
           'vIdReceptor': new FormControl({value: data.vIdReceptor, disabled: false}),
         });
 
@@ -323,7 +322,7 @@ export class CcitaPage implements OnInit {
         this.form.patchValue({
           vIdProvincia: data.vUbigeo.slice(0,4)
         });
-        debugger;
+        //debugger;
         this.updateProv(data.vUbigeo.slice(0,4));
         this.form.patchValue({
           nIdBanco: data.nIdBanco,
@@ -331,8 +330,9 @@ export class CcitaPage implements OnInit {
         });
         this.updateBanco(data.nIdBanco);
 
-        //this.programadoFormatted = format(data.dProgramacion, 'd-MMM-yyyy, HH:mm')
-
+        //Actualiza fecha
+        this.dProgramacion = new Date(data.dProgramacion);
+        this.programadoFormatted = format(this.dProgramacion, 'd-MMM-yyyy, HH:mm');
       }      
       
       this.loadingService.closeLoading();

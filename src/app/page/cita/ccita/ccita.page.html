@@ -1,7 +1,10 @@
 <ion-header class="header-toolbar">
   <ion-toolbar class="header-toolbar">
-    <ion-title>
+    <ion-title *ngIf="ver">
       CREAR CITA
+    </ion-title>
+    <ion-title *ngIf="!ver">
+      VER CITA
     </ion-title>
     <ion-buttons  slot="start">
       <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
@@ -89,6 +92,7 @@
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">        
         <ion-datetime
           #PROG
+          [readonly]="!ver"
           [firstDayOfWeek]="1"
           [min]="minFechaCita"
           [max]="maxFechaCita"
