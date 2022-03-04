@@ -10,6 +10,7 @@ export class InicioPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("ini");
   }
 
 }
