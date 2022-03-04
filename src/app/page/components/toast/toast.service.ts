@@ -33,7 +33,7 @@ export class ToastService {
       icon:  this.icons,
       duration: 3000,
       color: this.color,
-      position: 'top',
+      position: 'middle',
       animated: true,
       buttons: [
         {
