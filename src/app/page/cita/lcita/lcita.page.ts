@@ -49,6 +49,10 @@ export class LcitaPage implements OnInit {
   ngOnInit() {
     this.listartipocita();
     this.listartipodonacion();
+    //this.buscar();
+  }
+  
+  ngAfterViewInit(){
     this.buscar();
   }
 
@@ -59,6 +63,7 @@ export class LcitaPage implements OnInit {
       model.data= this.data;
       model.listaTipocita= this.selectTipoCita;
       model.listTipodonacion= this.selectTipoDonacion;
+      this.page = this.page+1;
       model.page= this.page;
       model.pages= 10;
 
