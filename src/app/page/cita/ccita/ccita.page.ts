@@ -239,10 +239,12 @@ export class CcitaPage implements OnInit {
     else if(this.tipo == 2){
       listaElementos = this.listaCampanas;
     }
-    this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
-    this.listaDepartamentos.forEach(dpto => {
-      dpto.listaProvincias = dpto.listaProvincias.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
-    });
+    if(listaElementos !== undefined){
+      this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+      this.listaDepartamentos.forEach(dpto => {
+        dpto.listaProvincias = dpto.listaProvincias.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+      });
+    }    
   }
 
   updateBanco(idBanco: number){
@@ -447,9 +449,9 @@ export class CcitaPage implements OnInit {
 
   regresar(){
     if(this.ver)
-      this.router.navigate(['inicio']);
+      this.router.navigate(['/inicio']);
     else
-      this.router.navigate(['lcita']);
+      this.router.navigate(['/lcita']);
   }
 
   resetHour(){

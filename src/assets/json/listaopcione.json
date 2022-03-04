@@ -25,7 +25,7 @@
    },
    {
       "url":"",
-      "nombre":"Agendar cita",
+      "nombre":"Agendar donación",
       "icon":"today-outline",
       "visual":true,
       "visualVerificado":false,
@@ -46,7 +46,7 @@
          },
          {
             "url":"/ccita/create/3",
-            "nombre":"A paciente",
+            "nombre":"Para paciente",
             "icon":"accessibility-outline",
             "visual":true,
             "visualVerificado":true

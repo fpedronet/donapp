@@ -47,13 +47,20 @@ export class LcitaPage implements OnInit {
   page: number= 0;
 
   ngOnInit() {
+    console.log("Init Lista citas")
     this.listartipocita();
     this.listartipodonacion();
-    //this.buscar();
+    /*setTimeout(() => {
+      this.buscar();
+    }, 500)*/
+    this.buscar();
   }
   
   ngAfterViewInit(){
-    this.buscar();
+    //console.log("muestra lista2");
+    /*setTimeout(() => {
+      this.buscar();
+    }, 500)*/
   }
 
   loadData(event?) {

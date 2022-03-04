@@ -132,24 +132,24 @@ export class CpersonaPage implements OnInit {
       try{
         this.personaService.obtener(this.id).subscribe(data=>{
 
-          this.form = new FormGroup({
-            'nIdPersona': new FormControl({value: data.nIdPersona, disabled: true}),
-            'nIdTipoDocu': new FormControl({value: data.nIdTipoDocu, disabled: false}),
-            'vDocumento': new FormControl({value: data.vDocumento, disabled: false}),
-            'vNombres': new FormControl({value: data.vNombres, disabled: false}),
-            'vApPaterno': new FormControl({value: data.vApPaterno, disabled: false}),
-            'vApMaterno': new FormControl({value: data.vApMaterno, disabled: false}),
-            'dFechaNac': new FormControl({value: data.dFechaNac, disabled: false}),
-            'nSexo': new FormControl({value: data.nSexo, disabled: false}),
-            'vTipoSangre': new FormControl({value: data.vTipoSangre, disabled: false}),
-            'nTalla': new FormControl({value: data.nTalla, disabled: false}),
-            'nPeso': new FormControl({value: data.nPeso, disabled: false}),
-            'vCelular': new FormControl({value: data.vCelular, disabled: false}),
-            'vDireccion': new FormControl({value: data.vDireccion, disabled: false}),
-            'vEmail': new FormControl({value: data.vEmail, disabled: true}),
-            'vContrasena': new FormControl({value: '', disabled: false}),
-            'vVerifContra': new FormControl({value: '', disabled: false}),
-            'nEsPaciente': new FormControl({value: data.nEsPaciente, disabled: true})
+          this.form.setValue({
+            nIdPersona: data.nIdPersona,
+            nIdTipoDocu: data.nIdTipoDocu,
+            vDocumento: data.vDocumento,
+            vNombres: data.vNombres,
+            vApPaterno: data.vApPaterno,
+            vApMaterno: data.vApMaterno,
+            dFechaNac: data.dFechaNac,
+            nSexo: data.nSexo,
+            vTipoSangre: data.vTipoSangre,
+            nTalla: data.nTalla,
+            nPeso: data.nPeso,
+            vCelular: data.vCelular,
+            vDireccion: data.vDireccion,
+            vEmail: data.vEmail,
+            vContrasena: '',
+            vVerifContra: '',
+            nEsPaciente: data.nEsPaciente
           });
           this.loadingService.closeLoading();
   
@@ -184,10 +184,9 @@ export class CpersonaPage implements OnInit {
     model.vCelular = this.form.value['vCelular'];
     model.vDireccion = this.form.value['vDireccion'];
 
-    let email = (this.verifcado == 1)? this.email : this.form.value['vEmail'].toLowerCase();
-    model.vEmail = email
-    model.usuario.vUsuario = email;
-    model.usuario.vUsuario.toLowerCase();
+    let email = (this.verifcado == 1)? this.email : this.form.value['vEmail'];
+    model.vEmail = email == undefined?'':email.toLowerCase()
+    model.usuario.vUsuario = model.vEmail;
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];
     model.usuario.nCorreoVerif = this.verifcado;
@@ -197,7 +196,7 @@ export class CpersonaPage implements OnInit {
     
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
-      debugger;
+      //debugger;
       
       this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
