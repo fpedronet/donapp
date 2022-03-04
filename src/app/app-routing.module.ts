@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GuardService } from './_service/guard.service';
 
@@ -11,14 +11,14 @@ const routes: Routes = [
   {path: 'lpersona',canActivate: [GuardService],loadChildren: () => import('./page/persona/lpersona/lpersona.module').then( m => m.LpersonaPageModule)},
   {path: 'cpersona',loadChildren: () => import('./page/persona/cpersona/cpersona.module').then( m => m.CpersonaPageModule)},
   
-  {path: 'lcita',loadChildren: () => import('./page/cita/lcita/lcita.module').then( m => m.LcitaPageModule)},
-  {path: 'ccita/create/:tipo',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
-  {path: 'ccita/edit/:id/:ver',loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
+  {path: 'lcita',canActivate: [GuardService], loadChildren: () => import('./page/cita/lcita/lcita.module').then( m => m.LcitaPageModule)},
+  {path: 'ccita/create/:tipo',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
+  {path: 'ccita/edit/:id/:ver',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   
-  {path: 'ldemo',loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
+  {path: 'ldemo', loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
   {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
   {path: 'cdemo/edit/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
-  {
+   {
     path: 'verifcorreo',
     loadChildren: () => import('./page/verifcorreo/verifcorreo.module').then( m => m.VerifcorreoPageModule)
   },
@@ -28,9 +28,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+// { preloadingStrategy: PreloadAllModules }

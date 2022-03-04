@@ -404,7 +404,8 @@ export class CcitaPage implements OnInit {
 
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
-        this.router.navigate(['lcita']);
+
+       this.router.navigate(['lcita']);
         
       }else{
         this.loadingService.closeLoading();
@@ -448,10 +449,11 @@ export class CcitaPage implements OnInit {
   }
 
   regresar(){
-    if(this.ver)
-      this.router.navigate(['/inicio']);
-    else
-      this.router.navigate(['/lcita']);
+    // if(this.ver)
+    //   this.router.navigate(['/inicio']);
+    // else
+    //   this.router.navigate(['/lcita']);
+    this.router.navigate(['/lcita']);
   }
 
   resetHour(){
