@@ -107,6 +107,21 @@ export class CcitaPage implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    //Limpia form si es nuevo
+    if(this.id === 0){
+      this.form.setValue({
+        nIdCita: 0,
+        nIdBanco: 0,
+        nIdCampana: 0,
+        vIdDepartamento: "00",
+        vIdProvincia: "0000",
+        dProgramacion: this.horaCuartoCercana(),
+        vIdReceptor: ''
+      });
+    }
+  }
+
   listartipocita(){
     this.listaTipoCitas = [];
 
@@ -216,6 +231,20 @@ export class CcitaPage implements OnInit {
     }    
   }
 
+  filtrarUbigeos(){
+    var listaElementos;
+    if(this.tipo == 1 || this.tipo == 3){
+      listaElementos = this.listaTotBancos;
+    }
+    else if(this.tipo == 2){
+      listaElementos = this.listaCampanas;
+    }
+    this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+    this.listaDepartamentos.forEach(dpto => {
+      dpto.listaProvincias = dpto.listaProvincias.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+    });
+  }
+
   updateBanco(idBanco: number){
     this.horarioAtencion = []; //Reinicio horario de atención
     let curBanco = this.listaBancos.find(e => e.nIdBanco === idBanco)
@@ -229,7 +258,7 @@ export class CcitaPage implements OnInit {
   actualizaProgramacion(value){
     //console.log(value);
     var dateString = value.toString().slice(0,19)
-    console.log(dateString);
+    //console.log(dateString);
     this.dProgramacion = new Date(dateString)
     this.programadoFormatted = format(this.dProgramacion, 'd-MMM-yyyy, HH:mm')
   }
@@ -292,6 +321,8 @@ export class CcitaPage implements OnInit {
       this.listaTotBancos = data.listaBancos;
       this.listaTotCampanas = data.listaCampanas;
       this.listaFeriados = data.listaFeriados;
+
+      this.filtrarUbigeos();
 
       //debugger;
 
