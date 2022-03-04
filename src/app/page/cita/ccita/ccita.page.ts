@@ -307,33 +307,35 @@ export class CcitaPage implements OnInit {
         //Selecciona el tipo de cita
         this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
         this.tipo = this.tipoCita.nIdTipoCita;
-
+        
+        //Selecciona el tipo de donación
         this.seleccionaTipoDonacion(undefined, data.nTipoDonacion);
 
-        //debugger;
+        //Actualiza combobox para ubicación
+        var idDpto = data.vUbigeo.slice(0,2);
+        var idProv = data.vUbigeo.slice(0,4);
 
-        this.form = new FormGroup({
-          'nIdCita': new FormControl({value: data.nIdCita, disabled: false}),
-          'nIdBanco': new FormControl({value: 0, disabled: false}),
-          'nIdCampana': new FormControl({value: 0, disabled: false}),
-          'vIdDepartamento': new FormControl({value: data.vUbigeo.slice(0,2), disabled: false}),
-          'vIdProvincia': new FormControl({value: "0000", disabled: false}),
-          'dProgramacion': new FormControl({value: data.dProgramacion, disabled: false}),
-          'vIdReceptor': new FormControl({value: data.vIdReceptor, disabled: false}),
-        });
-
-        //Modificar directamente el form no activa los eventos de cambio
-        this.updateDpto(data.vUbigeo.slice(0,2));
-        this.form.patchValue({
-          vIdProvincia: data.vUbigeo.slice(0,4)
-        });
-        //debugger;
-        this.updateProv(data.vUbigeo.slice(0,4));
-        this.form.patchValue({
-          nIdBanco: data.nIdBanco,
-          nIdCampana: data.nIdCampana
-        });
+        this.updateDpto(idDpto);
+        this.updateProv(idProv);
         this.updateBanco(data.nIdBanco);
+
+        this.form.setValue({
+          nIdCita: data.nIdCita,
+          vIdDepartamento: idDpto,
+          vIdProvincia: idProv,
+          nIdBanco: data.nIdBanco,
+          nIdCampana: data.nIdCampana,
+          dProgramacion: data.dProgramacion,
+          vIdReceptor: data.vIdReceptor
+        })
+
+        /*this.form.patchValue({
+          vIdDepartamento: idDpto
+        },
+        {
+          onlySelf: true,
+          emitEvent: false
+        });*/
 
         //Actualiza fecha
         this.dProgramacion = new Date(data.dProgramacion);

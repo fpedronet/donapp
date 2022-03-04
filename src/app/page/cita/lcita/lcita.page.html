@@ -4,13 +4,13 @@
       LISTA CITA
     </ion-title>
     <ion-buttons  slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="loadData()" color="default"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar" color="default"></ion-searchbar>
   
   <ion-item>
     <ion-label>Tipo Cita</ion-label>
@@ -29,16 +29,19 @@
   <ion-list>
     <ion-item-sliding>
 
-      <ion-item *ngIf="dataCita.length === 0">
-        <ion-label>
-          <h2 style="font-family: cursive;">No se encontraron resultados</h2>         
+      <ion-item>
+        <ion-label *ngIf="totalResult === 0">
+          <h2 style="font-family: cursive; text-align: center;">{{sinResultados}}</h2>         
+        </ion-label>
+        <ion-label *ngIf="totalResult > 0">
+          <h2 style="font-family: cursive; text-align: center;">{{totalResult}} resultados en total</h2>         
         </ion-label>
       </ion-item>
 
       <ion-item *ngFor="let user of dataCita">
         <ion-label>
           <h2 style="font-family: cursive;">{{user.fechaProgramada}}
-            <img style="width: 32px;" src="{{user.vIcon}}"/>
+            <img style="width: 32px; margin-bottom: -5px;" src="{{user.vIcon}}"/>
           </h2>
           <p>{{user.vTipoCita}}</p>
           <p *ngIf="user.nTipoCita == 1 || user.nTipoCita == 3">{{user.vBanco}}</p>

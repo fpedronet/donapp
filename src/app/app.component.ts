@@ -21,10 +21,8 @@ export class AppComponent {
     private menu: MenuController
   ) {
     router.events.subscribe((val) => {
-      // see also 
       this.listar();
-  });
-
+    });
   }
 
   menus: Menu[] = [];

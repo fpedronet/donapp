@@ -11,7 +11,7 @@
       "url":"/cpersona",
       "nombre":"Editar perfil",
       "icon":"person-outline",
-      "visual":true,
+      "visual":false,
       "visualVerificado":true,
       "subPages":null
    },

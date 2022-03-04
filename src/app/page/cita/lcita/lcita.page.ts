@@ -37,14 +37,19 @@ export class LcitaPage implements OnInit {
   selectTipoCita: number[] = [];
   selectTipoDonacion: number[] = [];
 
+  sinResultados: string = '';
+
+  //Total mostrado en pantalla
   total: number = 0;
+  //Total existente
+  totalResult: number = 0;
   data: string = "";
   page: number= 0;
 
   ngOnInit() {
     this.listartipocita();
     this.listartipodonacion();
-    this.loadData();
+    this.buscar();
   }
 
   loadData(event?) {
@@ -58,10 +63,15 @@ export class LcitaPage implements OnInit {
       model.pages= 10;
 
       this.loadingService.openLoading();
+      
       this.citaService.listar(model).subscribe(data=>{
 
       this.dataSource = data.items;
         //debugger;
+        
+        if(this.dataSource.length === 0){
+          this.sinResultados = 'No se encontraron resultados';
+        }
 
         // if(this.dataSource.length > 0){
 
@@ -84,8 +94,10 @@ export class LcitaPage implements OnInit {
 
           //  this.dataCita = this.dataSource;
           this.total += data.pagination.pages;
+          this.totalResult = data.pagination.total;
 
           if(this.total >= data.pagination.total){
+            this.totalResult = data.pagination.total;
             this.infiniteScroll.complete();
             this.infiniteScroll.disabled = true;
             this.page = 0;
@@ -104,6 +116,9 @@ export class LcitaPage implements OnInit {
 
   buscar(){
     this.dataCita = [];
+    this.sinResultados = '';
+    this.totalResult = 0;
+    this.total = 0;
     this.loadData();
   }
 
@@ -117,6 +132,9 @@ export class LcitaPage implements OnInit {
       tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
 
       this.listaTipoCitas.push(tipo);
+
+      //Inicializa con todas las opciones marcadas
+      this.selectTipoCita.push(tipo.nIdTipoCita);
     }
   }
 
@@ -130,6 +148,9 @@ export class LcitaPage implements OnInit {
       tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
 
       this.listaTipoDonaciones.push(tipo);
+
+      //Inicializa con todas las opciones marcadas
+      this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
     }
   }
 
