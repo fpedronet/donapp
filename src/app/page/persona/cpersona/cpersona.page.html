@@ -1,8 +1,14 @@
 <ion-header class="header-toolbar">
   <ion-toolbar class="header-toolbar">
-    <ion-title>
+    <ion-title *ngIf="id===0">
       CREAR USUARIO
     </ion-title>
+    <ion-title *ngIf="id!==0">
+      EDITAR PERFIL
+    </ion-title>
+    <ion-buttons *ngIf="id!==0" slot="start">
+      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -16,32 +22,32 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Tipo de documento*</ion-label>
+        <ion-label>Tipo de documento</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Documento*</ion-label>
+        <ion-label position="floating">Documento</ion-label>
         <ion-input name="vDocumento" maxlength="20" type="text" formControlName="vDocumento" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Nombres*</ion-label>
+        <ion-label position="floating">Nombres</ion-label>
         <ion-input name="vNombres" maxlength="100" type="text" formControlName="vNombres" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Apellido paterno*</ion-label>
+        <ion-label position="floating">Apellido paterno</ion-label>
         <ion-input name="vApPaterno" maxlength="50" type="text" formControlName="vApPaterno" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Apellido materno*</ion-label>
+        <ion-label position="floating">Apellido materno</ion-label>
         <ion-input name="vApMaterno" maxlength="50" type="text" formControlName="vApMaterno" required>
         </ion-input>
       </ion-item>
@@ -66,45 +72,45 @@
       </ion-item-->
 
       <ion-item>
-        <ion-label position="stacked">F. de nacimiento*</ion-label>
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
         <ion-input name="dFechaNac" type="date" [min]="obtenerFecha(-100)" [max]="obtenerFecha()" formControlName="dFechaNac" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>Sexo*</ion-label>
+        <ion-label>Sexo</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nSexo" required>
           <ion-select-option *ngFor="let el of listaSexo" [value]="el.nIdSexo">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="id!==0">
         <ion-label>Tipo de sangre</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre">
           <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="id!==0">
         <ion-label position="floating">Talla(cm)</ion-label>
         <ion-input name="nTalla" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nTalla">
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="id!==0">
         <ion-label position="floating">Peso(kg)</ion-label>
         <ion-input name="nPeso" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nPeso">
         </ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Celular*</ion-label>
+      <ion-item *ngIf="id!==0">
+        <ion-label position="floating">Celular</ion-label>
         <ion-input name="vCelular" placeholder="ej. +51 999999999" maxlength="20" type="tel" inputmode="tel" formControlName="vCelular" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Dirección*</ion-label>
+      <ion-item *ngIf="id!==0">
+        <ion-label position="floating">Dirección</ion-label>
         <ion-input name="vDireccion" placeholder="ej. Jr. León Velarde 609, Cercado de Lima" maxlength="100" type="text" formControlName="vDireccion" required>
         </ion-input>
       </ion-item>
@@ -114,19 +120,19 @@
       </ion-item>      
 
       <ion-item>
-        <ion-label position="floating">Email*</ion-label>
+        <ion-label position="floating">Email</ion-label>
         <ion-input name="vEmail" placeholder="ej. ejemplo@correo.com" maxlength="50" type="email" inputmode="email" formControlName="vEmail" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Contraseña*</ion-label>
+        <ion-label position="floating">Contraseña</ion-label>
         <ion-input name="vContrasena" maxlength="20" type="password" formControlName="vContrasena" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="floating">Verificar contraseña*</ion-label>
+        <ion-label position="floating">Verificar contraseña</ion-label>
         <ion-input name="vVerifContra" maxlength="20" type="password" formControlName="vVerifContra" required>
         </ion-input>
       </ion-item>
@@ -141,9 +147,13 @@
 </ion-content>
 
 <ion-tab-bar>
-  <ion-tab-button tab="account" (click)="irLogin()">
+  <ion-tab-button *ngIf="id===0" tab="account" (click)="irLogin()">
     <ion-icon name="return-up-back-outline"></ion-icon>
     <ion-label>Regresar</ion-label>
+  </ion-tab-button>
+  <ion-tab-button *ngIf="id!==0" tab="account" (click)="inicio()">
+    <ion-icon name="home-outline"></ion-icon>
+    <ion-label>Inicio</ion-label>
   </ion-tab-button>
   <ion-tab-button tab="account" (click)="guardar()">
     <ion-icon name="save-outline"></ion-icon>

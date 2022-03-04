@@ -79,7 +79,7 @@ export class CpersonaPage implements OnInit {
       'vNombres': new FormControl({value: user.nombre, disabled: false}),
       'vApPaterno': new FormControl({value: user.apePaterno, disabled: false}),
       'vApMaterno': new FormControl({value: user.apeMaterno, disabled: false}),
-      'dFechaNac': new FormControl({value: this.obtenerFecha(), disabled: false}),
+      'dFechaNac': new FormControl({value: '', disabled: false}),
       'nSexo': new FormControl({value: 0, disabled: false}),
       'vTipoSangre': new FormControl({value: '', disabled: false}),
       'nTalla': new FormControl({value: '', disabled: false}),
@@ -96,11 +96,7 @@ export class CpersonaPage implements OnInit {
     this.listartiposangre();
     this.listartipodocumento();
 
-    /*this.route.params.subscribe((data: Params)=>{
-      this.id = (data["id"]==undefined)? 0:data["id"];
-      this.obtener();
-    });*/
-
+    this.obtener();
   }
 
   listarsexo(){
@@ -127,11 +123,16 @@ export class CpersonaPage implements OnInit {
   }
 
   obtener(){
+    var token = this.usuarioService.sessionUsuario();
+
+    //debugger;
+    this.id = token !== null?token.UserId:0;
+
     if(this.id!=0){
       this.loadingService.openLoading();
       try{
         this.personaService.obtener(this.id).subscribe(data=>{
-
+          //debugger;
           this.form.setValue({
             nIdPersona: data.nIdPersona,
             nIdTipoDocu: data.nIdTipoDocu,
@@ -139,11 +140,11 @@ export class CpersonaPage implements OnInit {
             vNombres: data.vNombres,
             vApPaterno: data.vApPaterno,
             vApMaterno: data.vApMaterno,
-            dFechaNac: data.dFechaNac,
+            dFechaNac: data.dFechaNac.toString().slice(0,10),
             nSexo: data.nSexo,
             vTipoSangre: data.vTipoSangre,
-            nTalla: data.nTalla,
-            nPeso: data.nPeso,
+            nTalla: data.nTalla===0?'':data.nTalla,
+            nPeso: data.nPeso===0?'':data.nPeso,
             vCelular: data.vCelular,
             vDireccion: data.vDireccion,
             vEmail: data.vEmail,
@@ -186,6 +187,7 @@ export class CpersonaPage implements OnInit {
 
     let email = (this.verifcado == 1)? this.email : this.form.value['vEmail'];
     model.vEmail = email == undefined?'':email.toLowerCase()
+    model.usuario.nIdUsuario = model.nIdPersona;
     model.usuario.vUsuario = model.vEmail;
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];
@@ -223,6 +225,13 @@ export class CpersonaPage implements OnInit {
       }      
       this.loadingService.closeLoading();
     });
+
+    //Precargar DNI
+    this.form.patchValue(
+      {
+        nIdTipoDocu: this.listaTipoDocu.length>0?this.listaTipoDocu[0].nIdTipoDocu:0
+      }
+    )
   }
 
   obtenerFecha(yearsDif: number = 0, monthsDif: number = 0){
@@ -237,8 +246,12 @@ export class CpersonaPage implements OnInit {
     return yyyy + '-' + mm + '-' + dd;
   }
 
+  inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   irLogin(){
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
   
 

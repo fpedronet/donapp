@@ -447,6 +447,10 @@ export class CcitaPage implements OnInit {
     return fechaStr + horaStr;
   }
 
+  inicio(){
+    this.router.navigate(['/inicio']);
+  }
+
   regresar(){
     if(this.ver)
       this.router.navigate(['/inicio']);

@@ -74,7 +74,7 @@ export class LcitaPage implements OnInit {
       model.page= this.page;
       model.pages= 10;
 
-      this.loadingService.openLoading();
+      //this.loadingService.openLoading();
       
       this.citaService.listar(model).subscribe(data=>{
 
@@ -102,7 +102,7 @@ export class LcitaPage implements OnInit {
             this.dataCita.push(model);
           });
 
-          this.loadingService.closeLoading();
+          //this.loadingService.closeLoading();
 
           //  this.dataCita = this.dataSource;
           this.total += data.pagination.pages;
@@ -167,15 +167,15 @@ export class LcitaPage implements OnInit {
   }
 
   inicio(){
-    this.router.navigate(['inicio']);
+    this.router.navigate(['/inicio']);
   }
 
   nuevo(){
-    this.router.navigate(['ccita/create/1']);
+    this.router.navigate(['/ccita/create/1']);
   }
 
   edit(id: number, ver: boolean){
-    this.router.navigate(['ccita/edit/'+id+'/'+ver]);
+    this.router.navigate(['/ccita/edit/'+id+'/'+ver]);
   }
 
 }

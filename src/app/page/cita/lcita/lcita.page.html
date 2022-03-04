@@ -28,15 +28,16 @@
 
   <ion-list>
     <ion-item-sliding>
-
-      <ion-item>
+      
+      <!--Nro de resultados-->
+      <!--ion-item>
         <ion-label *ngIf="totalResult === 0">
           <h2 class="num-resultados">{{sinResultados}}</h2>         
         </ion-label>
         <ion-label *ngIf="totalResult > 0">
           <h2 class="num-resultados">{{totalResult}} resultados en total</h2>         
         </ion-label>
-      </ion-item>
+      </ion-item-->
 
       <ion-item *ngFor="let user of dataCita; let i = index">
         <ion-label>

@@ -58,7 +58,7 @@
       <!--DONACIÓN A BANCO O DIRIGIDA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label *ngIf="BANCO.value === 0">Banco*</ion-label>
-        <ion-label position="floating" *ngIf="BANCO.value !== 0">Banco*</ion-label>
+        <ion-label *ngIf="BANCO.value !== 0">Banco*</ion-label>
         <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
@@ -113,14 +113,20 @@
         </ion-datetime>
       </ion-item>
 
+      <ion-item *ngIf="tipoCita.nIdTipoCita===3">
+        <ion-label position="floating">Documento paciente*</ion-label>
+        <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" required>
+        </ion-input>
+      </ion-item>
+
     </ion-list>
   </form>
 </ion-content>
 
 <ion-tab-bar>
-  <ion-tab-button tab="account" (click)="regresar()">
-    <ion-icon name="return-up-back-outline"></ion-icon>
-    <ion-label>Regresar</ion-label>
+  <ion-tab-button tab="account" (click)="inicio()">
+    <ion-icon name="home-outline"></ion-icon>
+    <ion-label>Inicio</ion-label>
   </ion-tab-button>
   <ion-tab-button *ngIf="ver" tab="account" (click)="guardar()">
     <ion-icon name="save-outline"></ion-icon>
