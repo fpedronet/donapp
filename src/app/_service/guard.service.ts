@@ -39,7 +39,7 @@ export class GuardService {
       //3) VERIFICAR SI TIENES EL ROL NECESARIO PARA ACCEDER A ESA PAGINA  
       //url -> /pages/consulta
 
-      if(url=="/login"){
+      if(url=="/login" || url=="/home"){
          this.router.navigate(['inicio']);
          return false;
       }
