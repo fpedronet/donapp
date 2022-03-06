@@ -15,14 +15,13 @@ const routes: Routes = [
   {path: 'ccita/create/:tipo',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   {path: 'ccita/edit/:id/:ver',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   
-  {path: 'ldemo', loadChildren: () => import('./page/demo/ldemo/ldemo.module').then( m => m.LdemoPageModule)},
-  {path: 'cdemo/create',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
-  {path: 'cdemo/edit/:id/:ver',loadChildren: () => import('./page/demo/cdemo/cdemo.module').then( m => m.CdemoPageModule)},
    {
     path: 'verifcorreo',
     loadChildren: () => import('./page/verifcorreo/verifcorreo.module').then( m => m.VerifcorreoPageModule)
+  },  {
+    path: 'home',
+    loadChildren: () => import('./page/home/home.module').then( m => m.HomePageModule)
   },
-
 
 
 ];

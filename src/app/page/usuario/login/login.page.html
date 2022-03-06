@@ -1,141 +1,29 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <!-- <ion-title>loginscreen</ion-title> -->
-  </ion-toolbar>
-  <ion-buttons slot="start">
-  <ion-back-button defaulthref="login" text=""></ion-back-button>
-  </ion-buttons>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div id="bg">
+    <ion-fab vertical="bottom" edge horizontal="center" slot="fixed">
+      <ion-fab-button color="white" routerLink="/home">
+        <ion-icon color="#9b1417" name="close-outline" color="medium"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-list lines="none" class="ion-margin">
+    <ion-list-header>Bienvenido !</ion-list-header>
 
-<ion-content>
-    <ion-card class="ion-no-margin">
-      <ion-img src="assets/hider3.png"></ion-img>
-      <ion-card-content>
-
-        <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
-        <div class="wrapform">
-       
-        
-          
-          <ion-item>
-            <ion-input name="vUsuario" type="text" placeholder="Email" formControlName="vUsuario">
-              <ion-icon name="mail-outline" ></ion-icon>
-            </ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-input name="vContrasena" type="password" placeholder="Contraseña" formControlName="vContrasena">
-              <ion-icon name="lock-closed" ></ion-icon>
-            </ion-input>
-        </ion-item>
-          
-
-        </div>
-         <div class="password_forgot">
-            <ion-button fill="clear" class="ion-no-padding">Has olvidado tu contraseña?</ion-button>
-         </div>
-         <div class="sign-btn-wrap">
-          <ion-button  shape="round" type="ion-button"  fill="solid" class="sign-btn" (click)="login()" [disabled]="!form.valid">Iniciar sesión</ion-button>
-           </div>
-
-           <div class="text-tag">
-           <span>O a través de las redes sociales</span>
-           </div>
-
-           <div class="social-btns">
-               <ion-button fill="clear"  class="facebookbtn ion-no-padding">
-             <ion-img src="assets/facebook.png"></ion-img>
-               </ion-button>
-               <ion-button fill="clear"  class="googlebtn ion-no-padding">
-             <ion-img src="assets/google.png" (click)="googleSignup()"></ion-img>
-               </ion-button>
-               <ion-button fill="clear"  class="applebtn ion-no-padding">
-             <ion-img src="assets/apple.png"></ion-img>
-               </ion-button>
-
-             </div>
-             <div style="display: none;">
-              {{ userInfo | json}}
-
-             </div>
-
-
-      </form>
-      </ion-card-content>
-    </ion-card>
-
-
-    <div class="ion-card-footer">
-     <span>¿No tienes una cuenta?</span><button (click)="registrarPersona()">Crear cuenta</button>
+    <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
+      <ion-item class="ion-margin">
+        <ion-input name="vUsuario" formControlName="vUsuario" placeholder="Ingrese email" type="text" clearInput="true"></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin">
+        <ion-input name="vContrasena" formControlName="vContrasena" placeholder="Ingrese contraseña" type="password" clearInput="true"></ion-input>
+      </ion-item>
+      <ion-text color="medium"><p class="ion-margin-horizontal">Forgot Password?</p></ion-text>
+      <div align="right">
+        <ion-button shape="round" strong="true" class="ion-margin-end" color="plant" (click)="login()">
+          Iniciar sesión
+          <ion-icon name="log-in" slot="end"></ion-icon>
+        </ion-button>
       </div>
+    </form>
 
-
-
+  </ion-list>
 </ion-content>
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-<ion-content class="bg-color">
-
-    <ion-card class="ion-no-margin">
-      <ion-img src="assets/hider2.png"></ion-img>
-        <ion-card-header>
-            <ion-card-title>
-              DonApp
-            </ion-card-title>
-            <ion-card-subtitle>
-              Sistema de citas e información de donaciones
-            </ion-card-subtitle>
-        </ion-card-header>
-        <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
-       <ion-card-content>
-
-           <ion-item>
-               <ion-input name="vUsuario" type="text" placeholder="Email" formControlName="vUsuario">
-                 <ion-icon name="mail-outline" ></ion-icon>
-               </ion-input>
-           </ion-item>
-
-           <ion-item>
-               <ion-input name="vContrasena" type="password" placeholder="Contraseña" formControlName="vContrasena">
-                 <ion-icon name="lock-closed" ></ion-icon>
-               </ion-input>
-           </ion-item>
-
-           <div class="sign-btn-wrap">
-              <ion-button  shape="round" type="ion-button"  fill="solid" class="sign-btn" (click)="login()" [disabled]="!form.valid">Iniciar sesión</ion-button>
-              <ion-button  shape="round" type="ion-button" fill="solid" class="sign-btn" (click)="registrarPersona()">Crear cuenta</ion-button>
- 
-            </div>
-
-             <div class="social-btns">
-                 <ion-button fill="clear"  class="facebookbtn ion-no-padding">
-               <ion-img src="assets/facebook.png"></ion-img>
-                 </ion-button>
-                 <ion-button fill="clear"  class="googlebtn ion-no-padding">
-               <ion-img src="assets/google.png"></ion-img>
-                 </ion-button>
-                 <ion-button fill="clear"  class="applebtn ion-no-padding">
-               <ion-img src="assets/apple.png"></ion-img>
-                 </ion-button>
-
-               </div>
-
-       </ion-card-content>
-        </form>
-    </ion-card>
-
-</ion-content> -->
-

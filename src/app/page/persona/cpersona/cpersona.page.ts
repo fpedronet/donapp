@@ -250,8 +250,8 @@ export class CpersonaPage implements OnInit {
     this.router.navigate(['/inicio']);
   }
 
-  irLogin(){
-    this.router.navigate(['/login']);
+  home(){
+    this.router.navigate(['/home']);
   }
   
 
