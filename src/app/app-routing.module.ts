@@ -3,8 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GuardService } from './_service/guard.service';
 
 const routes: Routes = [
+  {path: '',redirectTo: 'home',pathMatch: 'full'},
+  {path: 'home',canActivate: [GuardService], loadChildren: () => import('./page/home/home.module').then( m => m.HomePageModule)},
   {path: 'login',canActivate: [GuardService], loadChildren: () => import('./page/usuario/login/login.module').then( m => m.LoginPageModule)},
-  {path: '',redirectTo: 'login',pathMatch: 'full'},
   
   {path: 'inicio',canActivate: [GuardService],loadChildren: () => import('./page/inicio/inicio.module').then( m => m.InicioPageModule)},
   
@@ -18,10 +19,8 @@ const routes: Routes = [
    {
     path: 'verifcorreo',
     loadChildren: () => import('./page/verifcorreo/verifcorreo.module').then( m => m.VerifcorreoPageModule)
-  },  {
-    path: 'home',
-    loadChildren: () => import('./page/home/home.module').then( m => m.HomePageModule)
   },
+  
 
 
 ];

@@ -6,10 +6,9 @@
       </ion-fab-button>
     </ion-fab>
   </div>
+  <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
   <ion-list lines="none" class="ion-margin">
     <ion-list-header>Bienvenido !</ion-list-header>
-
-    <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
       <ion-item class="ion-margin">
         <ion-input name="vUsuario" formControlName="vUsuario" placeholder="Ingrese email" type="text" clearInput="true"></ion-input>
       </ion-item>
@@ -23,7 +22,6 @@
           <ion-icon name="log-in" slot="end"></ion-icon>
         </ion-button>
       </div>
-    </form>
-
   </ion-list>
+</form>
 </ion-content>

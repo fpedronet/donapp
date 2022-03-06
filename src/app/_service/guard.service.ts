@@ -25,10 +25,10 @@ export class GuardService {
     let url = state.url;
 
     if (!token) {
-      if(url=="/login" || url==""){
+      if(url=="/login" || url=="" || url=="/home"){
         return true;
       }else{
-        this.router.navigate(['login']);
+        this.router.navigate(['home']);
         return false;
       }
     }

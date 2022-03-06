@@ -25,6 +25,11 @@ ion-list {
       -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
       -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
       box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+      margin-left:0px;
+      margin-right:0px;
+      ion-input{
+        color: rgb(22, 22, 177);
+      }
   }
   ion-button {
     border-radius:14px;
@@ -33,5 +38,6 @@ ion-list {
   p {
       font-size: 0.8rem;
       padding-left: 5vw;
+      color: #681575;
   }
 }
