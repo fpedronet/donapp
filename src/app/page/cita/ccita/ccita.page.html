@@ -21,9 +21,7 @@
   <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
     <ion-list>
 
-      <ion-item>
-        <ion-label class="title-label" style="font-size: large;">{{tipoCita.vDescripcion}}</ion-label>
-      </ion-item>
+      <h2 class="title-label">{{tipoCita.vDescripcion}}</h2>
 
       <ion-item *ngIf="false">
         <ion-input name="nIdCita" type="text" formControlName="nIdCita" required>
