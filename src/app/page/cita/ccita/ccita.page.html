@@ -27,7 +27,7 @@
 
       <ion-item>
         <ion-radio-group value="{{tipoDonacion.nIdTipoDonacion}}" allow-empty-selection="false" (ionChange)="seleccionaTipoDonacion($event)" required #radioGroup >
-          <ion-label>Tipo de donación*</ion-label>
+          <ion-label>Tipo de donación</ion-label>
           <ion-row>
             <ion-col *ngFor="let el of listaTipoDonaciones">
               <ion-item>
@@ -40,16 +40,16 @@
       </ion-item>
 
       <ion-item>
-        <ion-label *ngIf="DPTO.value === '00'">Departamento*</ion-label>
-        <ion-label position="floating" *ngIf="DPTO.value !== '00'">Departamento*</ion-label>
+        <ion-label *ngIf="DPTO.value === '00'">Departamento</ion-label>
+        <ion-label position="floating" *ngIf="DPTO.value !== '00'">Departamento</ion-label>
         <ion-select #DPTO interface="action-sheet" placeholder="Seleccione" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!ver" required>
           <ion-select-option *ngFor="let el of listaDepartamentos" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>     
       </ion-item>
 
       <ion-item>
-        <ion-label *ngIf="PROV.value === '0000'">Provincia*</ion-label>
-        <ion-label position="floating" *ngIf="PROV.value !== '0000'">Provincia*</ion-label>
+        <ion-label *ngIf="PROV.value === '0000'">Provincia</ion-label>
+        <ion-label position="floating" *ngIf="PROV.value !== '0000'">Provincia</ion-label>
         <ion-select #PROV [disabled]="listaProvincias.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
           <ion-select-option *ngFor="let el of listaProvincias" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
@@ -57,8 +57,8 @@
 
       <!--DONACIÓN A BANCO O DIRIGIDA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
-        <ion-label *ngIf="BANCO.value === 0">Banco*</ion-label>
-        <ion-label *ngIf="BANCO.value !== 0">Banco*</ion-label>
+        <ion-label *ngIf="BANCO.value === 0">Banco</ion-label>
+        <ion-label *ngIf="BANCO.value !== 0">Banco</ion-label>
         <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
@@ -66,7 +66,7 @@
 
       <!--DONACIÓN A CAMPAÑA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===2">
-        <ion-label>Campaña*</ion-label>
+        <ion-label>Campaña</ion-label>
         <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" [disabled]="!ver" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
@@ -85,36 +85,37 @@
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label>
-          F. programada*
+          F. programada
         </ion-label>
-        <ion-text slot="end">
+        <ion-text id="open-datetime" slot="end">
           {{programadoFormatted}}
         </ion-text>
-      </ion-item>
-
-      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">        
-        <ion-datetime
-          #PROG
-          [readonly]="!ver"
-          [firstDayOfWeek]="1"
-          [min]="minFechaCita"
-          [max]="maxFechaCita"
-          size="cover"
-          color="danger"
-          locale="es-PE"
-          minute-values="0,15,30,45"
-          excludedDays="6,7"
-          formControlName="dProgramacion"
-          (ionChange)="actualizaProgramacion(PROG.value)"
-          required>
-          <!--ion-buttons slot="buttons">
-            <ion-button (click)="resetHour()">Reiniciar</ion-button>
-          </ion-buttons-->
-        </ion-datetime>
+        <ion-popover trigger="open-datetime" size="auto" alignment="center">
+          <ng-template>
+            <ion-datetime
+              #PROG
+              [readonly]="!ver"
+              [firstDayOfWeek]="1"
+              [min]="minFechaCita"
+              [max]="maxFechaCita"
+              size="cover"
+              color="danger"
+              locale="es-PE"
+              minute-values="0,15,30,45"
+              excludedDays="6,7"
+              formControlName="dProgramacion"
+              (ionChange)="actualizaProgramacion(PROG.value)"
+              required>
+              <!--ion-buttons slot="buttons">
+                <ion-button (click)="resetHour()">Reiniciar</ion-button>
+              </ion-buttons-->
+            </ion-datetime>
+          </ng-template>>
+        </ion-popover>        
       </ion-item>
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===3">
-        <ion-label position="floating">Documento paciente*</ion-label>
+        <ion-label position="floating">Documento paciente</ion-label>
         <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" required>
         </ion-input>
       </ion-item>

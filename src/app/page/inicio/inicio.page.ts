@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/_service/usuario.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private usuarioService: UsuarioService
+  ) { }
+
+  correoVerif: boolean;
 
   ngOnInit() {
     //console.log("ini");
-  }
+    let users = this.usuarioService.sessionUsuario();
+    this.correoVerif = true
+    if(users!=null){
+      this.correoVerif = (users.correoverif == '1');
+    }
 
+  }
+  
 }

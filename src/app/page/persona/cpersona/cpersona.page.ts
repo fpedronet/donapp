@@ -224,14 +224,14 @@ export class CpersonaPage implements OnInit {
         this.listaTipoDocu= data.items;
       }      
       this.loadingService.closeLoading();
+      //Precargar DNI
+      this.form.patchValue(
+        {
+          nIdTipoDocu: this.listaTipoDocu.length>0?this.listaTipoDocu[0].nIdTipoDocu:0
+        }
+      )
     });
-
-    //Precargar DNI
-    this.form.patchValue(
-      {
-        nIdTipoDocu: this.listaTipoDocu.length>0?this.listaTipoDocu[0].nIdTipoDocu:0
-      }
-    )
+    
   }
 
   obtenerFecha(yearsDif: number = 0, monthsDif: number = 0){
@@ -250,8 +250,8 @@ export class CpersonaPage implements OnInit {
     this.router.navigate(['/inicio']);
   }
 
-  home(){
-    this.router.navigate(['/home']);
+  irLogin(){
+    this.router.navigate(['/login']);
   }
   
 

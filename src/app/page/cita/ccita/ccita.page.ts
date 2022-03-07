@@ -22,6 +22,7 @@ import { compareAsc, format } from 'date-fns';
 import { DiaSemana } from 'src/app/_model/diasemana';
 import { HorarioAtencion } from 'src/app/_model/horarioatencion';
 import { Feriado } from 'src/app/_model/feriado';
+import { Geolocalizacion } from 'src/app/_model/geolocalizacion';
 
 @Component({
   selector: 'app-ccita',
@@ -72,6 +73,9 @@ export class CcitaPage implements OnInit {
   dProgramacion: Date = new Date();
   programadoFormatted: string = '';
 
+  //Geolocalización
+  geoLoc: Geolocalizacion = new Geolocalizacion();  
+
   id: number = 0;
   tipo: number = 0;
   ver: boolean = true;
@@ -93,7 +97,7 @@ export class CcitaPage implements OnInit {
     this.listartipodonacion();
     this.listarubigeo();
     this.listardiasemana();
-
+    
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
@@ -107,19 +111,68 @@ export class CcitaPage implements OnInit {
     });
   }
 
+  obtieneUbicacion() {
+    if (navigator && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.exitoUbicacion, this.errorUbicacion);
+    } else {
+      console.log('Geolocation is not supported');
+    }
+  }
+
+  exitoUbicacion(position){
+    console.log(position.coords.latitude + ',' + position.coords.longitude);
+    this.geoLoc.lat = position.coords.latitude;
+    this.geoLoc.lng = position.coords.longitude;
+  }
+
+  errorUbicacion() {
+    console.log('Error al obtener ubicación')
+  }
+
   ngAfterViewInit(){
     //Limpia form si es nuevo
     if(this.id === 0){
-      this.form.setValue({
-        nIdCita: 0,
-        nIdBanco: 0,
-        nIdCampana: 0,
-        vIdDepartamento: "00",
-        vIdProvincia: "0000",
-        dProgramacion: this.horaCuartoCercana(),
-        vIdReceptor: ''
-      });
+
+      this.geoLoc.lat = -12.04318;
+      this.geoLoc.lng = -77.02824;
+      //this.obtieneUbicacion();
+
+      this.obtenerDtoYprovActual();
+      
     }
+  }
+
+  obtenerDtoYprovActual(){
+    //console.log('API GEO');
+    let url = this.geoLoc.api+'&lat='+this.geoLoc.lat+'&lon='+this.geoLoc.lng+'&zoom=10';
+    console.log(url);
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        this.geoLoc.vDpto = data.address.state;
+        this.geoLoc.vProv = data.address.region;
+
+        if(this.geoLoc.vDpto !== '' && this.geoLoc.vProv !== ''){
+          var dpto = this.listaDepartamentos.find(e => this.geoLoc.vDpto.includes(e.vNombre));
+          this.geoLoc.idDpto = dpto !== undefined?dpto.vUbigeo:"00";
+          this.updateDpto(this.geoLoc.idDpto);
+  
+          var prov = this.listaProvincias.find(e => this.geoLoc.vProv.includes(e.vNombre));
+          this.geoLoc.idProv = prov !== undefined?prov.vUbigeo:"00";
+          this.updateProv(this.geoLoc.idProv);
+        }
+
+        this.form.setValue({
+          nIdCita: 0,
+          nIdBanco: 0,
+          nIdCampana: 0,
+          vIdDepartamento: this.geoLoc.idDpto,
+          vIdProvincia: this.geoLoc.idProv,
+          dProgramacion: this.horaCuartoCercana(),
+          vIdReceptor: ''
+        });
+      })
+      .catch(e => console.warn(e.message));
   }
 
   listartipocita(){
@@ -325,8 +378,6 @@ export class CcitaPage implements OnInit {
       this.listaFeriados = data.listaFeriados;
 
       this.filtrarUbigeos();
-
-      //debugger;
 
       //Configurar calendario
       this.minFechaCita = this.horaCuartoCercana(data.nCitaHorasMin);
