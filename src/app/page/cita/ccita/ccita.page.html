@@ -1,13 +1,18 @@
-<ion-header class="header-toolbar">
+<ion-header [translucent]="true" class="header-toolbar">
   <ion-toolbar class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="lcita"></ion-back-button>
+    </ion-buttons>
     <ion-title *ngIf="ver">
       AGENDAR CITA
     </ion-title>
     <ion-title *ngIf="!ver">
       VER CITA
     </ion-title>
-    <ion-buttons  slot="start">
-      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">
+          <ion-icon name="save-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -122,16 +127,3 @@
     </ion-list>
   </form>
 </ion-content>
-
-<ion-tab-bar>
-  <ion-tab-button tab="account" (click)="inicio()">
-    <ion-icon name="home-outline"></ion-icon>
-    <ion-label>Inicio</ion-label>
-  </ion-tab-button>
-  <ion-tab-button *ngIf="ver" tab="account" (click)="guardar()">
-    <ion-icon name="save-outline"></ion-icon>
-    <ion-label>Guardar</ion-label>
-  </ion-tab-button>
-  <ion-tab-button *ngIf="!ver" tab="account">    
-  </ion-tab-button>
-</ion-tab-bar>
