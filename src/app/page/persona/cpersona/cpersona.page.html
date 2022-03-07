@@ -1,13 +1,18 @@
 <ion-header class="header-toolbar">
   <ion-toolbar class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
     <ion-title *ngIf="id===0">
-      CREAR USUARIO
+        CREAR USUARIO
     </ion-title>
     <ion-title *ngIf="id!==0">
       EDITAR PERFIL
     </ion-title>
-    <ion-buttons *ngIf="id!==0" slot="start">
-      <ion-menu-button class="white-btn" menu="main-menu"></ion-menu-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="guardar()">
+          <ion-icon name="save-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

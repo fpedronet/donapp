@@ -8,10 +8,10 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon class="btnheader" name="refresh"></ion-icon>
+        <ion-icon name="search-outline"></ion-icon>
     </ion-button>
       <ion-button (click)="nuevo()">
-          <ion-icon class="btnheader" name="add-circle-outline"></ion-icon>
+          <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,57 +19,31 @@
 
 <ion-content>
   <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar" color="default"></ion-searchbar>
-  
-  <ion-item>
-    <ion-label position="floating">Tipo Cita</ion-label>
-    <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
-      <ion-select-option *ngFor="let el of listaTipoCitas" [value]="el.nIdTipoCita">{{el.vDescripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Tipo Donación</ion-label>
-    <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
-      <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
   <ion-list>
-    <ion-item-sliding>
-      
-      <!--Nro de resultados-->
-      <!--ion-item>
-        <ion-label *ngIf="totalResult === 0">
-          <h2 class="num-resultados">{{sinResultados}}</h2>         
-        </ion-label>
-        <ion-label *ngIf="totalResult > 0">
-          <h2 class="num-resultados">{{totalResult}} resultados en total</h2>         
-        </ion-label>
-      </ion-item-->
+    <ion-item-sliding>      
 
       <ion-item *ngFor="let user of dataCita; let i = index">
-        <ion-label>
-          <h2 style="font-family: cursive;">{{i+1}}) {{user.fechaProgramada}}
-            <img style="width: 32px; margin-bottom: -5px;" src="{{user.vIcon}}"/>
-          </h2>
-          <p>{{user.vTipoCita}}</p>
-          <p *ngIf="user.nTipoCita == 1 || user.nTipoCita == 3">{{user.vBanco}}</p>
-          <p *ngIf="user.nTipoCita == 2">{{user.vCampana}}</p> 
-          <p>{{user.vTipoDonacion}}</p>
-         
-        </ion-label>
 
-        <div>
-          <ion-button size="medium" slot="end" (click)="edit(user.nIdCita, false)">
-            <ion-icon name="eye-outline"></ion-icon>
-          </ion-button>  
-          <!--ion-button size="medium" color="success" slot="end" (click)="edit(user.nIdCita, true)">
-            <ion-icon name="create-outline"></ion-icon>
-          </ion-button--> 
-        </div>
-        
+        <ion-card>   
+          <ion-header>
+          </ion-header>    
+          <ion-card-content>
+            <ion-item lines="none">
+              <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
+              <ion-label>
+                  <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
+                  <p>{{user.vTipoCita}}</p>
+                  <p>{{user.vBanco}}</p>
+                  
+              </ion-label>
+            </ion-item>
+            <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>  
+
+          </ion-card-content>
+        </ion-card>
       </ion-item>
-
 
     </ion-item-sliding>
   </ion-list>
@@ -82,14 +56,3 @@
   </ion-infinite-scroll>
 
 </ion-content>
-
-<ion-tab-bar>
-  <ion-tab-button tab="account" (click)="inicio()">
-    <ion-icon name="home-outline"></ion-icon>
-    <ion-label>Inicio</ion-label>
-  </ion-tab-button>
-  <ion-tab-button tab="account" (click)="nuevo()">
-    <ion-icon name="newspaper-outline"></ion-icon>
-    <ion-label>Nuevo</ion-label>
-  </ion-tab-button>
-</ion-tab-bar>

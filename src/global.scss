@@ -57,3 +57,20 @@ form{
 .button-native{
     font-size: xx-large;
 }
+
+.labelCard{
+    font-family: sans-serif;
+}
+
+ion-card{
+    margin-left:2px;
+    margin-right: 0px;
+
+    ion-header{
+        background: #af5c5d;
+        height:4px;
+    }
+    ion-card-content{
+        margin-left:-32px;
+    }
+}
