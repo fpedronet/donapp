@@ -8,10 +8,10 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon class="btnheader" name="refresh"></ion-icon>
+        <ion-icon name="search-outline"></ion-icon>
     </ion-button>
       <ion-button (click)="nuevo()">
-          <ion-icon class="btnheader" name="add-circle-outline"></ion-icon>
+          <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -72,14 +72,3 @@
   </ion-infinite-scroll>
 
 </ion-content>
-
-<ion-tab-bar>
-  <ion-tab-button tab="account" (click)="inicio()">
-    <ion-icon name="home-outline"></ion-icon>
-    <ion-label>Inicio</ion-label>
-  </ion-tab-button>
-  <ion-tab-button tab="account" (click)="nuevo()">
-    <ion-icon name="newspaper-outline"></ion-icon>
-    <ion-label>Nuevo</ion-label>
-  </ion-tab-button>
-</ion-tab-bar>

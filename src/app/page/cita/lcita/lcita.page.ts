@@ -166,10 +166,6 @@ export class LcitaPage implements OnInit {
     }
   }
 
-  inicio(){
-    this.router.navigate(['/inicio']);
-  }
-
   nuevo(){
     this.router.navigate(['/ccita/create/1']);
   }
