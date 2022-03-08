@@ -64,6 +64,14 @@ form{
     font-family: sans-serif;
 }
 
+ion-button {
+    --border-radius:14px;
+    --background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+  }
+
+  ion-item{
+      --padding-top:8px;
+  }
 ion-card{
     margin-left:2px;
     margin-right: 0px;
