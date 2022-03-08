@@ -73,6 +73,7 @@ export class CcitaPage implements OnInit {
   maxFechaCita: string = new Date().toISOString();
   dProgramacion: Date = new Date();
   programadoFormatted: string = '';
+  formatFechaHora: string = 'dd MMM yyyy, HH:mm'
 
   //Geolocalización
   geoLoc: Geolocalizacion = new Geolocalizacion();  
@@ -251,11 +252,13 @@ export class CcitaPage implements OnInit {
   }
 
   updateDpto(idDpto: string){
+    this.listaProvincias = [];
+
     let curDpto = this.listaDepartamentos.find(e => e.vUbigeo === idDpto)
     if(curDpto !== undefined){
       this.listaProvincias = curDpto.listaProvincias;
       //Si hay solo un elemento lo preselecciona, sino deselecciona
-      let selValue = (this.listaProvincias.length === 1)?this.listaProvincias[0].vUbigeo:"0000"
+      let selValue = (this.listaProvincias.length === 1)?this.listaProvincias[0].vUbigeo:"0000";
       this.form.patchValue({
         vIdProvincia: selValue
       });
@@ -268,6 +271,9 @@ export class CcitaPage implements OnInit {
   }
 
   updateProv(idProv: string){
+    this.listaBancos = [];
+    this.listaCampanas = [];
+
     let curProv = this.listaProvincias.find(e => e.vUbigeo === idProv)
     if(curProv !== undefined){
       if(this.tipo == 1 || this.tipo == 3){
@@ -322,7 +328,7 @@ export class CcitaPage implements OnInit {
     var dateString = value.toString().slice(0,19)
     //console.log(dateString);
     this.dProgramacion = new Date(dateString)
-    this.programadoFormatted = format(this.dProgramacion, 'd-MMM-yyyy, HH:mm')
+    this.programadoFormatted = format(this.dProgramacion, this.formatFechaHora)
   }
 
   fillHorarios(b: Banco){
@@ -364,9 +370,9 @@ export class CcitaPage implements OnInit {
         //debugger;
         diaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
         if(diaSemana !== undefined){
-          diaHorario = diaSemana.vAbrev + ': ' + h.vHoraIni1 + ' - ' + h.vHoraFin1;
+          diaHorario = diaSemana.vDescripcion + ': ' + h.vHoraIni1 + '-' + h.vHoraFin1;
           if(h.vHoraIni2 !== ''){
-            diaHorario = diaHorario + ' y ' + h.vHoraIni2 + ' - ' + h.vHoraFin2;
+            diaHorario = diaHorario + ', ' + h.vHoraIni2 + '-' + h.vHoraFin2;
           }
           this.horarioAtencion.push(diaHorario);
         }
@@ -392,7 +398,7 @@ export class CcitaPage implements OnInit {
       this.form.patchValue({
         dProgramacion: this.minFechaCita
       });
-      this.programadoFormatted = format(new Date(this.minFechaCita), 'd-MMM-yyyy, HH:mm')
+      this.programadoFormatted = format(new Date(this.minFechaCita), this.formatFechaHora)
 
       if(this.id !== 0){
         //Selecciona el tipo de cita
@@ -430,7 +436,7 @@ export class CcitaPage implements OnInit {
 
         //Actualiza fecha
         this.dProgramacion = new Date(data.dProgramacion);
-        this.programadoFormatted = format(this.dProgramacion, 'd-MMM-yyyy, HH:mm');
+        this.programadoFormatted = format(this.dProgramacion, this.formatFechaHora);
       }      
       
       this.loadingService.closeLoading();
