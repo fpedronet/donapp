@@ -370,7 +370,7 @@ export class CcitaPage implements OnInit {
         //debugger;
         diaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
         if(diaSemana !== undefined){
-          diaHorario = diaSemana.vDescripcion + ': ' + h.vHoraIni1 + '-' + h.vHoraFin1;
+          diaHorario = diaSemana.vAbrev + ': ' + h.vHoraIni1 + '-' + h.vHoraFin1;
           if(h.vHoraIni2 !== ''){
             diaHorario = diaHorario + ', ' + h.vHoraIni2 + '-' + h.vHoraFin2;
           }
