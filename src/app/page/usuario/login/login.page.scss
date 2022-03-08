@@ -20,13 +20,14 @@ ion-list {
       color: #681575;
   }
   ion-item {
-      border: 1px solid var(--ion-color-light);
+      // border: 1px solid var(--ion-color-light);
       border-radius: 20px;
       -webkit-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
       -moz-box-shadow: 0 6px 4px -4px var(--ion-color-medium);
-      box-shadow: 0 6px 4px -4px var(--ion-color-medium);
+      box-shadow: 0 5px 2px -3px #77053b;
       margin-left:0px;
       margin-right:0px;
+      background-color:#261faf;
       ion-input{
         color: rgb(22, 22, 177);
       }
