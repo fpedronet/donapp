@@ -28,12 +28,12 @@
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-radio-group value="{{tipoDonacion.nIdTipoDonacion}}" allow-empty-selection="false" (ionChange)="seleccionaTipoDonacion($event)" required #radioGroup >
           <ion-label>Tipo de donación</ion-label>
-          <ion-row>
-            <ion-col *ngFor="let el of listaTipoDonaciones">
-              <ion-item fill="outline" mode="md">
+          <ion-row style="padding: 0;">
+            <ion-col style="padding: 0;" *ngFor="let el of listaTipoDonaciones">
+              <ion-item lines="none">
                 <ion-label>{{el.vDescripcion}}</ion-label>
                 <ion-radio slot="start" value="{{el.nIdTipoDonacion}}" [disabled]="!ver"></ion-radio>
               </ion-item>
@@ -75,18 +75,22 @@
         </ion-select>
       </ion-item>
       
-      <ion-item fill="outline" mode="md" *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
-        <ion-label position="stacked" (click)="showHorario=!showHorario">Horario de atención 
-          <ion-icon *ngIf="!showHorario" name="arrow-down"></ion-icon>
-          <ion-icon *ngIf="showHorario" name="arrow-up"></ion-icon>
-        </ion-label>        
-        <ion-list *ngIf="showHorario" style="padding: 0; margin-top: 5px;">
-          <ion-item *ngFor="let el of horarioAtencion">
-            <span>
-              {{el}}
-            </span>
-          </ion-item>    
-        </ion-list>
+      <ion-item lines="none" *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
+        <ion-label *ngIf="!showHorario" (click)="showHorario=!showHorario">Horario de atención 
+          <ion-icon name="arrow-down"></ion-icon>
+        </ion-label>
+        <ion-label *ngIf="showHorario" position="stacked" (click)="showHorario=!showHorario">Horario de atención 
+          <ion-icon name="arrow-up"></ion-icon>
+        </ion-label>
+        <ion-item *ngIf="showHorario" fill="outline" mode="md">
+          <ion-list style="padding: 0;">
+            <ion-item *ngFor="let el of horarioAtencion">
+              <span>
+                {{el}}
+              </span>
+            </ion-item>    
+          </ion-list>
+        </ion-item>        
       </ion-item>
 
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
