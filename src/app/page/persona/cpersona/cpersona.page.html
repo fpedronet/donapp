@@ -26,32 +26,32 @@
           </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label>Tipo de documento</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Documento</ion-label>
         <ion-input name="vDocumento" maxlength="20" type="text" formControlName="vDocumento" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Nombres</ion-label>
         <ion-input name="vNombres" maxlength="100" type="text" formControlName="vNombres" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Apellido paterno</ion-label>
         <ion-input name="vApPaterno" maxlength="50" type="text" formControlName="vApPaterno" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Apellido materno</ion-label>
         <ion-input name="vApMaterno" maxlength="50" type="text" formControlName="vApMaterno" required>
         </ion-input>
@@ -76,73 +76,73 @@
         </ion-popover>      
       </ion-item-->
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="stacked">Fecha de nacimiento</ion-label>
         <ion-input name="dFechaNac" type="date" [min]="obtenerFecha(-100)" [max]="obtenerFecha()" formControlName="dFechaNac" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label>Sexo</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nSexo" required>
           <ion-select-option *ngFor="let el of listaSexo" [value]="el.nIdSexo">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="id!==0">
+      <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label>Tipo de sangre</ion-label>
         <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre">
           <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="id!==0">
+      <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label position="floating">Talla(cm)</ion-label>
         <ion-input name="nTalla" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nTalla">
         </ion-input>
       </ion-item>
 
-      <ion-item *ngIf="id!==0">
+      <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label position="floating">Peso(kg)</ion-label>
         <ion-input name="nPeso" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nPeso">
         </ion-input>
       </ion-item>
 
-      <ion-item *ngIf="id!==0">
+      <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label position="floating">Celular</ion-label>
         <ion-input name="vCelular" placeholder="ej. +51 999999999" maxlength="20" type="tel" inputmode="tel" formControlName="vCelular" required>
         </ion-input>
       </ion-item>
 
-      <ion-item *ngIf="id!==0">
+      <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label position="floating">Dirección</ion-label>
         <ion-input name="vDireccion" placeholder="ej. Jr. León Velarde 609, Cercado de Lima" maxlength="100" type="text" formControlName="vDireccion" required>
         </ion-input>
       </ion-item>
       
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label class="title-in-form">Datos de usuario:</ion-label>
       </ion-item>      
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Email</ion-label>
         <ion-input name="vEmail" placeholder="ej. ejemplo@correo.com" maxlength="50" type="email" inputmode="email" formControlName="vEmail" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input name="vContrasena" maxlength="20" type="password" formControlName="vContrasena" required>
         </ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label position="floating">Verificar contraseña</ion-label>
         <ion-input name="vVerifContra" maxlength="20" type="password" formControlName="vVerifContra" required>
         </ion-input>
       </ion-item>
 
-      <ion-item *ngIf="false">
+      <ion-item *ngIf="false" fill="outline" mode="md">
         <ion-input name="nEsPaciente" type="text" formControlName="nEsPaciente" required>
         </ion-input>
       </ion-item>
