@@ -90,13 +90,13 @@
       </ion-item>
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
-        <ion-label position="stacked">
-          F. programada
+        <ion-label>
+          Fecha y hora
         </ion-label>
-        <ion-button color="light" id="open-datetime">
+        <ion-button fill="clear" size="default" shape="round" color="dark" id="open-datetime">
           {{programadoFormatted}}
         </ion-button>
-        <ion-popover class="popover-bottom" trigger="open-datetime" size="cover" arrow="false">
+        <ion-popover cssClass="custom-popover" trigger="open-datetime" size="cover" arrow="false">
           <ng-template>
             <ion-datetime
               #PROG
