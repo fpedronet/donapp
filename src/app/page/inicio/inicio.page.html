@@ -9,16 +9,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
 
-  <div id="container">
-    <div style="color: brown; padding-top: 120px; text-align: center; font-size: 20px;">
-      BIENVENIDO A DONAPP
-    </div>
+  <div style="text-align: center;" id="container" *ngIf="!correoVerif">
+    <img style="padding-top: 60px;" src="../../../assets/confirmacion2.png" />
 
-    <ion-button *ngIf="!correoVerif" expand="full" color="danger" href="/verifcorreo">
-      Verifica tu correo
+    <p>Para acceder a este aplicativo donapp, tiene que verificar tu correo electronico has click en el boton <span style="color:#85153e; font-weight:700">VERIFICAR CORREO </span> y te llegara una clave secreta a tu correo. </p>
+    <p>Te esperamos..!</p>
+    <ion-button *ngIf="!correoVerif" expand="mediun" href="/verifcorreo">
+      Verifica correo
     </ion-button>
+  </div>
 
-     </div>
+  <ion-slides *ngIf="correoVerif">
+    <ion-slide *ngFor='let item of dataSource'>
+      <div class="slide">
+        <img src="{{item.vImagen}}" />
+        <h2>{{item.vTitulo}}</h2>
+        <p>
+          {{item.vDescripcion}}
+        </p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+     
+
 </ion-content>
