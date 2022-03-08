@@ -23,7 +23,7 @@
 
       <h2 class="title-label">{{tipoCita.vDescripcion}}</h2>
 
-      <ion-item *ngIf="false">
+      <ion-item fill="outline" mode="md" *ngIf="false">
         <ion-input name="nIdCita" type="text" formControlName="nIdCita" required>
         </ion-input>
       </ion-item>
@@ -33,7 +33,7 @@
           <ion-label>Tipo de donación</ion-label>
           <ion-row>
             <ion-col *ngFor="let el of listaTipoDonaciones">
-              <ion-item>
+              <ion-item fill="outline" mode="md">
                 <ion-label>{{el.vDescripcion}}</ion-label>
                 <ion-radio slot="start" value="{{el.nIdTipoDonacion}}" [disabled]="!ver"></ion-radio>
               </ion-item>
@@ -42,7 +42,7 @@
         </ion-radio-group>
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label *ngIf="DPTO.value === '00'">Departamento</ion-label>
         <ion-label position="floating" *ngIf="DPTO.value !== '00'">Departamento</ion-label>
         <ion-select #DPTO interface="action-sheet" placeholder="Seleccione" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!ver" required>
@@ -50,7 +50,7 @@
         </ion-select>     
       </ion-item>
 
-      <ion-item>
+      <ion-item fill="outline" mode="md">
         <ion-label *ngIf="PROV.value === '0000'">Provincia</ion-label>
         <ion-label position="floating" *ngIf="PROV.value !== '0000'">Provincia</ion-label>
         <ion-select #PROV [disabled]="listaProvincias.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
@@ -59,7 +59,7 @@
       </ion-item>
 
       <!--DONACIÓN A BANCO O DIRIGIDA-->
-      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
+      <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label *ngIf="BANCO.value === 0">Banco</ion-label>
         <ion-label position="floating" *ngIf="BANCO.value !== 0">Banco</ion-label>
         <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
@@ -68,14 +68,14 @@
       </ion-item>
 
       <!--DONACIÓN A CAMPAÑA-->
-      <ion-item *ngIf="tipoCita.nIdTipoCita===2">
+      <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===2">
         <ion-label>Campaña</ion-label>
         <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" formControlName="nIdCampana" [disabled]="!ver" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
       
-      <ion-item *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
+      <ion-item fill="outline" mode="md" *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
         <ion-label position="stacked" (click)="showHorario=!showHorario">Horario de atención 
           <ion-icon *ngIf="!showHorario" name="arrow-down"></ion-icon>
           <ion-icon *ngIf="showHorario" name="arrow-up"></ion-icon>
@@ -89,7 +89,7 @@
         </ion-list>
       </ion-item>
 
-      <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
+      <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label>
           Fecha y hora
         </ion-label>
@@ -120,7 +120,7 @@
         </ion-popover>        
       </ion-item>
 
-      <ion-item *ngIf="tipoCita.nIdTipoCita===3">
+      <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
         <ion-label position="floating">Documento paciente</ion-label>
         <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" required>
         </ion-input>
