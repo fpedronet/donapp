@@ -47,6 +47,7 @@ export class CcitaPage implements OnInit {
 
   //Lista de horarios para validación de horario en back
   horarioBanco: HorarioAtencion[]=[];
+  showHorario: boolean = false;
 
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
@@ -113,61 +114,67 @@ export class CcitaPage implements OnInit {
 
   obtieneUbicacion() {
     if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.exitoUbicacion, this.errorUbicacion);
+      navigator.geolocation.getCurrentPosition(function(position){
+        console.log(position.coords.latitude + ',' + position.coords.longitude);
+        //debugger;
+        var geo = new Geolocalizacion();
+        geo.lat = position.coords.latitude;
+        geo.lng = position.coords.longitude;
+
+        //debugger;
+
+        //this.obtenerDtoYprovActual(geo);
+      }, function(){
+        console.log('Error al obtener ubicación')
+      }, {
+        enableHighAccuracy: false,
+        maximumAge        : 30000,
+        timeout           : 25000
+      });
     } else {
       console.log('Geolocation is not supported');
     }
-  }
-
-  exitoUbicacion(position){
-    console.log(position.coords.latitude + ',' + position.coords.longitude);
-    this.geoLoc.lat = position.coords.latitude;
-    this.geoLoc.lng = position.coords.longitude;
-  }
-
-  errorUbicacion() {
-    console.log('Error al obtener ubicación')
   }
 
   ngAfterViewInit(){
     //Limpia form si es nuevo
     if(this.id === 0){
 
-      this.geoLoc.lat = -12.04318;
-      this.geoLoc.lng = -77.02824;
-      //this.obtieneUbicacion();
+      this.geoLoc.lat = -10.4725;
+      this.geoLoc.lng = -76.9931;
+      this.obtieneUbicacion();
 
-      this.obtenerDtoYprovActual();
-      
+      this.obtenerDtoYprovActual(this.geoLoc);
     }
   }
 
-  obtenerDtoYprovActual(){
-    //console.log('API GEO');
-    let url = this.geoLoc.api+'&lat='+this.geoLoc.lat+'&lon='+this.geoLoc.lng+'&zoom=10';
+  obtenerDtoYprovActual(geo: Geolocalizacion){
+    console.log('API GEO');
+    let url = geo.api+'&lat='+geo.lat+'&lon='+geo.lng+'&zoom=10';
     console.log(url);
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        this.geoLoc.vDpto = data.address.state;
-        this.geoLoc.vProv = data.address.region;
+        geo.vDpto = data.address.state;
+        geo.vProv = data.address.region;
+        //debugger;
 
-        if(this.geoLoc.vDpto !== '' && this.geoLoc.vProv !== ''){
-          var dpto = this.listaDepartamentos.find(e => this.geoLoc.vDpto.includes(e.vNombre));
-          this.geoLoc.idDpto = dpto !== undefined?dpto.vUbigeo:"00";
-          this.updateDpto(this.geoLoc.idDpto);
+        if(geo.vDpto !== '' && geo.vProv !== ''){
+          var dpto = this.listaDepartamentos.find(e => geo.vDpto.includes(e.vNombre));
+          geo.idDpto = dpto !== undefined?dpto.vUbigeo:"00";
+          this.updateDpto(geo.idDpto);
   
-          var prov = this.listaProvincias.find(e => this.geoLoc.vProv.includes(e.vNombre));
-          this.geoLoc.idProv = prov !== undefined?prov.vUbigeo:"00";
-          this.updateProv(this.geoLoc.idProv);
+          var prov = this.listaProvincias.find(e => geo.vProv.includes(e.vNombre));
+          geo.idProv = prov !== undefined?prov.vUbigeo:"00";
+          this.updateProv(geo.idProv);
         }
 
         this.form.setValue({
           nIdCita: 0,
           nIdBanco: 0,
           nIdCampana: 0,
-          vIdDepartamento: this.geoLoc.idDpto,
-          vIdProvincia: this.geoLoc.idProv,
+          vIdDepartamento: geo.idDpto,
+          vIdProvincia: geo.idProv,
           dProgramacion: this.horaCuartoCercana(),
           vIdReceptor: ''
         });

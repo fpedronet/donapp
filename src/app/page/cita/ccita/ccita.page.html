@@ -61,7 +61,7 @@
       <!--DONACIÓN A BANCO O DIRIGIDA-->
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label *ngIf="BANCO.value === 0">Banco</ion-label>
-        <ion-label *ngIf="BANCO.value !== 0">Banco</ion-label>
+        <ion-label position="floating" *ngIf="BANCO.value !== 0">Banco</ion-label>
         <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="Seleccione" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
@@ -76,8 +76,11 @@
       </ion-item>
       
       <ion-item *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
-        <ion-label position="stacked">Horario de atención:</ion-label>
-        <ion-list style="padding: 0; margin-top: 5px;">
+        <ion-label position="stacked" (click)="showHorario=!showHorario">Horario de atención 
+          <ion-icon *ngIf="!showHorario" name="arrow-down"></ion-icon>
+          <ion-icon *ngIf="showHorario" name="arrow-up"></ion-icon>
+        </ion-label>        
+        <ion-list *ngIf="showHorario" style="padding: 0; margin-top: 5px;">
           <ion-item *ngFor="let el of horarioAtencion">
             <span>
               {{el}}
@@ -87,13 +90,13 @@
       </ion-item>
 
       <ion-item *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
-        <ion-label>
+        <ion-label position="stacked">
           F. programada
         </ion-label>
-        <ion-text id="open-datetime" slot="end">
+        <ion-button color="light" id="open-datetime">
           {{programadoFormatted}}
-        </ion-text>
-        <ion-popover trigger="open-datetime" size="auto" alignment="center">
+        </ion-button>
+        <ion-popover class="popover-bottom" trigger="open-datetime" size="cover" arrow="false">
           <ng-template>
             <ion-datetime
               #PROG
@@ -110,7 +113,7 @@
               (ionChange)="actualizaProgramacion(PROG.value)"
               required>
               <!--ion-buttons slot="buttons">
-                <ion-button (click)="resetHour()">Reiniciar</ion-button>
+                <ion-button onClick="() => this.resetHour()">Reiniciar</ion-button>
               </ion-buttons-->
             </ion-datetime>
           </ng-template>>
