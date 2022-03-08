@@ -7,15 +7,21 @@ import { IonicModule } from '@ionic/angular';
 import { LcitaPageRoutingModule } from './lcita-routing.module';
 
 import { LcitaPage } from './lcita.page';
+import { McitaPageModule } from '../mcita/mcita.module';
+import { McitaPage } from '../mcita/mcita.page';
 
 @NgModule({
+  entryComponents:[
+    McitaPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     LcitaPageRoutingModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    McitaPageModule
+    ],
   declarations: [LcitaPage]
 })
 export class LcitaPageModule {}

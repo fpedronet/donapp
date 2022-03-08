@@ -20,9 +20,6 @@ const routes: Routes = [
     path: 'verifcorreo',
     loadChildren: () => import('./page/verifcorreo/verifcorreo.module').then( m => m.VerifcorreoPageModule)
   },
-  
-
-
 ];
 
 @NgModule({

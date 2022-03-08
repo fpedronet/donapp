@@ -7,7 +7,7 @@
       LISTA CITA
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="abrirModal()">
         <ion-icon name="search-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="nuevo()">
@@ -22,7 +22,7 @@
   <ion-list>
     <ion-item-sliding>      
 
-      <ion-item *ngFor="let user of dataCita; let i = index">
+      <ion-item lines="none" style="padding-top: 0px;" *ngFor="let user of dataCita; let i = index">
 
         <ion-card>   
           <ion-header>
