@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 import jsonTipoCita from 'src/assets/json/listacita.json';
@@ -13,15 +13,15 @@ import { TipoDonacion } from 'src/app/_model/tipodonacion';
   styleUrls: ['./mcita.page.scss'],
 })
 export class McitaPage implements OnInit {
-
+  
   constructor(
     private modalCtrl: ModalController
   ) { }
 
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
-  selectTipoCita: number[] = [];
-  selectTipoDonacion: number[] = [];
+  @Input() selectTipoCita: number[] = [];
+  @Input() selectTipoDonacion: number[] = [];
 
   ngOnInit() {
     this.listartipocita();
@@ -39,8 +39,6 @@ export class McitaPage implements OnInit {
       tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
 
       this.listaTipoCitas.push(tipo);
-
-      this.selectTipoCita.push(tipo.nIdTipoCita);
     }
   }
 
@@ -54,13 +52,14 @@ export class McitaPage implements OnInit {
       tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
 
       this.listaTipoDonaciones.push(tipo);
-
-      this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
     }
   }
 
   buscar(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({
+      arrayTipoCita:this.selectTipoCita,
+      arrayTipoDonacion:this.selectTipoDonacion
+    });
   }
 
   salir(){

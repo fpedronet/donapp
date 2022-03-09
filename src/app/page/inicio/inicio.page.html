@@ -10,7 +10,18 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="ionSlideChange(slides)">
+    <ion-slide *ngFor='let item of dataSource'>
+      <div class="slide">
+        <img src="{{item.vImagen}}" />
+        <h2>{{item.vTitulo}}</h2>
+        <p>
+          {{item.vDescripcion}}
+        </p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  
   <div style="text-align: center;" id="container" *ngIf="!correoVerif">
     
     <img *ngIf="!diaCaducado" style="padding-top: 60px;" src="../../../assets/confirmacion2.png" />
@@ -32,17 +43,5 @@
     </div>
 
   </div>
-
-  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="ionSlideChange(slides)" *ngIf="correoVerif">
-    <ion-slide *ngFor='let item of dataSource'>
-      <div class="slide">
-        <img src="{{item.vImagen}}" />
-        <h2>{{item.vTitulo}}</h2>
-        <p>
-          {{item.vDescripcion}}
-        </p>
-      </div>
-    </ion-slide>
-  </ion-slides>
   
 </ion-content>
