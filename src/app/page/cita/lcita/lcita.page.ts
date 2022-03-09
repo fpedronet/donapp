@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 import { CitaService } from 'src/app/_service/cita.service';
-import { LoadingService } from '../../components/loading/loading.service';
-import { ToastService } from '../../components/toast/toast.service';
 
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
@@ -12,6 +10,7 @@ import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
 import { TipoCita } from 'src/app/_model/tipocita';
 import { TipoDonacion } from 'src/app/_model/tipodonacion';
 import { Cita, CitaRequest } from 'src/app/_model/cita';
+import { McitaPage } from '../mcita/mcita.page';
 
 @Component({
   selector: 'app-lcita',
@@ -24,10 +23,8 @@ export class LcitaPage implements OnInit {
   
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private citaService: CitaService,
-    private loadingService : LoadingService,   
-    private toastService : ToastService
+    private modalCtrl: ModalController
   ) { }
 
   dataSource: Cita[] = [];
@@ -174,4 +171,16 @@ export class LcitaPage implements OnInit {
     this.router.navigate(['/ccita/edit/'+id+'/'+ver]);
   }
 
+  async abrirModal(){
+    const modal = await this.modalCtrl.create({
+      component: McitaPage,
+      cssClass: 'my-custom-class'
+      // componentProps:{
+      //   'prop1':value1,
+      //   'prop1':value2,
+      // }
+    });
+
+    await modal.present();
+  }
 }
