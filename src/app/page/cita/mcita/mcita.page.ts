@@ -60,6 +60,7 @@ export class McitaPage implements OnInit {
   }
 
   buscar(){
+    this.modalCtrl.dismiss();
   }
 
   salir(){
