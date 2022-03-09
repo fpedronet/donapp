@@ -24,18 +24,26 @@ export class InicioPage implements OnInit {
 
   correoVerif: boolean;
   dataSource: Publicidad[] = [];
+  diaRestante: string;
+  diaCaducado: boolean = false;
 
   ngOnInit() {
     let users = this.usuarioService.sessionUsuario();
     this.correoVerif = true
+
     if(users!=null){
       this.correoVerif = (users.correoverif == '1');
 
-      if(this.correoVerif){
-        this.publicidadService.listar().subscribe(data=>{
+      this.publicidadService.listar().subscribe(data=>{
+
+        this.diaRestante = data.message;
+        this.diaCaducado = (data.message=="0")? true: false;
+
+        if(this.correoVerif && !this.diaCaducado){
           this.dataSource = data.items;
-        });
-      }
+        }        
+      });
+
     }
   }
 
