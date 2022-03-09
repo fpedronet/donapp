@@ -3,14 +3,13 @@ import { IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { CitaService } from 'src/app/_service/cita.service';
+import { Cita, CitaRequest } from 'src/app/_model/cita';
+import { McitaPage } from '../mcita/mcita.page';
+import { TipoCita } from 'src/app/_model/tipocita';
+import { TipoDonacion } from 'src/app/_model/tipodonacion';
 
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
-
-import { TipoCita } from 'src/app/_model/tipocita';
-import { TipoDonacion } from 'src/app/_model/tipodonacion';
-import { Cita, CitaRequest } from 'src/app/_model/cita';
-import { McitaPage } from '../mcita/mcita.page';
 
 @Component({
   selector: 'app-lcita',
@@ -29,37 +28,24 @@ export class LcitaPage implements OnInit {
 
   dataSource: Cita[] = [];
   dataCita: Cita[] = [];
-  listaTipoCitas: TipoCita[] = [];
-  listaTipoDonaciones: TipoDonacion[] = [];
-  selectTipoCita: number[] = [];
-  selectTipoDonacion: number[] = [];
-
   sinResultados: string = '';
 
-  //Total mostrado en pantalla
   total: number = 0;
-  //Total existente
   totalResult: number = 0;
   data: string = "";
   page: number= 0;
 
+  listaTipoCitas: TipoCita[] = [];
+  listaTipoDonaciones: TipoDonacion[] = [];
+  selectTipoCita: number[] = [];
+  selectTipoDonacion: number[] = [];
+  
   ngOnInit() {
-    console.log("Init Lista citas")
     this.listartipocita();
     this.listartipodonacion();
-    /*setTimeout(() => {
-      this.buscar();
-    }, 500)*/
     this.buscar();
   }
   
-  ngAfterViewInit(){
-    //console.log("muestra lista2");
-    /*setTimeout(() => {
-      this.buscar();
-    }, 500)*/
-  }
-
   loadData(event?) {
     setTimeout(() => {
 
@@ -76,8 +62,7 @@ export class LcitaPage implements OnInit {
       this.citaService.listar(model).subscribe(data=>{
 
       this.dataSource = data.items;
-        //debugger;
-        
+
         if(this.dataSource.length === 0){
           this.sinResultados = 'No se encontraron resultados';
         }
@@ -142,7 +127,6 @@ export class LcitaPage implements OnInit {
 
       this.listaTipoCitas.push(tipo);
 
-      //Inicializa con todas las opciones marcadas
       this.selectTipoCita.push(tipo.nIdTipoCita);
     }
   }
@@ -158,11 +142,9 @@ export class LcitaPage implements OnInit {
 
       this.listaTipoDonaciones.push(tipo);
 
-      //Inicializa con todas las opciones marcadas
       this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
     }
   }
-
   nuevo(){
     this.router.navigate(['/ccita/create/1']);
   }

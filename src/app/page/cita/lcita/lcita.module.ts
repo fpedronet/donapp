@@ -11,9 +11,6 @@ import { McitaPageModule } from '../mcita/mcita.module';
 import { McitaPage } from '../mcita/mcita.page';
 
 @NgModule({
-  entryComponents:[
-    McitaPage
-  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +18,7 @@ import { McitaPage } from '../mcita/mcita.page';
     LcitaPageRoutingModule,
     ReactiveFormsModule,
     McitaPageModule
-    ],
+  ],
   declarations: [LcitaPage]
 })
 export class LcitaPageModule {}

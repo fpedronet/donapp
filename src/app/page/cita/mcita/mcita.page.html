@@ -4,23 +4,34 @@
       <ion-back-button text="" defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Filtro
+      Filtro Cita
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-          <ion-icon name="save-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>    
-  <!-- <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm"> -->
+<ion-content>  
+  <div class="formFiltro">
     <ion-list>
+      <ion-item fill="outline" mode="md">
+          <ion-label position="floating">Tipo Cita</ion-label>
+          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
+            <ion-select-option *ngFor="let el of listaTipoCitas" [value]="el.nIdTipoCita">{{el.vDescripcion}}</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-      <h2 class="title-label">Filtro de Cita</h2>
+      <ion-item fill="outline" mode="md">
+          <ion-label position="floating">Tipo Donación</ion-label>
+          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
+            <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
+          </ion-select>
+      </ion-item>
 
+      <div class="btnFiltro">
+        <ion-button expand="mediun">
+          <ion-icon name="search-outline"></ion-icon> Buscar
+        </ion-button>
+      </div>
 
-    </ion-list>
-  <!-- </form> -->
+  </ion-list>
+  </div>
 </ion-content>

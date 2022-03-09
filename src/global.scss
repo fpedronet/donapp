@@ -70,19 +70,26 @@ form{
     font-family: sans-serif;
 }
 
-  .native-input.sc-ion-input-md{
-    color:#05107a;
-  }
+.native-input.sc-ion-input-md{
+   color:#05107a;
+}
 
-  ion-item{
-      padding-top:16px;
-      --border-color:#8080808f;
-    //   --highlight-background:#0818a5;
-      --highlight-height:1px;
-  }
+.container {
+    margin-right: 0em;
+    margin-left: 0em;
+}
+.formFiltro{
+    margin:10px;
+}
+
+ion-item{
+    padding-top:16px;
+    --border-color:#8080808f;
+    --highlight-height:1px;
+}
+
 ion-card{
-    margin-left:2px;
-    margin-right: 0px;
+    padding: 0;
 
     ion-header{
         background: #af5c5d;
@@ -90,6 +97,11 @@ ion-card{
     }
     ion-card-content{
         margin-left:-32px;
+    }
+    .card-content-md{
+        padding-inline-end:0px;
+        padding-top:0px;
+        padding-bottom:0px;
     }
 }
 
