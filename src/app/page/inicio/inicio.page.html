@@ -21,7 +21,7 @@
     </ion-button>
   </div>
 
-  <ion-slides *ngIf="correoVerif">
+  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="ionSlideChange(slides)" *ngIf="correoVerif">
     <ion-slide *ngFor='let item of dataSource'>
       <div class="slide">
         <img src="{{item.vImagen}}" />
@@ -32,6 +32,5 @@
       </div>
     </ion-slide>
   </ion-slides>
-     
-
+  
 </ion-content>
