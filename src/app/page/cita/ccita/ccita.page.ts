@@ -338,6 +338,7 @@ export class CcitaPage implements OnInit {
     else if(this.tipo == 2){
       listaElementos = this.listaCampanas;
     }
+    //debugger;
     if(listaElementos !== undefined){
       this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
       this.listaDepartamentos.forEach(dpto => {
@@ -416,12 +417,14 @@ export class CcitaPage implements OnInit {
 
   obtener(){
     this.loadingService.openLoading();
-    this.citaService.obtener(this.id).subscribe(data=>{
+    //debugger;
+    this.citaService.obtener(this.id, this.tipo).subscribe(data=>{
       
       //Extrae listas para combobox de bancos y campañas
       this.listaTotBancos = data.listaBancos;
       this.listaTotCampanas = data.listaCampanas;
       this.listaFeriados = data.listaFeriados;
+      //debugger;
 
       this.filtrarUbigeos();
 
@@ -434,6 +437,7 @@ export class CcitaPage implements OnInit {
       this.programadoFormatted = format(new Date(this.minFechaCita), this.formatFechaHora)
 
       if(this.id !== 0){
+        //debugger;
         //Selecciona el tipo de cita
         this.tipoCita = this.listaTipoCitas.find(e => e.nIdTipoCita == data.nTipoCita);
         this.tipo = this.tipoCita.nIdTipoCita;

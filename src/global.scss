@@ -43,7 +43,9 @@ form{
 }
 
 .title-in-form{
-    font-weight: bold;
+    font-weight: 600;
+    --color: #85153e!important;
+    margin-bottom: -10px;
 }
 
 .title-label{
@@ -100,4 +102,8 @@ ion-back-button{
 
 ion-label{
     --color: #681575;
+}
+
+ion-label {
+    opacity: 1 !important;
 }

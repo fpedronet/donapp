@@ -21,8 +21,8 @@ export class CitaService {
     return this.http.post<dataCollection>(urls,model);
   }
 
-  obtener(id: number){
-    let urls = `${this.url}/GetFirstCita?id=${id}`;
+  obtener(id: number, tipo: number){
+    let urls = `${this.url}/GetFirstCita?id=${id}&tipo=${tipo}`;
     return this.http.get<Cita>(urls);
   }
 
