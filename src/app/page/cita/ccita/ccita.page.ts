@@ -5,6 +5,7 @@ import { Cita } from 'src/app/_model/cita';
 import { Departamento } from 'src/app/_model/departamento';
 import { Provincia } from 'src/app/_model/provincia';
 import { CitaService } from 'src/app/_service/cita.service';
+import { TipodocumentoService } from 'src/app/_service/tipodocumento.service';
 import { environment } from 'src/environments/environment';
 import jsonDepartamento from 'src/assets/json/ubigeo/departamentos.json';
 import jsonProvincia from 'src/assets/json/ubigeo/provincias.json';
@@ -23,6 +24,7 @@ import { DiaSemana } from 'src/app/_model/diasemana';
 import { HorarioAtencion } from 'src/app/_model/horarioatencion';
 import { Feriado } from 'src/app/_model/feriado';
 import { Geolocalizacion } from 'src/app/_model/geolocalizacion';
+import { TipoDocumento } from 'src/app/_model/tipodocumento';
 
 @Component({
   selector: 'app-ccita',
@@ -35,6 +37,7 @@ export class CcitaPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private citaService: CitaService,
+    private tipodocumentoService : TipodocumentoService,
     private loadingService : LoadingService,   
     private toastService : ToastService
   ) { }
@@ -42,6 +45,7 @@ export class CcitaPage implements OnInit {
   form: FormGroup = new FormGroup({});
   loading:any;
 
+  listaTipoDocu: TipoDocumento[] = [];
   listaDiaSemana: DiaSemana[] = [];
   horarioAtencion: string[] = [];
 
@@ -90,6 +94,7 @@ export class CcitaPage implements OnInit {
       'vIdDepartamento': new FormControl({value: "00", disabled: false}),
       'vIdProvincia': new FormControl({value: "0000", disabled: false}),
       'dProgramacion': new FormControl({value: this.horaCuartoCercana(), disabled: false}),
+      'nTipoDocuReceptor': new FormControl({value: 0, disabled: false}),
       'vIdReceptor': new FormControl({value: '', disabled: false}),
     });
 
@@ -99,6 +104,7 @@ export class CcitaPage implements OnInit {
     this.listartipodonacion();
     this.listarubigeo();
     this.listardiasemana();
+    this.listartipodocumento();
     
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
@@ -141,8 +147,19 @@ export class CcitaPage implements OnInit {
     //Limpia form si es nuevo
     if(this.id === 0){
 
-      this.geoLoc.lat = -10.4725;
-      this.geoLoc.lng = -76.9931;
+      this.form.setValue({
+        nIdCita: 0,
+        nIdBanco: 0,
+        nIdCampana: 0,
+        vIdDepartamento: 0,
+        vIdProvincia: 0,
+        dProgramacion: this.horaCuartoCercana(),
+        nTipoDocuReceptor: 0,
+        vIdReceptor: ''        
+      });
+
+      this.geoLoc.lat = -12.0749896;
+      this.geoLoc.lng = -77.0448764;
       this.obtieneUbicacion();
 
       this.obtenerDtoYprovActual(this.geoLoc);
@@ -170,14 +187,9 @@ export class CcitaPage implements OnInit {
           this.updateProv(geo.idProv);
         }
 
-        this.form.setValue({
-          nIdCita: 0,
-          nIdBanco: 0,
-          nIdCampana: 0,
+        this.form.patchValue({
           vIdDepartamento: geo.idDpto,
           vIdProvincia: geo.idProv,
-          dProgramacion: this.horaCuartoCercana(),
-          vIdReceptor: ''
         });
       })
       .catch(e => console.warn(e.message));
@@ -249,6 +261,27 @@ export class CcitaPage implements OnInit {
 
       this.listaDiaSemana.push(dia);
     }
+  }
+
+  listartipodocumento(){
+    this.loadingService.openLoading();
+    
+    this.tipodocumentoService.listar().subscribe(data=>{
+      if(data === undefined){
+        this.toastService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        this.listaTipoDocu= data.items;
+      }      
+      this.loadingService.closeLoading();
+      //Precargar DNI
+      this.form.patchValue(
+        {
+          nTipoDocuReceptor: this.listaTipoDocu.length>0?this.listaTipoDocu[0].nIdTipoDocu:0
+        }
+      )
+    });
+    
   }
 
   updateDpto(idDpto: string){
@@ -423,6 +456,7 @@ export class CcitaPage implements OnInit {
           nIdBanco: data.nIdBanco,
           nIdCampana: data.nIdCampana,
           dProgramacion: data.dProgramacion,
+          nTipoDocuReceptor: data.nTipoDocuReceptor,
           vIdReceptor: data.vIdReceptor
         })
 
@@ -458,6 +492,7 @@ export class CcitaPage implements OnInit {
     model.vIdReceptor = this.form.value['vIdReceptor'];
     model.listaHorarios = this.horarioBanco;
     model.listaFeriados = this.listaFeriados;
+    model.nTipoDocuReceptor = this.form.value['nTipoDocuReceptor'];    
 
     //debugger;
     
@@ -469,7 +504,7 @@ export class CcitaPage implements OnInit {
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
 
-       this.router.navigate(['lcita']);
+        this.router.navigate(['lcita']);
         
       }else{
         this.loadingService.closeLoading();

@@ -104,7 +104,7 @@
           <ng-template>
             <ion-datetime
               #PROG
-              [readonly]="!ver"
+              [disabled]="!ver"
               [firstDayOfWeek]="1"
               [min]="minFechaCita"
               [max]="maxFechaCita"
@@ -124,9 +124,20 @@
         </ion-popover>        
       </ion-item>
 
+      <ion-item lines="none" *ngIf="tipoCita.nIdTipoCita===3">
+        <ion-label class="title-in-form">Datos de paciente:</ion-label>
+      </ion-item> 
+
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
-        <ion-label position="floating">Documento paciente</ion-label>
-        <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" required>
+        <ion-label>Tipo de documento</ion-label>
+        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nTipoDocuReceptor" [disabled]="!ver" required>
+          <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
+        <ion-label position="floating">Documento</ion-label>
+        <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" [disabled]="!ver" required>
         </ion-input>
       </ion-item>
 

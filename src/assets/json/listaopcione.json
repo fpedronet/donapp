@@ -41,7 +41,7 @@
             "url":"/ccita/create/2",
             "nombre":"En campana",
             "icon":"megaphone-outline",
-            "visual":true,
+            "visual":false,
             "visualVerificado":true
          },
          {

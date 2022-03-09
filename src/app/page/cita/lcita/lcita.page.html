@@ -33,7 +33,8 @@
               <ion-label>
                   <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
                   <p>{{user.vTipoCita}}</p>
-                  <p>{{user.vBanco}}</p>
+                  <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
+                  <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
                   
               </ion-label>
             </ion-item>

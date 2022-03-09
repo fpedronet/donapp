@@ -18,6 +18,7 @@ export class Cita{
     vIcon? : string;
     nTipoCita? : number;
     nTipoDonacion? : number;
+    nTipoDocuReceptor? : number;
     vIdReceptor? : string;
     listaBancos? : Banco[] = [];
     listaCampanas? : Campana[] = [];
