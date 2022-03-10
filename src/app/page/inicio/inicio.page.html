@@ -10,17 +10,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides #slides pager="true" [options]="slideOpts" (ionSlideDidChange)="ionSlideChange(slides)">
-    <ion-slide *ngFor='let item of dataSource'>
-      <div class="slide">
-        <img src="{{item.vImagen}}" />
-        <h2>{{item.vTitulo}}</h2>
-        <p>
-          {{item.vDescripcion}}
-        </p>
-      </div>
-    </ion-slide>
-  </ion-slides>
   
   <div style="text-align: center;" id="container" *ngIf="!correoVerif">
     
@@ -44,4 +33,16 @@
 
   </div>
   
+  <ion-slides *ngIf="correoVerif" #slides pager="true" (ionSlideDidChange)="ionSlideChange(slides)">
+    <ion-slide *ngFor='let item of dataSource'>
+      <div class="slide">
+        <img src="{{item.vImagen}}" />
+        <h2>{{item.vTitulo}}</h2>
+        <p>
+          {{item.vDescripcion}}
+        </p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
