@@ -114,11 +114,28 @@ ion-back-button{
 }
 
 ion-label{
-    --color: #681575;
+    color: #9b1417;
 }
 
 ion-label {
     opacity: 1 !important;
+}
+
+ion-searchbar{
+    .searchbar-input-container{
+        .searchbar-input{
+            border-radius: 30px !important;
+            height:37px;
+        }
+    }
+}
+
+.ion-color.sc-ion-searchbar-md-h{
+    color: #810b0d;
+}
+
+.ion-color.sc-ion-searchbar-md-h .searchbar-input.sc-ion-searchbar-md{
+    background:#fff;
 }
 
 .basic-alert {    
