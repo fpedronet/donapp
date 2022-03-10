@@ -33,7 +33,7 @@ export class LcitaPage implements OnInit {
   total: number = 0;
   totalResult: number = 0;
   data: string = "";
-  page: number= 0;
+  page: number = 1;
 
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
@@ -47,13 +47,13 @@ export class LcitaPage implements OnInit {
   }
   
   loadData(event?) {
-    setTimeout(() => {
+    // setTimeout(() => {
 
       let model = new CitaRequest;
       model.data= this.data;
       model.listaTipocita= this.selectTipoCita;
       model.listTipodonacion= this.selectTipoDonacion;
-      model.page= this.page;
+      model.page = this.page;
       model.pages= 10;
 
       this.citaService.listar(model).subscribe(data=>{
@@ -86,18 +86,20 @@ export class LcitaPage implements OnInit {
             this.totalResult = data.pagination.total;
             this.infiniteScroll.complete();
             this.infiniteScroll.disabled = true;
-            this.page = 0;
+            this.page = 1;
 
             return false;
+          }else{
+            this.infiniteScroll.disabled = false;
           }
        
       });      
 
-      this.infiniteScroll.complete();
+      // this.infiniteScroll.complete();
 
       this.page++;
 
-    }, 500);
+    // }, 500);
   }
 
   buscar(){
@@ -105,7 +107,7 @@ export class LcitaPage implements OnInit {
     this.sinResultados = '';
     this.totalResult = 0;
     this.total = 0;
-    this.page=0;
+    this.page=1;
     this.loadData();
   }
 
