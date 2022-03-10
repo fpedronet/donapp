@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button text="" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      LISTA CITA
-    </ion-title>
+    <!-- <ion-title> -->
+      <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar" color="default"></ion-searchbar>
+    <!-- </ion-title> -->
     <ion-buttons slot="end">
       <ion-button (click)="abrirModal()">
         <ion-icon name="search-outline"></ion-icon>
@@ -18,7 +18,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar" color="default"></ion-searchbar>
+
+  <!-- <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar" color="default"></ion-searchbar> -->
   <ion-list>
     <ion-item-sliding>      
 
@@ -61,4 +62,7 @@
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
+  
+
 </ion-content>
+
