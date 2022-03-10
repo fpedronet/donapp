@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import jsonSexo from 'src/assets/json/listasexo.json';
 import jsonTipoSangre from 'src/assets/json/listasangre.json';
 import { LoadingService } from '../../components/loading/loading.service';
+import { AlertService } from '../../components/alert/alert.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { UsuarioService } from 'src/app/_service/usuario.service';
 // import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
@@ -28,7 +29,8 @@ export class CpersonaPage implements OnInit {
     private route: ActivatedRoute,
     private personaService : PersonaService,
     private tipodocumentoService : TipodocumentoService,
-    private loadingService : LoadingService,   
+    private loadingService : LoadingService,
+    private alertService : AlertService, 
     private toastService : ToastService,
     private usuarioService: UsuarioService
     
@@ -67,6 +69,8 @@ export class CpersonaPage implements OnInit {
   puedeEditarDocu: boolean = true;
   showCambioContra: boolean = false;
   contra: string = '';
+
+  correoOrig: string;
 
   ngOnInit() {
 
@@ -157,6 +161,7 @@ export class CpersonaPage implements OnInit {
             nEsPaciente: data.nEsPaciente
           });
           this.loadingService.closeLoading();
+          this.correoOrig = data.vEmail;
           this.contra = data.usuario.vContrasena;
 
           this.showCambioContra = false;
@@ -232,8 +237,22 @@ export class CpersonaPage implements OnInit {
     
     model.nEsPaciente = this.form.value['nEsPaciente'];
     
-    //debugger;   
+    //debugger;
+    //Solo muestra mensaje cuando se ha modificado correo en edita perfil
+    if(this.id!==0 && this.correoOrig !== model.vEmail){
+      this.alertService.showNotification('Cambiar correo','Modificar el correo hará que su cuenta requiera una nueva verificación.<br>¿Desea continuar?') .then(res => {
+        if (res === 'ok') {
+          this.servicioGuardar(model);
+        }
+      });
+    }
+    else{
+      this.servicioGuardar(model);
+    }
     
+  }
+    
+  servicioGuardar(model: Persona){
     this.loadingService.openLoading();
     this.personaService.guardar(model).subscribe(data=>{
       //debugger;
@@ -254,7 +273,7 @@ export class CpersonaPage implements OnInit {
         this.loadingService.closeLoading();
       }
 
-    });
+    });    
   }
 
   listartipodocumento(){
