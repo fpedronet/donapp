@@ -121,6 +121,23 @@ ion-label {
     opacity: 1 !important;
 }
 
+ion-searchbar{
+    .searchbar-input-container{
+        .searchbar-input{
+            border-radius: 30px !important;
+            height:37px;
+        }
+    }
+}
+
+.ion-color.sc-ion-searchbar-md-h{
+    color: black;
+}
+
+.ion-color.sc-ion-searchbar-md-h .searchbar-input.sc-ion-searchbar-md{
+    background:#fff;
+}
+
 .basic-alert {    
     //--backdrop-opacity: 0.6;
     //--background: linear-gradient(90deg, rgb(30, 0, 201) 1%, rgb(248, 255, 248) 100%);
