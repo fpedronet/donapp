@@ -2,16 +2,19 @@
     {
         "nIdTipoCita":1,
         "vDescripcion":"Donación a banco",
-        "icon":"business-outline"
+        "icon":"business-outline",
+        "visual":true
     },
     {
         "nIdTipoCita":2,
         "vDescripcion":"Donación a campaña",
-        "icon":"megaphone-outline"
+        "icon":"megaphone-outline",
+        "visual":false
     },
     {
         "nIdTipoCita":3,
         "vDescripcion":"Donación para apoyo a paciente",
-        "icon":"accessibility-outline"
+        "icon":"accessibility-outline",
+        "visual":true
     }
 ]

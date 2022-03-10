@@ -203,8 +203,10 @@ export class CcitaPage implements OnInit {
 
       tipo.nIdTipoCita = jsonTipoCita[i].nIdTipoCita;
       tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
+      tipo.visual = jsonTipoCita[i].visual;
 
-      this.listaTipoCitas.push(tipo);
+      if(tipo.visual)
+        this.listaTipoCitas.push(tipo);
     }
   }
 
@@ -216,8 +218,10 @@ export class CcitaPage implements OnInit {
 
       tipo.nIdTipoDonacion = jsonTipoDonacion[i].nIdTipoDonacion;
       tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
+      tipo.visual = jsonTipoDonacion[i].visual;
 
-      this.listaTipoDonaciones.push(tipo);
+      if(tipo.visual)
+        this.listaTipoDonaciones.push(tipo);
     }
 
     //Tipo donación por defecto

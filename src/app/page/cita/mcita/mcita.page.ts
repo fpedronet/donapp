@@ -37,8 +37,11 @@ export class McitaPage implements OnInit {
 
       tipo.nIdTipoCita = jsonTipoCita[i].nIdTipoCita;
       tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
+      tipo.visual = jsonTipoCita[i].visual;
+      tipo.isChecked = this.selectTipoCita.includes(tipo.nIdTipoCita);
 
-      this.listaTipoCitas.push(tipo);
+      if(tipo.visual)
+        this.listaTipoCitas.push(tipo);
     }
   }
 
@@ -50,12 +53,40 @@ export class McitaPage implements OnInit {
 
       tipo.nIdTipoDonacion = jsonTipoDonacion[i].nIdTipoDonacion;
       tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
+      tipo.visual = jsonTipoDonacion[i].visual;
+      tipo.isChecked = this.selectTipoDonacion.includes(tipo.nIdTipoDonacion);
 
-      this.listaTipoDonaciones.push(tipo);
+      if(tipo.visual)
+        this.listaTipoDonaciones.push(tipo);
     }
   }
 
+  changeListCita(e: any){
+    //debugger;
+    /*var count = this.listaTipoCitas.filter(e => e.isChecked).length;
+    if(!e.checked && count<1){
+      console.log('Debe haber al menos uno seleccionado');
+      e.checked = true;
+    }*/
+  }
+
   buscar(){
+    //Tipos de cita seleccionados
+    this.selectTipoCita = [];
+    this.listaTipoCitas.forEach(tipo => {
+      if(tipo.isChecked){
+        this.selectTipoCita.push(tipo.nIdTipoCita);
+      }
+    });
+
+    //Tipos de donación seleccionados
+    this.selectTipoDonacion = [];
+    this.listaTipoDonaciones.forEach(tipo => {
+      if(tipo.isChecked){
+        this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
+      }
+    });
+
     this.modalCtrl.dismiss({
       arrayTipoCita:this.selectTipoCita,
       arrayTipoDonacion:this.selectTipoDonacion
@@ -63,6 +94,6 @@ export class McitaPage implements OnInit {
   }
 
   salir(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({});
   }
 }

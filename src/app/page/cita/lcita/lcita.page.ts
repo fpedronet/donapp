@@ -119,10 +119,12 @@ export class LcitaPage implements OnInit {
 
       tipo.nIdTipoCita = jsonTipoCita[i].nIdTipoCita;
       tipo.vDescripcion = jsonTipoCita[i].vDescripcion;
+      tipo.visual = jsonTipoCita[i].visual;
 
-      this.listaTipoCitas.push(tipo);
-
-      this.selectTipoCita.push(tipo.nIdTipoCita);
+      if(tipo.visual){
+        this.listaTipoCitas.push(tipo);
+        this.selectTipoCita.push(tipo.nIdTipoCita);
+      }        
     }
   }
 
@@ -134,10 +136,12 @@ export class LcitaPage implements OnInit {
 
       tipo.nIdTipoDonacion = jsonTipoDonacion[i].nIdTipoDonacion;
       tipo.vDescripcion = jsonTipoDonacion[i].vDescripcion;
+      tipo.visual = jsonTipoDonacion[i].visual;
 
-      this.listaTipoDonaciones.push(tipo);
-
-      this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
+      if(tipo.visual){
+        this.listaTipoDonaciones.push(tipo);
+        this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
+      }      
     }
   }
 
@@ -162,9 +166,10 @@ export class LcitaPage implements OnInit {
     await modal.present();
     const {data} = await modal.onDidDismiss();
 
-    this.selectTipoCita =data.arrayTipoCita;
-    this.selectTipoDonacion =data.arrayTipoDonacion;
-
-    this.buscar();
+    if(data.arrayTipoCita !== undefined && data.arrayTipoDonacion !== undefined){
+      this.selectTipoCita =data.arrayTipoCita;
+      this.selectTipoDonacion =data.arrayTipoDonacion;
+      this.buscar();
+    }    
   }
 }

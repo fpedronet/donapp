@@ -10,7 +10,7 @@
       VER CITA
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="guardar()">
+      <ion-button *ngIf="ver" (click)="guardar()">
           <ion-icon name="save-outline"></ion-icon>
       </ion-button>
     </ion-buttons>

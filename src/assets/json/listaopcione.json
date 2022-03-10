@@ -55,7 +55,7 @@
    },
    {
        "url":"/lcita",
-       "nombre":"Citas pendientes",
+       "nombre":"Citas",
        "icon":"timer-outline",
        "visual":true,
        "visualVerificado":false,
