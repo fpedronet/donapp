@@ -64,6 +64,10 @@ export class CpersonaPage implements OnInit {
   email: String = "";
   $disable :boolean = false;
 
+  puedeEditarDocu: boolean = true;
+  showCambioContra: boolean = false;
+  contra: string = '';
+
   ngOnInit() {
 
     let user = this.usuarioService.sessionGoogle();
@@ -148,18 +152,47 @@ export class CpersonaPage implements OnInit {
             vCelular: data.vCelular,
             vDireccion: data.vDireccion,
             vEmail: data.vEmail,
-            vContrasena: '',
-            vVerifContra: '',
+            vContrasena: data.usuario.vContrasena,
+            vVerifContra: data.usuario.vContrasena,
             nEsPaciente: data.nEsPaciente
           });
           this.loadingService.closeLoading();
-  
+          this.contra = data.usuario.vContrasena;
+
+          this.showCambioContra = false;
+
+          //Revisa si puede editar documento
+          if(data.usuario.dFechaRegistro !== undefined){
+            var today = new Date();
+            var timeToday = today.getTime();
+            var timeRegistro = new Date(data.usuario.dFechaRegistro).getTime();
+            //console.log(timeToday + ', ' + timeRegistro);
+            var horasTranscurridas = (timeToday - timeRegistro)/(1000 * 3600);
+            this.puedeEditarDocu = horasTranscurridas <= 24;
+            console.log('Horas pasadas: ' + horasTranscurridas);
+          }          
         });
       }
       catch{
         this.toastService.showNotification(0,'Mensaje','Error en el servidor');
         this.loadingService.closeLoading();
       }      
+    }
+  }
+
+  actualizaMuestraContra(){
+    this.showCambioContra=!this.showCambioContra;
+    if(this.showCambioContra){
+      this.form.patchValue({
+        vContrasena: '',
+        vVerifContra: ''
+      })
+    }
+    else{
+      this.form.patchValue({
+        vContrasena: this.contra,
+        vVerifContra: this.contra
+      })
     }
   }
 
@@ -191,7 +224,12 @@ export class CpersonaPage implements OnInit {
     model.usuario.vUsuario = model.vEmail;
     model.usuario.vContrasena = this.form.value['vContrasena'];
     model.usuario.vVerifContra = this.form.value['vVerifContra'];
-    model.usuario.nCorreoVerif = this.verifcado;
+
+    //No sé para que estaba esto pero lo comenté y añadí lo sgte
+    //model.usuario.nCorreoVerif = this.verifcado;
+    var token = this.usuarioService.sessionUsuario();
+    model.usuario.nCorreoVerif = token !== null?token.correoverif:0;
+    
     model.nEsPaciente = this.form.value['nEsPaciente'];
     
     //debugger;   
@@ -202,9 +240,15 @@ export class CpersonaPage implements OnInit {
       
       this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-      if(data.typeResponse==environment.EXITO){
+      if(data.typeResponse==environment.EXITO){        
         this.loadingService.closeLoading();
-        this.router.navigate(['login']);
+        //Se ha cambiado el correo/usuario
+        if(data.message === 'Se ha actualizado su perfil. Vuelva a iniciar sesión.'){
+          this.usuarioService.closeLogin();
+        }
+        else{
+          this.router.navigate(['login']);
+        }
         
       }else{
         this.loadingService.closeLoading();

@@ -37,7 +37,8 @@ export class ToastService {
       animated: true,
       buttons: [
         {
-          text: 'Cancel',
+          icon: 'close-circle-outline',
+          text: '',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');

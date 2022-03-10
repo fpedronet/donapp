@@ -28,14 +28,14 @@
 
       <ion-item fill="outline" mode="md">
         <ion-label>Tipo de documento</ion-label>
-        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
+        <ion-select interface="action-sheet" [disabled]="id!==0 && !puedeEditarDocu" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item fill="outline" mode="md">
         <ion-label position="floating">Documento</ion-label>
-        <ion-input name="vDocumento" maxlength="20" type="text" formControlName="vDocumento" required>
+        <ion-input name="vDocumento" [disabled]="id!==0 && !puedeEditarDocu" maxlength="20" type="text" formControlName="vDocumento" required>
         </ion-input>
       </ion-item>
 
@@ -97,14 +97,14 @@
       </ion-item>
 
       <ion-item *ngIf="id!==0" fill="outline" mode="md">
-        <ion-label position="floating">Talla(cm)</ion-label>
-        <ion-input name="nTalla" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nTalla">
+        <ion-label>Talla(cm)</ion-label>
+        <ion-input #TALLA name="nTalla" style="text-align: end;" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nTalla">
         </ion-input>
       </ion-item>
 
       <ion-item *ngIf="id!==0" fill="outline" mode="md">
-        <ion-label position="floating">Peso(kg)</ion-label>
-        <ion-input name="nPeso" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nPeso">
+        <ion-label>Peso(kg)</ion-label>
+        <ion-input name="nPeso" style="text-align: end;" pattern="/^[1-9][0-9]+\.?\d*$/" onKeyPress="if(this.value.length==this.maxlength) return false;" min="0" max="300" maxlength="3" type="number" formControlName="nPeso">
         </ion-input>
       </ion-item>
 
@@ -130,13 +130,22 @@
         </ion-input>
       </ion-item>
 
-      <ion-item fill="outline" mode="md">
+      <ion-item lines="none" *ngIf="id!==0">
+        <ion-label *ngIf="!showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
+          <ion-icon name="arrow-down"></ion-icon>
+        </ion-label>
+        <ion-label *ngIf="showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
+          <ion-icon name="arrow-up"></ion-icon>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="id===0 || (id!==0 && showCambioContra)" fill="outline" mode="md">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input name="vContrasena" maxlength="20" type="password" formControlName="vContrasena" required>
         </ion-input>
-      </ion-item>
+      </ion-item>      
 
-      <ion-item fill="outline" mode="md">
+      <ion-item *ngIf="id===0 || (id!==0 && showCambioContra)" fill="outline" mode="md">
         <ion-label position="floating">Verificar contraseña</ion-label>
         <ion-input name="vVerifContra" maxlength="20" type="password" formControlName="vVerifContra" required>
         </ion-input>
