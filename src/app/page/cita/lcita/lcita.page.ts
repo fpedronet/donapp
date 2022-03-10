@@ -53,12 +53,9 @@ export class LcitaPage implements OnInit {
       model.data= this.data;
       model.listaTipocita= this.selectTipoCita;
       model.listTipodonacion= this.selectTipoDonacion;
-      this.page = this.page+1;
       model.page= this.page;
       model.pages= 10;
 
-      //this.loadingService.openLoading();
-      
       this.citaService.listar(model).subscribe(data=>{
 
       this.dataSource = data.items;
@@ -66,8 +63,6 @@ export class LcitaPage implements OnInit {
         if(this.dataSource.length === 0){
           this.sinResultados = 'No se encontraron resultados';
         }
-
-        // if(this.dataSource.length > 0){
 
          this.dataSource.forEach(element => {          
             let model = new Cita();
@@ -84,9 +79,6 @@ export class LcitaPage implements OnInit {
             this.dataCita.push(model);
           });
 
-          //this.loadingService.closeLoading();
-
-          //  this.dataCita = this.dataSource;
           this.total += data.pagination.pages;
           this.totalResult = data.pagination.total;
 
@@ -113,6 +105,7 @@ export class LcitaPage implements OnInit {
     this.sinResultados = '';
     this.totalResult = 0;
     this.total = 0;
+    this.page=0;
     this.loadData();
   }
 
@@ -145,6 +138,7 @@ export class LcitaPage implements OnInit {
       this.selectTipoDonacion.push(tipo.nIdTipoDonacion);
     }
   }
+
   nuevo(){
     this.router.navigate(['/ccita/create/1']);
   }
@@ -156,13 +150,19 @@ export class LcitaPage implements OnInit {
   async abrirModal(){
     const modal = await this.modalCtrl.create({
       component: McitaPage,
-      cssClass: 'my-custom-class'
-      // componentProps:{
-      //   'prop1':value1,
-      //   'prop1':value2,
-      // }
+      cssClass: 'my-custom-class',      
+      componentProps:{
+        selectTipoCita:this.selectTipoCita,
+        selectTipoDonacion:this.selectTipoDonacion,
+      }
     });
 
     await modal.present();
+    const {data} = await modal.onDidDismiss();
+
+    this.selectTipoCita =data.arrayTipoCita;
+    this.selectTipoDonacion =data.arrayTipoDonacion;
+
+    this.buscar();
   }
 }

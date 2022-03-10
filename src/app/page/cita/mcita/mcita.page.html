@@ -14,14 +14,14 @@
     <ion-list>
       <ion-item fill="outline" mode="md">
           <ion-label position="floating">Tipo Cita</ion-label>
-          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoCita" (ionChange)="buscar()">
+          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoCita">
             <ion-select-option *ngFor="let el of listaTipoCitas" [value]="el.nIdTipoCita">{{el.vDescripcion}}</ion-select-option>
           </ion-select>
         </ion-item>
 
       <ion-item fill="outline" mode="md">
           <ion-label position="floating">Tipo Donación</ion-label>
-          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion" (ionChange)="buscar()">
+          <ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion">
             <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
           </ion-select>
       </ion-item>
