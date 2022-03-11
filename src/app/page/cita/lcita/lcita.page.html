@@ -4,7 +4,7 @@
       <ion-back-button text="" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <!-- <ion-title> -->
-      <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar()" placeholder="Buscar Cita" color="default"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="data" debounce="300" (ionChange)="buscar(currentTab)" placeholder="Buscar Cita" color="default"></ion-searchbar>
     <!-- </ion-title> -->
     <ion-buttons slot="end">
       <ion-button (click)="abrirModal()">
@@ -17,13 +17,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-tab-bar slot="bottom">
-  <ion-tab-button tab="account" (click)="buscar()">
-    <!-- <ion-icon name="home-outline"></ion-icon> -->
+<ion-tab-bar slot="top">
+  <ion-tab-button *ngIf="currentTab===1" class="selected-tab" (click)="buscarTab(1)">
     <ion-label>PENDIENTES</ion-label>
   </ion-tab-button>
-  <ion-tab-button tab="account" (click)="buscar()">
-    <!-- <ion-icon name="newspaper-outline"></ion-icon> -->
+  <ion-tab-button *ngIf="currentTab!==1" (click)="buscarTab(1)">
+    <ion-label>PENDIENTES</ion-label>
+  </ion-tab-button>
+  <ion-tab-button *ngIf="currentTab===2" class="selected-tab" (click)="buscarTab(2)">
+    <ion-label>HISTORIAL</ion-label>
+  </ion-tab-button>
+  <ion-tab-button *ngIf="currentTab!==2" (click)="buscarTab(2)">
     <ion-label>HISTORIAL</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
@@ -65,7 +69,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData(currentTab, $event)">
     <ion-infinite-scroll-content
       loadingSpinner="crescent"
       loadingText="Cargando más datos...">

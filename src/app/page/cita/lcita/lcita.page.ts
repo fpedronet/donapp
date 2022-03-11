@@ -41,22 +41,25 @@ export class LcitaPage implements OnInit {
   listaTipoDonaciones: TipoDonacion[] = [];
   selectTipoCita: number[] = [];
   selectTipoDonacion: number[] = [];
+
+  currentTab: number = 1;
   
   ngOnInit() {
     this.listartipocita();
     this.listartipodonacion();
-    this.buscar();
+    this.buscar(this.currentTab);
   }
   
-  loadData(event?) {
+  loadData(tipo: number, event?) {
     // setTimeout(() => {
 
       let model = new CitaRequest;
-      model.data= this.data;
-      model.listaTipocita= this.selectTipoCita;
-      model.listTipodonacion= this.selectTipoDonacion;
+      model.data = this.data;
+      model.tipo = tipo;
+      model.listaTipocita = this.selectTipoCita;
+      model.listTipodonacion = this.selectTipoDonacion;
       model.page = this.page;
-      model.pages= 10;
+      model.pages = 10;
 
       this.citaService.listar(model).subscribe(data=>{
 
@@ -104,13 +107,20 @@ export class LcitaPage implements OnInit {
     // }, 500);
   }
 
-  buscar(){
+  buscarTab(tab: number){
+    if(this.currentTab !== tab){
+      this.currentTab = tab;
+      this.buscar(tab);
+    }    
+  }
+
+  buscar(tipo: number){
     this.dataCita = [];
     this.sinResultados = '';
     this.totalResult = 0;
     this.total = 0;
     this.page=1;
-    this.loadData();
+    this.loadData(tipo);
   }
 
   listartipocita(){
@@ -187,7 +197,7 @@ export class LcitaPage implements OnInit {
     if(data.arrayTipoCita !== undefined && data.arrayTipoDonacion !== undefined){
       this.selectTipoCita =data.arrayTipoCita;
       this.selectTipoDonacion =data.arrayTipoDonacion;
-      this.buscar();
+      this.buscar(this.currentTab);
     }    
   }
 }

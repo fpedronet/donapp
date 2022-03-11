@@ -31,7 +31,8 @@ export class Cita{
 }
 
 export class CitaRequest{
-    data?: string;    
+    data?: string;
+    tipo?: number;
     listaTipocita?: number[] = [];
     listTipodonacion?: number[] = [];
     page?: number;
