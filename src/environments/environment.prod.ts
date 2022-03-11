@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
 
-  //UrlApi:'https://sitedev.poclab.pe/donappdev/api',  
-  //UrlImage:'assets/',
+  // UrlApi:'https://sitedev.poclab.pe/donappdev/api',  
+  // UrlImage:'assets/',
 
    UrlApi:'http://localhost:48394/api',  
    UrlImage:'assets/',
