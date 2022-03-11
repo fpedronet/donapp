@@ -8,14 +8,14 @@
   </div>
   <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
   <ion-list lines="none" class="ion-margin">
-    <ion-list-header>Bienvenido !</ion-list-header>
+    <ion-list-header>Bienvenido</ion-list-header>
       <ion-item class="ion-margin">
         <ion-input name="vUsuario" formControlName="vUsuario" placeholder="Ingrese email" type="text" clearInput="true"></ion-input>
       </ion-item>
       <ion-item class="ion-margin">
         <ion-input name="vContrasena" formControlName="vContrasena" placeholder="Ingrese contraseña" type="password" clearInput="true"></ion-input>
       </ion-item>
-      <ion-text color="medium"><p class="ion-margin-horizontal">Forgot Password?</p></ion-text>
+      <ion-text color="medium"><p class="ion-margin-horizontal">¿Olvidaste tu contraseña?</p></ion-text>
       <div align="right">
         <ion-button shape="round" strong="true" class="ion-margin-end" color="plant" (click)="login()">
           Iniciar sesión

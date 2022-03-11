@@ -21,6 +21,10 @@
   <form id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
     <ion-list>
 
+      <ion-item lines="none">
+        <ion-label class="title-in-form">Datos Personales</ion-label>
+      </ion-item> 
+
       <ion-item *ngIf="false">
           <ion-input name="nIdPersona" type="text" formControlName="nIdPersona" required>
           </ion-input>
@@ -121,7 +125,7 @@
       </ion-item>
       
       <ion-item lines="none">
-        <ion-label class="title-in-form">Datos de usuario:</ion-label>
+        <ion-label class="title-in-form">Datos de usuario</ion-label>
       </ion-item>      
 
       <ion-item fill="outline" mode="md">
