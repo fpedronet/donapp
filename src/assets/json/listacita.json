@@ -13,7 +13,7 @@
     },
     {
         "nIdTipoCita":3,
-        "vDescripcion":"Donación para apoyo a paciente",
+        "vDescripcion":"Donación para paciente",
         "icon":"accessibility-outline",
         "visual":true
     }
