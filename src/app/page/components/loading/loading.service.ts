@@ -16,7 +16,7 @@ export class LoadingService {
    async openLoading(message?: string) {
     this.isLoading = true;
     this.loadingController.create({
-      message: message ? message : 'Please wait...'
+      message: message ? message : 'Espere...'
     }).then(loader => {
       loader.present().then(() => {
         if (!this.isLoading) {

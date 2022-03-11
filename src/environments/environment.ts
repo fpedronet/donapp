@@ -8,8 +8,13 @@ export const environment = {
   UrlApi:'https://sitedev.poclab.pe/donappdev/api',  
   UrlImage:'assets/',
 
+<<<<<<< HEAD
   //  UrlApi:'http://localhost:48394/api',  
   //  UrlImage:'assets/',
+=======
+  // UrlApi:'http://localhost:48394/api',  
+  // UrlImage:'assets/',
+>>>>>>> 7c8147ac10dc43a465121aec0d4e193858bb9c20
 
   TOKEN_NAME: 'access_token',
   TOKEN_GOOGLE: 'access_google',
