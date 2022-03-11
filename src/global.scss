@@ -86,6 +86,7 @@ ion-item{
     padding-top:14px;
     --border-color:#8080808f;
     --highlight-height:1px;
+    // color:#05107a
 }
 
 ion-card{
@@ -168,4 +169,8 @@ ion-searchbar{
         display: inline-block;
         text-align: center;
     }
+}
+
+.action-sheet-button.sc-ion-action-sheet-md{
+    color:black;
 }

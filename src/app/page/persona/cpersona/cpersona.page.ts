@@ -137,7 +137,8 @@ export class CpersonaPage implements OnInit {
     this.id = token !== null?token.UserId:0;
 
     if(this.id!=0){
-      this.loadingService.openLoading();
+     
+       this.loadingService.openLoading();
       try{
         this.personaService.obtener(this.id).subscribe(data=>{
           //debugger;
