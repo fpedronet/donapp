@@ -20,6 +20,8 @@ export class Cita{
     nTipoDonacion? : number;
     nTipoDocuReceptor? : number;
     vIdReceptor? : string;
+    nRegistrado?: number;
+    nRealizado?: number;
     listaBancos? : Banco[] = [];
     listaCampanas? : Campana[] = [];
     listaFeriados? : Feriado[] = [];
@@ -34,7 +36,7 @@ export class CitaRequest{
     data?: string;
     tipo?: number;
     listaTipocita?: number[] = [];
-    listTipodonacion?: number[] = [];
+    listTipodonacion?: number[] = [];    
     page?: number;
     pages?: number ;
     column?: string;
