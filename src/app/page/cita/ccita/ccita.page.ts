@@ -119,28 +119,31 @@ export class CcitaPage implements OnInit {
     });
   }
 
-  obtieneUbicacion() {
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position){
-        console.log(position.coords.latitude + ',' + position.coords.longitude);
-        //debugger;
-        var geo = new Geolocalizacion();
-        geo.lat = position.coords.latitude;
-        geo.lng = position.coords.longitude;
+  async obtieneUbicacion(geo: Geolocalizacion) {
+    return new Promise(async (resolve) => {
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          console.log(position.coords.latitude + ',' + position.coords.longitude);
+          //debugger;
+          geo.lat = position.coords.latitude;
+          geo.lng = position.coords.longitude;
 
-        //debugger;
+          resolve('ok');
+        }, function(){
+          console.log('Error al obtener ubicación');
 
-        //this.obtenerDtoYprovActual(geo);
-      }, function(){
-        console.log('Error al obtener ubicación')
-      }, {
-        enableHighAccuracy: false,
-        maximumAge        : 30000,
-        timeout           : 25000
-      });
-    } else {
-      console.log('Geolocation is not supported');
-    }
+          resolve('error');
+        }, {
+          enableHighAccuracy: false,
+          maximumAge        : 30000,
+          timeout           : 25000
+        });
+      } else {
+        console.log('Geolocation is not supported');
+
+        resolve('error');
+      }
+    })
   }
 
   ngAfterViewInit(){
@@ -158,11 +161,14 @@ export class CcitaPage implements OnInit {
         vIdReceptor: ''        
       });
 
-      this.geoLoc.lat = -12.0749896;
-      this.geoLoc.lng = -77.0448764;
-      this.obtieneUbicacion();
+      //this.geoLoc.lat = -12.0749896;
+      //this.geoLoc.lng = -77.0448764;
 
-      this.obtenerDtoYprovActual(this.geoLoc);
+      this.obtieneUbicacion(this.geoLoc).then(res => {
+        if (res === 'ok') {
+          this.obtenerDtoYprovActual(this.geoLoc);
+        }
+      })
     }
   }
 
