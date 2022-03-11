@@ -13,16 +13,14 @@ export class AlertService {
   icons: string;
   color: string;
 
-  async showNotification(header:string, message: string, cancelText: string = 'No', okText: string = 'Sí') {
+  async showNotification(header:string, message: string, cancelText: string = 'No', okText: string = 'Sí', options: string[] = []) {
     return new Promise(async (resolve) => {
-      const alert = await this.alertController.create({
-        cssClass: 'basic-alert',
-        header: header,
-        message: message,
-        animated: true,
-        buttons: [
+      var optButtons = [];
+      var css = '';
+      if(options === undefined || options.length === 0){
+        css = 'sn-alert';
+        optButtons = [
           {
-            //icon: 'close-circle-outline',
             text: cancelText,
             role: 'cancel',
             handler: () => {
@@ -31,7 +29,6 @@ export class AlertService {
             }
           },
           {
-            //icon: 'close-circle-outline',
             text: okText,
             role: 'ok',
             handler: () => {
@@ -40,6 +37,27 @@ export class AlertService {
             }
           }
         ]
+      }
+      else{
+        css = 'opt-alert';
+        options.forEach(op => {
+          let button = {
+            text: op,
+            role: op,
+            handler: () => {
+              console.log('Option ' + op + ' clicked');
+              resolve(op);
+            }
+          }
+          optButtons.push(button);
+        });
+      }
+      const alert = await this.alertController.create({
+        cssClass: css,
+        header: header,
+        message: message,
+        animated: true,
+        buttons: optButtons
       });
       await alert.present();
     });

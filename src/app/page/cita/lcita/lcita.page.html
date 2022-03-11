@@ -45,7 +45,7 @@
                 <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
                 <ion-label>
                     <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
-                    <p>{{user.vTipoCita}}</p>
+                    <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
                     <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
                     <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
                     
@@ -68,7 +68,7 @@
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
       loadingSpinner="crescent"
-      loadingText="Loading more data...">
+      loadingText="Cargando más datos...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

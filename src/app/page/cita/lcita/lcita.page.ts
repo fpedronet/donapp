@@ -10,6 +10,7 @@ import { TipoDonacion } from 'src/app/_model/tipodonacion';
 
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
+import { AlertService } from '../../components/alert/alert.service';
 
 @Component({
   selector: 'app-lcita',
@@ -23,6 +24,7 @@ export class LcitaPage implements OnInit {
   constructor(
     private router: Router,
     private citaService: CitaService,
+    private alertService : AlertService, 
     private modalCtrl: ModalController
   ) { }
 
@@ -146,7 +148,23 @@ export class LcitaPage implements OnInit {
   }
 
   nuevo(){
-    this.router.navigate(['/ccita/create/1']);
+    var opciones = []
+    this.listaTipoCitas.forEach(tipo => {
+      opciones.push(tipo.vDescripcion);
+    });
+    //debugger;
+    if(opciones.length <= 1){
+      this.router.navigate(['/ccita/create/'+this.listaTipoCitas[0].nIdTipoCita]);
+    }
+    else{
+      this.alertService.showNotification('Agendar cita','Seleccione el tipo de cita','','',opciones).then(res => {
+        let tipoSel = this.listaTipoCitas.find(e => e.vDescripcion === res);
+        if (tipoSel !== undefined) {
+          this.router.navigate(['/ccita/create/'+tipoSel.nIdTipoCita]);
+        }
+      });
+    }
+    
   }
 
   edit(id: number, ver: boolean){
