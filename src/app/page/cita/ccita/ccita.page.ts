@@ -25,7 +25,6 @@ import { HorarioAtencion } from 'src/app/_model/horarioatencion';
 import { Feriado } from 'src/app/_model/feriado';
 import { Geolocalizacion } from 'src/app/_model/geolocalizacion';
 import { TipoDocumento } from 'src/app/_model/tipodocumento';
-import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-ccita',
@@ -122,20 +121,26 @@ export class CcitaPage implements OnInit {
 
   async obtieneUbicacion(geo: Geolocalizacion) {
     return new Promise(async (resolve) => {
-      const position = await Geolocation.getCurrentPosition({
-        enableHighAccuracy: false,
-        maximumAge        : 30000,
-        timeout           : 25000
-      });
-      if(position !== undefined){
-        console.log(position.coords.latitude + ',' + position.coords.longitude);
-        //debugger;
-        geo.lat = position.coords.latitude;
-        geo.lng = position.coords.longitude;
-        resolve('ok');
-      }
-      else{
+      if (navigator && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          console.log(position.coords.latitude + ',' + position.coords.longitude);
+          //debugger;
+          geo.lat = position.coords.latitude;
+          geo.lng = position.coords.longitude;
+
+          resolve('ok');
+        }, function(){
+          console.log('Error al obtener ubicación');
+
+          resolve('error');
+        }, {
+          enableHighAccuracy: false,
+          maximumAge        : 30000,
+          timeout           : 25000
+        });
+      } else {
         console.log('Geolocation is not supported');
+
         resolve('error');
       }
     })
