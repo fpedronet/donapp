@@ -144,8 +144,8 @@ ion-searchbar{
     //--background: linear-gradient(90deg, rgb(30, 0, 201) 1%, rgb(248, 255, 248) 100%);
     .alert-wrapper.sc-ion-alert-md, .alert-wrapper.sc-ion-alert-ios {
         border-radius: 10px;
-        border: 1px solid #af5c5d;
-        box-shadow: inset 0 0 10px 0 maroon;
+        border: 5px solid #af5c5d;
+        //box-shadow: inset 0 0 10px 0 maroon;
     }   
     .alert-title.sc-ion-alert-md, .alert-title.sc-ion-alert-ios {
         font-weight: bold;
@@ -161,7 +161,8 @@ ion-searchbar{
     }
     .alert-button.sc-ion-alert-md, .alert-button.sc-ion-alert-ios {
         color: black;
-        background-color: linen;
+        //background-color: linen;
+        box-shadow: inset 0 0 10px 0 maroon;
         width: 100px;
         border-radius: 5px;
         border: 1px solid #af5c5d;
@@ -177,8 +178,8 @@ ion-searchbar{
     //--background: linear-gradient(90deg, rgb(30, 0, 201) 1%, rgb(248, 255, 248) 100%);
     .alert-wrapper.sc-ion-alert-md, .alert-wrapper.sc-ion-alert-ios {
         border-radius: 10px;
-        border: 1px solid #af5c5d;
-        box-shadow: inset 0 0 10px 0 maroon;
+        border: 5px solid #af5c5d;
+        //box-shadow: inset 0 0 10px 0 maroon;
     }   
     .alert-title.sc-ion-alert-md, .alert-title.sc-ion-alert-ios {
         font-weight: bold;
@@ -195,7 +196,8 @@ ion-searchbar{
     }
     .alert-button.sc-ion-alert-md, .alert-button.sc-ion-alert-ios {
         color: black;
-        background-color: linen;
+        //background-color: linen;
+        box-shadow: inset 0 0 10px 0 maroon;
         width: auto;
         border-radius: 5px;
         border: 1px solid #af5c5d;

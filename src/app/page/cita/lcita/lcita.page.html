@@ -35,35 +35,32 @@
 <ion-content>
 
   <ion-list>
-    <ion-item-sliding>      
+    <ion-item-sliding>
+      <!--ion-item-options side="end">
+      </ion-item-options-->
+      <!--(on-drag-right)="buscarTab(2)" (on-drag-left)="buscarTab(1)"-->
 
       <ion-item lines="none" style="padding-top: 0px;" *ngFor="let user of dataCita; let i = index">
+        <ion-card>   
+          <ion-header>
+          </ion-header>    
+          <ion-card-content>
+            <ion-item lines="none">
+              <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
+              <ion-label>
+                  <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
+                  <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
+                  <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
+                  <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
+                  
+              </ion-label>
+            </ion-item>
+            <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
+              <ion-icon name="eye-outline"></ion-icon>
+            </ion-button>  
 
-        <div class="container">
-
-          <ion-card>   
-            <ion-header>
-            </ion-header>    
-            <ion-card-content>
-              <ion-item lines="none">
-                <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
-                <ion-label>
-                    <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
-                    <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
-                    <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
-                    <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
-                    
-                </ion-label>
-              </ion-item>
-              <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
-                <ion-icon name="eye-outline"></ion-icon>
-              </ion-button>  
-  
-            </ion-card-content>
-          </ion-card>
-          
-        </div>
-
+          </ion-card-content>
+        </ion-card>
       </ion-item>
 
     </ion-item-sliding>

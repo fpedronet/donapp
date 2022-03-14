@@ -1,6 +1,6 @@
 export class Geolocalizacion{
     constructor(){
-        this.api = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2';
+        this.api = 'https://nominatim.openstreetmap.org/reverse?format=json';
     }
     //Entrada
     api?: string;
