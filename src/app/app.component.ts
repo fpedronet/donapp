@@ -6,6 +6,8 @@ import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
 import { UsuarioService } from './_service/usuario.service';
 
+import { SplashScreen } from '@capacitor/splash-screen';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -36,7 +38,15 @@ export class AppComponent {
   
   ngOnInit(): void {
     //this.listar();   
+    this.initializeApp();
   }
+
+  initializeApp() {
+     SplashScreen.show({
+      showDuration: 2000,
+      autoHide: true
+    });
+}
 
   listar(){
     this.muestraCamposUser();
