@@ -38,12 +38,19 @@ export class AppComponent {
   
   ngOnInit(): void {
     //this.listar();   
-    this.initializeApp();
+
+    this.splashScreen();
   }
 
-  initializeApp() {
+//   private splashScreen(): void {
+//     setTimeout(() => {
+//       SplashScreen.hide();
+//     }, 500);
+// }
+
+splashScreen() {
      SplashScreen.show({
-      showDuration: 2000,
+      showDuration: 4000,
       autoHide: true
     });
 }
