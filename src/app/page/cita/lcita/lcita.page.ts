@@ -69,7 +69,7 @@ export class LcitaPage implements OnInit {
       this.citaService.listar(model).subscribe(data=>{
 
       this.dataSource = data.items;
-
+        //debugger;
         if(this.dataSource.length === 0){
           this.sinResultados = 'No se encontraron resultados';
         }
@@ -86,7 +86,7 @@ export class LcitaPage implements OnInit {
             var idDia = new Date(dayArr[2]+'-'+dayArr[1]+'-'+dayArr[0]).getDay() + 1;
             var dia = this.listaDiaSemana.find(e => e.nIdDiaSemana === idDia);
             if(dia !== undefined)
-              model.diaProgramado = dia.vDescripcion;
+              model.diaProgramado = dia.vDescripcion.toUpperCase() ;
             else
               model.diaProgramado = '';
 
@@ -96,6 +96,8 @@ export class LcitaPage implements OnInit {
             model.vIcon= "../../../../assets/"+element.vIcon;
             model.vBanco= element.vBanco;
             model.vCampana= element.vCampana;
+            model.nRegistrado= element.nRegistrado;
+            model.nRealizado= element.nRealizado;            
   
             this.dataCita.push(model);
           });
@@ -115,9 +117,9 @@ export class LcitaPage implements OnInit {
           }
        
       });      
-
+      
       // this.infiniteScroll.complete();
-
+      
       this.page++;
 
     // }, 500);

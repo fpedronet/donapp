@@ -45,23 +45,24 @@
           {{sinResultados}}
         </ion-text>
         <ion-list *ngIf="dataCita.length > 0">
-          <ion-item lines="none" style="padding-top: 0px;" *ngFor="let user of dataCita; let i = index">
+          <ion-item lines="none" style="padding-top: 0px;" *ngFor="let cita of dataCita; let i = index">
             <ion-card>   
               <ion-header>
               </ion-header>    
               <ion-card-content>
                 <ion-item lines="none">
-                  <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
+                  <img slot="start" src="{{cita.vIcon}}" style="width: 50px;"/>
                   <ion-label>
-                      <h2 class="labelCard" style="font-weight: bold;">{{user.diaProgramado}}</h2>
-                      <h2 class="labelCard">{{user.fechaProgramada}}</h2>
-                      <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
-                      <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
-                      <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
-                      
+                      <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado}}</h2>
+                      <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
+                      <p style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
+                      <p *ngIf="cita.nTipoCita === 1 || cita.nTipoCita === 3" style="white-space: break-spaces;">{{cita.vBanco}}</p>
+                      <p *ngIf="cita.nTipoCita === 2" style="white-space: break-spaces;">{{cita.vCampana}}</p>
+                      <h4 *ngIf="cita.nRegistrado === 1 && cita.nRealizado !== 1" color="green">VERIFICADO</h4>
+                      <h4 *ngIf="cita.nRegistrado === 1 && cita.nRealizado === 1">REALIZADO</h4>                      
                   </ion-label>
                 </ion-item>
-                <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
+                <ion-button color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
                   <ion-icon name="eye-outline"></ion-icon>
                 </ion-button>  
     
