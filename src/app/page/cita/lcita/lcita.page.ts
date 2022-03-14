@@ -11,6 +11,8 @@ import { TipoDonacion } from 'src/app/_model/tipodonacion';
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
 import { AlertService } from '../../components/alert/alert.service';
+import { DiaSemana } from 'src/app/_model/diasemana';
+import jsonDiaSemana from 'src/assets/json/listasemana.json';
 
 @Component({
   selector: 'app-lcita',
@@ -37,16 +39,19 @@ export class LcitaPage implements OnInit {
   data: string = "";
   page: number = 1;
 
+  listaDiaSemana: DiaSemana[] = [];
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
   selectTipoCita: number[] = [];
   selectTipoDonacion: number[] = [];
 
   currentTab: number = 1;
+  slideDer: boolean = true;
   
   ngOnInit() {
     this.listartipocita();
     this.listartipodonacion();
+    this.listardiasemana();
     this.buscar(this.currentTab);
   }
   
@@ -74,6 +79,17 @@ export class LcitaPage implements OnInit {
   
             model.nIdCita= element.nIdCita;
             model.fechaProgramada= element.fechaProgramada;
+            
+            //Obtiene día de la semana
+            var cadenaDate = model.fechaProgramada.slice(0,10);
+            var dayArr = cadenaDate.split('/');
+            var idDia = new Date(dayArr[2]+'-'+dayArr[1]+'-'+dayArr[0]).getDay() + 1;
+            var dia = this.listaDiaSemana.find(e => e.nIdDiaSemana === idDia);
+            if(dia !== undefined)
+              model.diaProgramado = dia.vDescripcion;
+            else
+              model.diaProgramado = '';
+
             model.nTipoCita= element.nTipoCita;
             model.vTipoCita= element.vTipoCita;
             model.vTipoDonacion= element.vTipoDonacion;
@@ -110,6 +126,8 @@ export class LcitaPage implements OnInit {
   buscarTab(tab: number){
     if(this.currentTab !== tab){
       this.currentTab = tab;
+      this.slideDer = !this.slideDer;
+      console.log('slideDer: '+this.slideDer);
       this.buscar(tab);
     }    
   }
@@ -157,6 +175,20 @@ export class LcitaPage implements OnInit {
     }
   }
 
+  listardiasemana(){
+    this.listaDiaSemana = [];
+
+    for(var i in jsonDiaSemana) {
+      let dia: DiaSemana = {};
+
+      dia.nIdDiaSemana = jsonDiaSemana[i].nIdSemana;
+      dia.vDescripcion = jsonDiaSemana[i].vDescripcion;
+      dia.vAbrev = jsonDiaSemana[i].vAbrev;
+
+      this.listaDiaSemana.push(dia);
+    }
+  }
+
   nuevo(){
     var opciones = []
     this.listaTipoCitas.forEach(tipo => {
@@ -199,5 +231,19 @@ export class LcitaPage implements OnInit {
       this.selectTipoDonacion =data.arrayTipoDonacion;
       this.buscar(this.currentTab);
     }    
+  }
+
+  openSlide(slide){
+    slide.getOpenAmount().then(res=>{
+      //console.log(res);
+      if(Math.abs(res)>175){
+        if(this.currentTab===1)
+          this.buscarTab(2);
+        else
+          this.buscarTab(1);
+        slide.close();
+      }
+        
+    })    
   }
 }

@@ -8,10 +8,10 @@
     <!-- </ion-title> -->
     <ion-buttons slot="end">
       <ion-button (click)="abrirModal()">
-        <ion-icon name="options-outline"></ion-icon>
+        <ion-icon size="large" name="options-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="nuevo()">
-          <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-icon size="large" name="add-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -35,33 +35,44 @@
 <ion-content>
 
   <ion-list>
-    <ion-item-sliding>
-      <!--ion-item-options side="end">
-      </ion-item-options-->
-      <!--(on-drag-right)="buscarTab(2)" (on-drag-left)="buscarTab(1)"-->
+    <!--(ionDrag)="openSlide(slide)"-->
+    <ion-item-sliding #slide (ionDrag)="openSlide(slide)">
+      <ion-item-options side="end">
+      </ion-item-options>
 
-      <ion-item lines="none" style="padding-top: 0px;" *ngFor="let user of dataCita; let i = index">
-        <ion-card>   
-          <ion-header>
-          </ion-header>    
-          <ion-card-content>
-            <ion-item lines="none">
-              <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
-              <ion-label>
-                  <h2 class="labelCard">{{i+1}}) {{user.fechaProgramada}}</h2>
-                  <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
-                  <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
-                  <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
-                  
-              </ion-label>
-            </ion-item>
-            <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
-              <ion-icon name="eye-outline"></ion-icon>
-            </ion-button>  
-
-          </ion-card-content>
-        </ion-card>
+      <ion-item>
+        <ion-text *ngIf="dataCita.length === 0">
+          {{sinResultados}}
+        </ion-text>
+        <ion-list *ngIf="dataCita.length > 0">
+          <ion-item lines="none" style="padding-top: 0px;" *ngFor="let user of dataCita; let i = index">
+            <ion-card>   
+              <ion-header>
+              </ion-header>    
+              <ion-card-content>
+                <ion-item lines="none">
+                  <img slot="start" src="{{user.vIcon}}" style="width: 50px;"/>
+                  <ion-label>
+                      <h2 class="labelCard" style="font-weight: bold;">{{user.diaProgramado}}</h2>
+                      <h2 class="labelCard">{{user.fechaProgramada}}</h2>
+                      <p style="white-space: break-spaces;">{{user.vTipoCita}}</p>
+                      <p *ngIf="user.nTipoCita === 1 || user.nTipoCita === 3" style="white-space: break-spaces;">{{user.vBanco}}</p>
+                      <p *ngIf="user.nTipoCita === 2" style="white-space: break-spaces;">{{user.vCampana}}</p>
+                      
+                  </ion-label>
+                </ion-item>
+                <ion-button color="success" fill="clear" size="full" (click)="edit(user.nIdCita, false)">
+                  <ion-icon name="eye-outline"></ion-icon>
+                </ion-button>  
+    
+              </ion-card-content>
+            </ion-card>
+          </ion-item>
+        </ion-list>
       </ion-item>
+      
+      <ion-item-options side="start">
+      </ion-item-options>
 
     </ion-item-sliding>
   </ion-list>

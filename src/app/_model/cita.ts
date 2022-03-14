@@ -9,6 +9,7 @@ export class Cita{
     nIdCampana? : number;
     nIdDonante? : number;
     dProgramacion? : Date;
+    diaProgramado? : string;
     fechaProgramada? : string;
     vBanco? : string;
     vCampana? : string;

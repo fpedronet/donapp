@@ -4,14 +4,14 @@
       <ion-back-button text="" defaultHref="inicio"></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="id===0">
-        CREAR USUARIO
+      CREAR USUARIO
     </ion-title>
     <ion-title *ngIf="id!==0">
       EDITAR PERFIL
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="guardar()">
-          <ion-icon name="save-outline"></ion-icon>
+        <ion-icon size="large" name="save-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
