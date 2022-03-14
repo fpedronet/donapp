@@ -123,6 +123,7 @@ export class CcitaPage implements OnInit {
     return new Promise(async (resolve) => {
       if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
+          console.log('navigator.geolocation');
           console.log(position.coords.latitude + ',' + position.coords.longitude);
           //debugger;
           geo.lat = position.coords.latitude;
@@ -134,9 +135,9 @@ export class CcitaPage implements OnInit {
 
           resolve('error');
         }, {
-          enableHighAccuracy: false,
-          maximumAge        : 30000,
-          timeout           : 25000
+          enableHighAccuracy: false, //No tiene precisión tan alta
+          maximumAge        : 300000, //Revisa si hace 5 minutos se almacenó alguna ubicación
+          timeout           : 5000 //Máximo de 5 segundos
         });
       } else {
         console.log('Geolocation is not supported');
@@ -173,14 +174,15 @@ export class CcitaPage implements OnInit {
   }
 
   obtenerDtoYprovActual(geo: Geolocalizacion){
-    console.log('API GEO');
-    let url = geo.api+'&lat='+geo.lat+'&lon='+geo.lng+'&zoom=10';
+    console.log('openstreetmap-reverse-format');
+    let url = geo.api+'&lat='+geo.lat+'&lon='+geo.lng+'&zoom=8';
     console.log(url);
     fetch(url)
       .then(response => response.json())
       .then(data => {
         geo.vDpto = data.address.state;
         geo.vProv = data.address.region;
+        console.log(geo.vDpto + ', ' + geo.vProv)
         //debugger;
 
         if(geo.vDpto !== '' && geo.vProv !== ''){
@@ -192,6 +194,8 @@ export class CcitaPage implements OnInit {
           geo.idProv = prov !== undefined?prov.vUbigeo:"00";
           this.updateProv(geo.idProv);
         }
+        console.log('updateDto & updateProv');
+        console.log('idDpto: ' + geo.idDpto + ', idProv: ' + geo.idProv);
 
         this.form.patchValue({
           vIdDepartamento: geo.idDpto,
