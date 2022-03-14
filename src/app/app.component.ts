@@ -6,7 +6,7 @@ import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
 import { UsuarioService } from './_service/usuario.service';
 
-import { SplashScreen } from '@capacitor/splash-screen';
+// import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +39,7 @@ export class AppComponent {
   ngOnInit(): void {
     //this.listar();   
 
-    this.splashScreen();
+    // this.splashScreen();
   }
 
 //   private splashScreen(): void {
@@ -48,12 +48,12 @@ export class AppComponent {
 //     }, 500);
 // }
 
-splashScreen() {
-     SplashScreen.show({
-      showDuration: 4000,
-      autoHide: true
-    });
-}
+// splashScreen() {
+//      SplashScreen.show({
+//       showDuration: 4000,
+//       autoHide: true
+//     });
+// }
 
   listar(){
     this.muestraCamposUser();
