@@ -325,7 +325,7 @@ export class CcitaPage implements OnInit {
     if(curProv !== undefined){
       if(this.tipo == 1 || this.tipo == 3){
         //Filtra los bancos cuyo ubigeo coincide con el de provincia al inicio
-        this.listaBancos = this.listaTotBancos.filter(e => e.vUbigeo.startsWith(curProv.vUbigeo));
+        this.listaBancos = this.listaTotBancos.filter(e => e.vUbigeo !== null && e.vUbigeo.startsWith(curProv.vUbigeo));
         //Si hay solo un elemento lo preselecciona, sino deselecciona
         let selValue = (this.listaBancos.length === 1)?this.listaBancos[0].nIdBanco:0;
         this.form.patchValue({
@@ -334,7 +334,7 @@ export class CcitaPage implements OnInit {
       }
       else if(this.tipo == 2){
         //Filtra las campañas cuyo ubigeo coincide con el de provincia al inicio
-        this.listaCampanas = this.listaTotCampanas.filter(e => e.vUbigeo.startsWith(curProv.vUbigeo));
+        this.listaCampanas = this.listaTotCampanas.filter(e => e.vUbigeo !== null && e.vUbigeo.startsWith(curProv.vUbigeo));
         //Si hay solo un elemento lo preselecciona, sino deselecciona
         let selValue = (this.listaCampanas.length === 1)?this.listaCampanas[0].nIdCampana:0;
         this.form.patchValue({
@@ -354,9 +354,9 @@ export class CcitaPage implements OnInit {
     }
     //debugger;
     if(listaElementos !== undefined){
-      this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+      this.listaDepartamentos = this.listaDepartamentos.filter(e => listaElementos.find(f => f.vUbigeo !== null && f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
       this.listaDepartamentos.forEach(dpto => {
-        dpto.listaProvincias = dpto.listaProvincias.filter(e => listaElementos.find(f => f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
+        dpto.listaProvincias = dpto.listaProvincias.filter(e => listaElementos.find(f => f.vUbigeo !== null && f.vUbigeo.startsWith(e.vUbigeo)) !== undefined)
       });
     }    
   }
