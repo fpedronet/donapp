@@ -56,10 +56,7 @@
                       <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado}}</h2>
                       <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
                       <p style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
-                      <p *ngIf="cita.nTipoCita === 1 || cita.nTipoCita === 3" style="white-space: break-spaces;">{{cita.vBanco}}</p>
-                      <p *ngIf="cita.nTipoCita === 2" style="white-space: break-spaces;">{{cita.vCampana}}</p>
-                      <h4 *ngIf="cita.nRegistrado === 1 && cita.nRealizado !== 1" color="green">VERIFICADO</h4>
-                      <h4 *ngIf="cita.nRegistrado === 1 && cita.nRealizado === 1">REALIZADO</h4>                      
+                      <p *ngIf="cita.estado.visual">{{cita.estado.vDescripcion.toUpperCase()}}</p>                  
                   </ion-label>
                 </ion-item>
                 <ion-button color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
