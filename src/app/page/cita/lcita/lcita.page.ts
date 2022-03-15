@@ -32,7 +32,7 @@ export class LcitaPage implements OnInit {
 
   dataSource: Cita[] = [];
   dataCita: Cita[] = [];
-  sinResultados: string = '';
+  sinResultados: string = 'Buscando resultados...';
 
   total: number = 0;
   totalResult: number = 0;
@@ -136,7 +136,7 @@ export class LcitaPage implements OnInit {
 
   buscar(tipo: number){
     this.dataCita = [];
-    this.sinResultados = '';
+    this.sinResultados = 'Buscando resultados...';
     this.totalResult = 0;
     this.total = 0;
     this.page=1;
@@ -238,7 +238,7 @@ export class LcitaPage implements OnInit {
   openSlide(slide){
     slide.getOpenAmount().then(res=>{
       //console.log(res);
-      if(Math.abs(res)>175){
+      if(Math.abs(res)>150){
         if(this.currentTab===1)
           this.buscarTab(2);
         else
