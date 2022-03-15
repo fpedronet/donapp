@@ -15,6 +15,7 @@ export class Persona {
     vCelular?: string;
     vEmail?: string;
     vDireccion?: string;
+    nSangreConfirmada?: number;
     nEsPaciente?: number;
     usuario?: Usuario;
 }

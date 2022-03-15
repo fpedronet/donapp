@@ -70,6 +70,8 @@ export class CpersonaPage implements OnInit {
   showCambioContra: boolean = false;
   contra: string = '';
 
+  bloqueaSangre: boolean = false;
+
   correoOrig: string;
 
   ngOnInit() {
@@ -166,6 +168,11 @@ export class CpersonaPage implements OnInit {
           this.contra = data.usuario.vContrasena;
 
           this.showCambioContra = false;
+
+          //Revisa si la sangre fue confirmada
+          this.bloqueaSangre = false;
+          if(data.nSangreConfirmada === 1)
+            this.bloqueaSangre = true;            
 
           //Revisa si puede editar documento
           if(data.usuario.dFechaRegistro !== undefined){

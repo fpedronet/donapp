@@ -95,7 +95,7 @@
 
       <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label>Tipo de sangre</ion-label>
-        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre">
+        <ion-select [disabled]="bloqueaSangre" interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre">
           <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
         </ion-select>
       </ion-item>
