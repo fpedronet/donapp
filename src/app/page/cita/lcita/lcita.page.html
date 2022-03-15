@@ -56,7 +56,7 @@
                       <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado}}</h2>
                       <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
                       <p style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
-                      <p *ngIf="cita.estado.visual">{{cita.estado.vDescripcion.toUpperCase()}}</p>                  
+                      <small class="text-estado-{{cita.estado.nIdEstado}}" *ngIf="cita.estado.visual">{{cita.estado.vDescripcion.toUpperCase()}}</small>                  
                   </ion-label>
                 </ion-item>
                 <ion-button color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">

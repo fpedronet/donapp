@@ -106,6 +106,8 @@ export class LcitaPage implements OnInit {
             model.nEstado = element.nEstado;
 
             model.estado = this.obtenerEstado(model.nRegistrado, model.nRealizado, model.nEstado);
+            //var elemHtml = document.getElementById('myelement');
+            //elemHtml.style.setProperty("--color-"+model.estado.nIdEstado, model.estado.color);
   
             this.dataCita.push(model);
           });
@@ -224,6 +226,7 @@ export class LcitaPage implements OnInit {
       estado.nIdEstado = jsonEstado[i].nIdEstado;
       estado.vDescripcion = jsonEstado[i].vDescripcion;
       estado.vDetalle = jsonEstado[i].vDetalle;
+      estado.color = jsonEstado[i].color;
       estado.visual = jsonEstado[i].visual;
 
       this.listaEstado.push(estado);
