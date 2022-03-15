@@ -1,6 +1,7 @@
 import { Banco } from "./banco";
 import { Campana } from "./campana";
 import { Donacion } from "./donacion";
+import { Estado } from "./estado";
 import { Feriado } from "./feriado";
 import { HorarioAtencion } from "./horarioatencion";
 
@@ -22,8 +23,13 @@ export class Cita{
     nTipoDonacion? : number;
     nTipoDocuReceptor? : number;
     vIdReceptor? : string;
+    //Con estos 3 valores se obtiene estado
+    nEstado?: number;
     nRegistrado?: number;
     nRealizado?: number;
+
+    estado?: Estado;
+    //
     listaBancos? : Banco[] = [];
     listaCampanas? : Campana[] = [];
     listaFeriados? : Feriado[] = [];

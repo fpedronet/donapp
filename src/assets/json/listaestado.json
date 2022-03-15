@@ -1,0 +1,44 @@
+[
+    {
+        "nIdEstado":1,
+        "vDescripcion":"Creada",
+        "vDetalle":"Cita que acaba de ser registrada",
+        "color": "#0A0A0A",
+        "visual":false
+    },
+    {
+        "nIdEstado":2,
+        "vDescripcion":"Verificada",
+        "vDetalle":"Cita registrada en hospital",
+        "color": "#0000FF",
+        "visual":true
+    },
+    {
+        "nIdEstado":3,
+        "vDescripcion":"Cancelada",
+        "vDetalle":"Cita anulada, no se llevará a cabo",
+        "color": "#FF0000",
+        "visual":true
+    },    
+    {
+        "nIdEstado":4,
+        "vDescripcion":"Donó",
+        "vDetalle":"Donación realizada con éxito",
+        "color": "#00BB2D",
+        "visual":true
+    },
+    {
+        "nIdEstado":5,
+        "vDescripcion":"No donó",
+        "vDetalle":"Se presentó pero no se llevó a cabo la donación",
+        "color": "#FF8000",
+        "visual":true
+    },
+    {
+        "nIdEstado":6,
+        "vDescripcion":"Faltó",
+        "vDetalle":"No se presentó a la cita para donación",
+        "color": "#FAD201",
+        "visual":true
+    }
+]

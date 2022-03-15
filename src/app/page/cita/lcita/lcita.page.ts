@@ -13,6 +13,8 @@ import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
 import { AlertService } from '../../components/alert/alert.service';
 import { DiaSemana } from 'src/app/_model/diasemana';
 import jsonDiaSemana from 'src/assets/json/listasemana.json';
+import jsonEstado from 'src/assets/json/listaestado.json';
+import { Estado } from 'src/app/_model/estado';
 
 @Component({
   selector: 'app-lcita',
@@ -38,7 +40,8 @@ export class LcitaPage implements OnInit {
   totalResult: number = 0;
   data: string = "";
   page: number = 1;
-
+  
+  listaEstado: Estado[] = [];
   listaDiaSemana: DiaSemana[] = [];
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
@@ -52,6 +55,7 @@ export class LcitaPage implements OnInit {
     this.listartipocita();
     this.listartipodonacion();
     this.listardiasemana();
+    this.listarestado();
     this.buscar(this.currentTab);
   }
   
@@ -90,14 +94,20 @@ export class LcitaPage implements OnInit {
             else
               model.diaProgramado = '';
 
-            model.nTipoCita= element.nTipoCita;
-            model.vTipoCita= element.vTipoCita;
-            model.vTipoDonacion= element.vTipoDonacion;
-            model.vIcon= "../../../../assets/"+element.vIcon;
-            model.vBanco= element.vBanco;
-            model.vCampana= element.vCampana;
-            model.nRegistrado= element.nRegistrado;
-            model.nRealizado= element.nRealizado;            
+            model.nTipoCita = element.nTipoCita;
+            model.vTipoCita = element.vTipoCita;
+            model.vTipoDonacion = element.vTipoDonacion;
+            model.vIcon = "../../../../assets/"+element.vIcon;
+            model.vBanco = element.vBanco;
+            model.vCampana = element.vCampana;
+
+            model.nRegistrado = element.nRegistrado;
+            model.nRealizado = element.nRealizado;
+            model.nEstado = element.nEstado;
+
+            model.estado = this.obtenerEstado(model.nRegistrado, model.nRealizado, model.nEstado);
+            //var elemHtml = document.getElementById('myelement');
+            //elemHtml.style.setProperty("--color-"+model.estado.nIdEstado, model.estado.color);
   
             this.dataCita.push(model);
           });
@@ -123,6 +133,22 @@ export class LcitaPage implements OnInit {
       this.page++;
 
     // }, 500);
+  }
+
+  obtenerEstado(regis: number, reali: number, exist: number){
+    var estado: number = 1;
+
+    //Verificado
+    if(regis === 1)
+      estado = 2;
+    //Donó, No donó, Faltó
+    if(reali > 0)
+      estado = reali + 3;
+    //Cancelado
+    if(exist === 0)
+      estado = 3;
+    
+    return this.listaEstado.find(e => e.nIdEstado === estado);
   }
 
   buscarTab(tab: number){
@@ -188,6 +214,22 @@ export class LcitaPage implements OnInit {
       dia.vAbrev = jsonDiaSemana[i].vAbrev;
 
       this.listaDiaSemana.push(dia);
+    }
+  }
+
+  listarestado(){
+    this.listaEstado = [];
+
+    for(var i in jsonEstado) {
+      let estado: Estado = {};
+
+      estado.nIdEstado = jsonEstado[i].nIdEstado;
+      estado.vDescripcion = jsonEstado[i].vDescripcion;
+      estado.vDetalle = jsonEstado[i].vDetalle;
+      estado.color = jsonEstado[i].color;
+      estado.visual = jsonEstado[i].visual;
+
+      this.listaEstado.push(estado);
     }
   }
 
