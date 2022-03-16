@@ -147,8 +147,10 @@ export class LcitaPage implements OnInit {
     //Cancelado
     if(exist === 0)
       estado = 3;
+
+    var res = this.listaEstado.find(e => e.nIdEstado === estado);
     
-    return this.listaEstado.find(e => e.nIdEstado === estado);
+    return res===undefined?this.listaEstado[0]:res;
   }
 
   buscarTab(tab: number){
