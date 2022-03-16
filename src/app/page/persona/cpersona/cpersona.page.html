@@ -32,7 +32,7 @@
 
       <ion-item fill="outline" mode="md">
         <ion-label>Tipo de documento</ion-label>
-        <ion-select interface="action-sheet" [disabled]="id!==0 && !puedeEditarDocu" placeholder="Seleccione" formControlName="nIdTipoDocu" required>
+        <ion-select interface="action-sheet" [disabled]="id!==0 && !puedeEditarDocu" placeholder="Seleccione" cancelText="Cancelar" formControlName="nIdTipoDocu" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -88,14 +88,14 @@
 
       <ion-item fill="outline" mode="md">
         <ion-label>Sexo</ion-label>
-        <ion-select interface="action-sheet" placeholder="Seleccione" formControlName="nSexo" required>
+        <ion-select interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="nSexo" required>
           <ion-select-option *ngFor="let el of listaSexo" [value]="el.nIdSexo">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item *ngIf="id!==0" fill="outline" mode="md">
         <ion-label>Tipo de sangre</ion-label>
-        <ion-select [disabled]="bloqueaSangre" interface="action-sheet" placeholder="Seleccione" formControlName="vTipoSangre">
+        <ion-select [disabled]="bloqueaSangre" interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="vTipoSangre">
           <ion-select-option *ngFor="let el of listaTipoSangre" [value]="el">{{el}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -136,10 +136,10 @@
 
       <ion-item lines="none" *ngIf="id!==0">
         <ion-label *ngIf="!showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
-          <ion-icon name="arrow-down"></ion-icon>
+          <ion-icon name="chevron-down"></ion-icon>
         </ion-label>
         <ion-label *ngIf="showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
-          <ion-icon name="arrow-up"></ion-icon>
+          <ion-icon name="chevron-up"></ion-icon>
         </ion-label>
       </ion-item>
 

@@ -2,28 +2,36 @@
     {
         "nIdEstado":1,
         "vDescripcion":"Creada",
+        "vMensaje":"",
         "vDetalle":"Cita que acaba de ser registrada",
+        "icon": "ban-sharp",
         "color": "#0A0A0A",
         "visual":false
     },
     {
         "nIdEstado":2,
         "vDescripcion":"Verificada",
+        "vMensaje":"",
         "vDetalle":"Cita registrada en hospital",
+        "icon": "checkmark-sharp",
         "color": "#0000FF",
         "visual":true
     },
     {
         "nIdEstado":3,
-        "vDescripcion":"Cancelada",
+        "vDescripcion":"Cancelada",        
         "vDetalle":"Cita anulada, no se llevará a cabo",
+        "vMensaje":"Cancelaste la cita",
+        "icon": "close-sharp",
         "color": "#FF0000",
         "visual":true
     },    
     {
         "nIdEstado":4,
-        "vDescripcion":"Donó",
+        "vDescripcion":"Donó",        
         "vDetalle":"Donación realizada con éxito",
+        "vMensaje":"¡Gracias por tu donación!",
+        "icon": "ellipse-sharp",
         "color": "#00BB2D",
         "visual":true
     },
@@ -31,6 +39,8 @@
         "nIdEstado":5,
         "vDescripcion":"No donó",
         "vDetalle":"Se presentó pero no se llevó a cabo la donación",
+        "vMensaje":"No se completó la donación en esta ocasión",
+        "icon": "contrast-sharp",
         "color": "#FF8000",
         "visual":true
     },
@@ -38,6 +48,8 @@
         "nIdEstado":6,
         "vDescripcion":"Faltó",
         "vDetalle":"No se presentó a la cita para donación",
+        "vMensaje": "Tu presencia salva vidas, te esperamos la próxima",
+        "icon": "triangle-sharp",
         "color": "#FAD201",
         "visual":true
     }

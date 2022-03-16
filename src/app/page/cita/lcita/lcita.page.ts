@@ -49,6 +49,7 @@ export class LcitaPage implements OnInit {
   selectTipoDonacion: number[] = [];
 
   currentTab: number = 1;
+  slideDistance: number = 150;
   slideDer: boolean = true;
   
   ngOnInit() {
@@ -57,6 +58,9 @@ export class LcitaPage implements OnInit {
     this.listardiasemana();
     this.listarestado();
     this.buscar(this.currentTab);
+
+    this.slideDistance = window.screen.width/3;
+    //console.log(this.slideDistance);
   }
   
   loadData(tipo: number, event?) {
@@ -90,7 +94,7 @@ export class LcitaPage implements OnInit {
             var idDia = new Date(dayArr[2]+'-'+dayArr[1]+'-'+dayArr[0]).getDay() + 1;
             var dia = this.listaDiaSemana.find(e => e.nIdDiaSemana === idDia);
             if(dia !== undefined)
-              model.diaProgramado = dia.vDescripcion.toUpperCase() ;
+              model.diaProgramado = dia.vDescripcion;
             else
               model.diaProgramado = '';
 
@@ -104,6 +108,8 @@ export class LcitaPage implements OnInit {
             model.nRegistrado = element.nRegistrado;
             model.nRealizado = element.nRealizado;
             model.nEstado = element.nEstado;
+
+            //debugger;
 
             model.estado = this.obtenerEstado(model.nRegistrado, model.nRealizado, model.nEstado);
             //var elemHtml = document.getElementById('myelement');
@@ -228,6 +234,9 @@ export class LcitaPage implements OnInit {
       estado.nIdEstado = jsonEstado[i].nIdEstado;
       estado.vDescripcion = jsonEstado[i].vDescripcion;
       estado.vDetalle = jsonEstado[i].vDetalle;
+      estado.vMensaje = jsonEstado[i].vMensaje;
+
+      estado.icon = jsonEstado[i].icon;
       estado.color = jsonEstado[i].color;
       estado.visual = jsonEstado[i].visual;
 
@@ -282,7 +291,7 @@ export class LcitaPage implements OnInit {
   openSlide(slide){
     slide.getOpenAmount().then(res=>{
       //console.log(res);
-      if(Math.abs(res)>150){
+      if(Math.abs(res)>this.slideDistance){
         if(this.currentTab===1)
           this.buscarTab(2);
         else
