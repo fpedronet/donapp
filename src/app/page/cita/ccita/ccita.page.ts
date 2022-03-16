@@ -13,6 +13,7 @@ import jsonDistrito from 'src/assets/json/ubigeo/distritos.json';
 import jsonTipoCita from 'src/assets/json/listacita.json';
 import jsonTipoDonacion from 'src/assets/json/listadonacion.json';
 import jsonDiaSemana from 'src/assets/json/listasemana.json';
+import jsonEstado from 'src/assets/json/listaestado.json';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { TipoCita } from 'src/app/_model/tipocita';
@@ -25,6 +26,8 @@ import { HorarioAtencion } from 'src/app/_model/horarioatencion';
 import { Feriado } from 'src/app/_model/feriado';
 import { Geolocalizacion } from 'src/app/_model/geolocalizacion';
 import { TipoDocumento } from 'src/app/_model/tipodocumento';
+import { Estado } from 'src/app/_model/estado';
+import { AlertService } from '../../components/alert/alert.service';
 
 @Component({
   selector: 'app-ccita',
@@ -38,6 +41,7 @@ export class CcitaPage implements OnInit {
     private route: ActivatedRoute,
     private citaService: CitaService,
     private tipodocumentoService : TipodocumentoService,
+    private alertService : AlertService, 
     private loadingService : LoadingService,   
     private toastService : ToastService
   ) { }
@@ -47,12 +51,13 @@ export class CcitaPage implements OnInit {
 
   listaTipoDocu: TipoDocumento[] = [];
   listaDiaSemana: DiaSemana[] = [];
-  horarioAtencion: string[] = [];
+  horarioAtencion: string[][] = [];
 
   //Lista de horarios para validación de horario en back
   horarioBanco: HorarioAtencion[]=[];
   showHorario: boolean = false;
-
+  
+  listaEstado: Estado[] = [];
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
   tipoCita: TipoCita = new TipoCita(0, 'Tipo cita no identificado');
@@ -79,12 +84,19 @@ export class CcitaPage implements OnInit {
   programadoFormatted: string = '';
   formatFechaHora: string = 'dd MMM yyyy, HH:mm'
 
+  //Estado de la cita actual
+  curEstado: Estado;
+
+  //Valores originales de cita para detectar cambios
+  oriProgramacion: Date;
+  oriIdBanco: number;
+
   //Geolocalización
   geoLoc: Geolocalizacion = new Geolocalizacion();  
 
   id: number = 0;
   tipo: number = 0;
-  ver: boolean = true;
+  edit: boolean = true;
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -104,12 +116,13 @@ export class CcitaPage implements OnInit {
     this.listartipodonacion();
     this.listarubigeo();
     this.listardiasemana();
+    this.listarestado();
     this.listartipodocumento();
     
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.tipo = (data["tipo"]==undefined)? 0:data["tipo"];
-      this.ver = (data["ver"]==undefined)? true:data["ver"]=="true";
+      this.edit = (data["edit"]==undefined)? true:data["edit"]=="true";
 
       this.obtener();
       
@@ -236,6 +249,33 @@ export class CcitaPage implements OnInit {
 
     //Tipo donación por defecto
     this.tipoDonacion = this.listaTipoDonaciones[0];
+  }
+
+  listarestado(){
+    this.listaEstado = [];
+
+    for(var i in jsonEstado) {
+      let estado: Estado = {};
+
+      estado.nIdEstado = jsonEstado[i].nIdEstado;
+      estado.vDescripcion = jsonEstado[i].vDescripcion;
+      estado.vDetalle = jsonEstado[i].vDetalle;
+      estado.vMensaje = jsonEstado[i].vMensaje;
+
+      estado.icon = jsonEstado[i].icon;
+      estado.color = jsonEstado[i].color;
+      estado.visual = jsonEstado[i].visual;
+
+      this.listaEstado.push(estado);
+
+      this.crearClasesCss(estado.nIdEstado, estado.color);
+    }
+  }
+
+  crearClasesCss(id: number, color: string){
+    var editCSS = document.createElement('style')
+    editCSS.innerHTML = ".text-estado-" + id + " {color: " + color + ";}";
+    document.body.appendChild(editCSS);
   }
 
   listarubigeo(){
@@ -411,17 +451,20 @@ export class CcitaPage implements OnInit {
 
   setHorarioAtencion(horarios: HorarioAtencion[]){
     this.horarioAtencion = []
-    var diaHorario: string;
+    var diaHorario: string[];
     var diaSemana: DiaSemana;
     if(horarios !== undefined){
       horarios.forEach(h => {
         //debugger;
         diaSemana = this.listaDiaSemana.find(e => e.nIdDiaSemana === h.nDia);
         if(diaSemana !== undefined){
-          diaHorario = diaSemana.vAbrev + ': ' + h.vHoraIni1 + '-' + h.vHoraFin1;
+          diaHorario = [];
+          diaHorario.push(diaSemana.vDescripcion);
+          var horas = h.vHoraIni1 + '-' + h.vHoraFin1;
           if(h.vHoraIni2 !== ''){
-            diaHorario = diaHorario + ', ' + h.vHoraIni2 + '-' + h.vHoraFin2;
+            horas = horas + ', ' + h.vHoraIni2 + '-' + h.vHoraFin2;
           }
+          diaHorario.push(horas);
           this.horarioAtencion.push(diaHorario);
         }
         
@@ -478,6 +521,9 @@ export class CcitaPage implements OnInit {
           vIdReceptor: data.vIdReceptor
         })
 
+        //debugger;
+        this.curEstado = this.obtenerEstado(data.nRegistrado, data.nRealizado, data.nEstado);
+
         /*this.form.patchValue({
           vIdDepartamento: idDpto
         },
@@ -489,11 +535,33 @@ export class CcitaPage implements OnInit {
         //Actualiza fecha
         this.dProgramacion = new Date(data.dProgramacion);
         this.programadoFormatted = format(this.dProgramacion, this.formatFechaHora);
+
+        //Guarda valores originales
+        this.oriIdBanco = data.nIdBanco;
+        this.oriProgramacion = this.dProgramacion;
       }      
       
       this.loadingService.closeLoading();
 
     });
+  }
+
+  obtenerEstado(regis: number, reali: number, exist: number){
+    var estado: number = 1;
+
+    //Verificado
+    if(regis === 1)
+      estado = 2;
+    //Donó, No donó, Faltó
+    if(reali > 0)
+      estado = reali + 3;
+    //Cancelado
+    if(exist === 0)
+      estado = 3;
+
+    var res = this.listaEstado.find(e => e.nIdEstado === estado);
+    
+    return res===undefined?this.listaEstado[0]:res;
   }
 
   guardar(){
@@ -510,10 +578,42 @@ export class CcitaPage implements OnInit {
     model.vIdReceptor = this.form.value['vIdReceptor'];
     model.listaHorarios = this.horarioBanco;
     model.listaFeriados = this.listaFeriados;
-    model.nTipoDocuReceptor = this.form.value['nTipoDocuReceptor'];    
+    model.nTipoDocuReceptor = this.form.value['nTipoDocuReceptor'];
 
     //debugger;
+    //Solo muestra mensaje cuando se ha modificado la fecha o el banco
+    var cambiaFecha = this.oriProgramacion !== model.dProgramacion;
+    var cambiaBanco = this.oriIdBanco !== model.nIdBanco;
+    var verificado = this.curEstado.nIdEstado === 2;
+    //debugger;
+    if(this.id!==0 && verificado && (cambiaFecha || cambiaBanco)){
+      this.alertService.showNotification('Cambiar cita','Su cita ya ha sido registrada, editar el banco o la fecha cancelará la cita actual y creará una nueva.<br>¿Desea continuar?') .then(res => {
+        if (res === 'ok') {
+          //Cancela cita actual
+          this.loadingService.openLoading();
+          var nIdEliminar = model.nIdCita;
+          this.citaService.eliminar(nIdEliminar).subscribe(data=>{
+            //debugger;
+            if(data.typeResponse==environment.EXITO){
+              //Crea nueva cita
+              model.nIdCita = 0
+              this.servicioGuardar(model, nIdEliminar);
+              this.loadingService.closeLoading();
+            }
+            else{
+              this.loadingService.closeLoading();
+            }
+          });
+        }
+      });
+    }
+    else{
+      this.servicioGuardar(model);
+    }    
     
+  }
+
+  servicioGuardar(model: Cita, nIdEliminado: number = 0){
     this.loadingService.openLoading();
     this.citaService.guardar(model).subscribe(data=>{
       
@@ -521,11 +621,22 @@ export class CcitaPage implements OnInit {
 
       if(data.typeResponse==environment.EXITO){
         this.loadingService.closeLoading();
-
         this.router.navigate(['lcita']);
         
       }else{
-        this.loadingService.closeLoading();
+        //debugger;
+        //Si falla en la nueva inserción recupera el anterior
+        if(nIdEliminado !== 0){
+          this.citaService.eliminar(nIdEliminado, 1).subscribe(data=>{
+            //debugger;
+            if(data.typeResponse==environment.EXITO){
+              this.loadingService.closeLoading();
+            }
+          });
+        }
+        else{
+          this.loadingService.closeLoading();
+        }
       }
 
     });

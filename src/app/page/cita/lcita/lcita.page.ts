@@ -15,6 +15,8 @@ import { DiaSemana } from 'src/app/_model/diasemana';
 import jsonDiaSemana from 'src/assets/json/listasemana.json';
 import jsonEstado from 'src/assets/json/listaestado.json';
 import { Estado } from 'src/app/_model/estado';
+import { LoadingService } from '../../components/loading/loading.service';
+import { ToastService } from '../../components/toast/toast.service';
 
 @Component({
   selector: 'app-lcita',
@@ -28,7 +30,9 @@ export class LcitaPage implements OnInit {
   constructor(
     private router: Router,
     private citaService: CitaService,
-    private alertService : AlertService, 
+    private alertService : AlertService,
+    private toastService : ToastService,
+    private loadingService : LoadingService,
     private modalCtrl: ModalController
   ) { }
 
@@ -163,7 +167,7 @@ export class LcitaPage implements OnInit {
     if(this.currentTab !== tab){
       this.currentTab = tab;
       this.slideDer = !this.slideDer;
-      console.log('slideDer: '+this.slideDer);
+      //console.log('slideDer: '+this.slideDer);
       this.buscar(tab);
     }    
   }
@@ -241,7 +245,15 @@ export class LcitaPage implements OnInit {
       estado.visual = jsonEstado[i].visual;
 
       this.listaEstado.push(estado);
+
+      this.crearClasesCss(estado.nIdEstado, estado.color);
     }
+  }
+
+  crearClasesCss(id: number, color: string){
+    var editCSS = document.createElement('style')
+    editCSS.innerHTML = ".text-estado-" + id + " {color: " + color + ";}";
+    document.body.appendChild(editCSS);
   }
 
   nuevo(){
@@ -266,6 +278,26 @@ export class LcitaPage implements OnInit {
 
   edit(id: number, ver: boolean){
     this.router.navigate(['/ccita/edit/'+id+'/'+ver]);
+  }
+
+  cancel(id: number, estado: number){
+    //Si ha sido registrado en Donalab muestra mensaje
+    var mensaje
+    if(estado === 2){
+      mensaje = 'Su cita ya ha sido registrada. Además, cancelar una cita es irreversible.<br>¿Desea continuar?';
+    }
+    else{
+      mensaje = 'Cancelar una cita es irreversible.<br>¿Desea continuar?';
+    }
+    this.alertService.showNotification('Cancelar cita',mensaje) .then(res => {
+      if (res === 'ok') {
+        this.citaService.eliminar(id).subscribe(data=>{
+          this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+          this.loadingService.closeLoading();
+        });
+      }
+    });
+    
   }
 
   async abrirModal(){

@@ -3,14 +3,14 @@
         "nIdEstado":1,
         "vDescripcion":"Creada",
         "vMensaje":"",
-        "vDetalle":"Cita que acaba de ser registrada",
+        "vDetalle":"Cita que acaba de ser creada",
         "icon": "ban-sharp",
         "color": "#0A0A0A",
         "visual":false
     },
     {
         "nIdEstado":2,
-        "vDescripcion":"Verificada",
+        "vDescripcion":"Registrada",
         "vMensaje":"",
         "vDetalle":"Cita registrada en hospital",
         "icon": "checkmark-sharp",
@@ -22,7 +22,7 @@
         "vDescripcion":"Cancelada",        
         "vDetalle":"Cita anulada, no se llevará a cabo",
         "vMensaje":"Cancelaste la cita",
-        "icon": "close-sharp",
+        "icon": "ban-sharp",
         "color": "#FF0000",
         "visual":true
     },    
@@ -39,7 +39,7 @@
         "nIdEstado":5,
         "vDescripcion":"No donó",
         "vDetalle":"Se presentó pero no se llevó a cabo la donación",
-        "vMensaje":"No se completó la donación en esta ocasión",
+        "vMensaje":"No se completó la donación",
         "icon": "contrast-sharp",
         "color": "#FF8000",
         "visual":true
@@ -48,7 +48,7 @@
         "nIdEstado":6,
         "vDescripcion":"Faltó",
         "vDetalle":"No se presentó a la cita para donación",
-        "vMensaje": "Tu presencia salva vidas, te esperamos la próxima",
+        "vMensaje": "Tu presencia salva vidas, no faltes",
         "icon": "triangle-sharp",
         "color": "#FAD201",
         "visual":true

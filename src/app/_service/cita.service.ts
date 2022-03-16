@@ -30,4 +30,9 @@ export class CitaService {
     let urls = `${this.url}/PostSaveCita`;
     return this.http.post<Response>(urls, model);
   }
+
+  eliminar(id: number, inverso: number = 0){
+    let urls = `${this.url}/DeleteCita?id=${id}&inverso=${inverso}`;
+    return this.http.delete<Response>(urls);
+  }
 }

@@ -3,14 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button text="" defaultHref="lcita"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="ver">
+    <ion-title *ngIf="edit && id===0">
       AGENDAR CITA
     </ion-title>
-    <ion-title *ngIf="!ver">
+    <ion-title *ngIf="edit && id!==0">
+      EDITAR CITA
+    </ion-title>
+    <ion-title *ngIf="!edit">
       VER CITA
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button *ngIf="ver" (click)="guardar()">
+      <ion-button *ngIf="edit" (click)="guardar()">
         <ion-icon size="large" name="save-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -23,6 +26,8 @@
 
       <h2 class="title-label">{{tipoCita.vDescripcion}}</h2>
 
+      <h4 *ngIf="curEstado !== undefined && curEstado.visual" class="text-estado-{{curEstado.nIdEstado}}">*{{curEstado.vDetalle}}</h4>
+
       <ion-item fill="outline" mode="md" *ngIf="false">
         <ion-input name="nIdCita" type="text" formControlName="nIdCita" required>
         </ion-input>
@@ -33,9 +38,9 @@
           <ion-label>Tipo de donación</ion-label>
           <ion-row style="padding: 0;">
             <ion-col style="padding: 0;" *ngFor="let el of listaTipoDonaciones">
-              <ion-item lines="none">
+              <ion-item style="padding-top: 0;" lines="none">
                 <ion-label>{{el.vDescripcion}}</ion-label>
-                <ion-radio slot="start" color="danger" value="{{el.nIdTipoDonacion}}" [disabled]="!ver"></ion-radio>
+                <ion-radio slot="start" color="danger" value="{{el.nIdTipoDonacion}}" [disabled]="!edit"></ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>    
@@ -44,14 +49,14 @@
 
       <ion-item fill="outline" mode="md">
         <ion-label>Departamento</ion-label>
-        <ion-select #DPTO interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!ver" required>
+        <ion-select #DPTO interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaDepartamentos" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>     
       </ion-item>
 
       <ion-item fill="outline" mode="md">
         <ion-label>Provincia</ion-label>
-        <ion-select #PROV [disabled]="listaProvincias.length==0 || !ver" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
+        <ion-select #PROV [disabled]="listaProvincias.length==0 || !edit" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
           <ion-select-option *ngFor="let el of listaProvincias" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -60,7 +65,7 @@
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label *ngIf="BANCO.value === 0">Banco</ion-label>
         <ion-label position="floating" *ngIf="BANCO.value !== 0">Banco</ion-label>
-        <ion-select #BANCO [disabled]="listaBancos.length==0 || !ver" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
+        <ion-select #BANCO [disabled]="listaBancos.length==0 || !edit" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -68,7 +73,7 @@
       <!--DONACIÓN A CAMPAÑA-->
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===2">
         <ion-label>Campaña</ion-label>
-        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdCampana" [disabled]="!ver" required>
+        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdCampana" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -84,7 +89,7 @@
           <ion-list style="padding: 0; width: -webkit-fill-available;">
             <ion-item *ngFor="let el of horarioAtencion">
               <span>
-                {{el}}
+                {{el[0]}}<br>{{el[1]}}
               </span>
             </ion-item>    
           </ion-list>
@@ -102,7 +107,7 @@
           <ng-template>
             <ion-datetime
               #PROG
-              [readonly]="!ver"
+              [readonly]="!edit"
               [firstDayOfWeek]="1"
               [min]="minFechaCita"
               [max]="maxFechaCita"
@@ -128,14 +133,14 @@
 
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
         <ion-label>Tipo de documento</ion-label>
-        <ion-select name="nTipoDocuReceptor" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nTipoDocuReceptor" [disabled]="!ver" required>
+        <ion-select name="nTipoDocuReceptor" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nTipoDocuReceptor" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
         <ion-label position="floating">Documento</ion-label>
-        <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" [disabled]="!ver" required>
+        <ion-input name="vIdReceptor" maxlength="20" type="text" formControlName="vIdReceptor" [disabled]="!edit" required>
         </ion-input>
       </ion-item>
 
