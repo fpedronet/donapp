@@ -14,7 +14,7 @@ const routes: Routes = [
   
   {path: 'lcita',canActivate: [GuardService], loadChildren: () => import('./page/cita/lcita/lcita.module').then( m => m.LcitaPageModule)},
   {path: 'ccita/create/:tipo',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
-  {path: 'ccita/edit/:id/:ver',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
+  {path: 'ccita/edit/:id/:edit',canActivate: [GuardService], loadChildren: () => import('./page/cita/ccita/ccita.module').then( m => m.CcitaPageModule)},
   
    {
     path: 'verifcorreo',

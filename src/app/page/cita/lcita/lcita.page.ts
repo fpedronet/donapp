@@ -163,7 +163,7 @@ export class LcitaPage implements OnInit {
     if(this.currentTab !== tab){
       this.currentTab = tab;
       this.slideDer = !this.slideDer;
-      console.log('slideDer: '+this.slideDer);
+      //console.log('slideDer: '+this.slideDer);
       this.buscar(tab);
     }    
   }
@@ -241,7 +241,15 @@ export class LcitaPage implements OnInit {
       estado.visual = jsonEstado[i].visual;
 
       this.listaEstado.push(estado);
+
+      this.crearClasesCss(estado.nIdEstado, estado.color);
     }
+  }
+
+  crearClasesCss(id: number, color: string){
+    var editCSS = document.createElement('style')
+    editCSS.innerHTML = ".text-estado-" + id + " {color: " + color + ";}";
+    document.body.appendChild(editCSS);
   }
 
   nuevo(){
