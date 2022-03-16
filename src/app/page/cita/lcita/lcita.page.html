@@ -44,27 +44,45 @@
         <ion-text *ngIf="dataCita.length === 0">
           {{sinResultados}}
         </ion-text>
-        <ion-list *ngIf="dataCita.length > 0">
+        <ion-list style="width: 100%;" *ngIf="dataCita.length > 0">        
+
           <ion-item lines="none" style="padding-top: 0px;" *ngFor="let cita of dataCita; let i = index">
+            
+           
+
             <ion-card style="width: -webkit-fill-available;">   
               <ion-header>
               </ion-header>    
               <ion-card-content>
-                <ion-item lines="none">
-                  <img slot="start" src="{{cita.vIcon}}" style="width: 50px;"/>
-                  <ion-label>
-                      <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado}}</h2>
-                      <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
-                      <p style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
-                      <small class="text-estado-{{cita.estado.nIdEstado}}" *ngIf="cita.estado.visual">{{cita.estado.vDescripcion.toUpperCase()}}</small>                  
-                  </ion-label>
-                </ion-item>
+
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="3">
+                      <div class="imagen">
+                        <img slot="start" src="{{cita.vIcon}}" style="width: 50px;"/>
+                      </div>
+                    </ion-col>
+                    <ion-col size="6">
+                      <ion-label>
+                        <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado}}</h2>
+                        <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
+                        <p style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
+                      </ion-label>
+                    </ion-col>
+                    <ion-col size="3">
+                      <div class="estado">
+                        <small class="text-estado-{{cita.estado.nIdEstado}}" *ngIf="cita.estado.visual">{{cita.estado.vDescripcion.toUpperCase()}}</small>                  
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
                 <ion-button color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
                   <ion-icon name="eye-outline"></ion-icon>
                 </ion-button>  
-    
               </ion-card-content>
             </ion-card>
+
+         
           </ion-item>
         </ion-list>
       </ion-item>
