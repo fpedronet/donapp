@@ -39,7 +39,7 @@
         "nIdEstado":5,
         "vDescripcion":"No donó",
         "vDetalle":"Se presentó pero no se llevó a cabo la donación",
-        "vMensaje":"No se completó tu donación esta vez",
+        "vMensaje":"No se completó la donación",
         "icon": "contrast-sharp",
         "color": "#FF8000",
         "visual":true
@@ -48,7 +48,7 @@
         "nIdEstado":6,
         "vDescripcion":"Faltó",
         "vDetalle":"No se presentó a la cita para donación",
-        "vMensaje": "Tu presencia salva vidas, te esperamos la próxima",
+        "vMensaje": "Tu presencia salva vidas, no faltes",
         "icon": "triangle-sharp",
         "color": "#FAD201",
         "visual":true

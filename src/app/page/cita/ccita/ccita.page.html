@@ -26,6 +26,8 @@
 
       <h2 class="title-label">{{tipoCita.vDescripcion}}</h2>
 
+      <h4 *ngIf="curEstado !== undefined && curEstado.visual" class="text-estado-{{curEstado.nIdEstado}}">*{{curEstado.vDetalle}}</h4>
+
       <ion-item fill="outline" mode="md" *ngIf="false">
         <ion-input name="nIdCita" type="text" formControlName="nIdCita" required>
         </ion-input>
