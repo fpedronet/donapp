@@ -293,6 +293,7 @@ export class LcitaPage implements OnInit {
       if (res === 'ok') {
         this.citaService.eliminar(id).subscribe(data=>{
           this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+          this.buscar(this.currentTab);
           this.loadingService.closeLoading();
         });
       }
