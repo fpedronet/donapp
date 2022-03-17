@@ -582,30 +582,35 @@ export class CcitaPage implements OnInit {
 
     //debugger;
     //Solo muestra mensaje cuando se ha modificado la fecha o el banco
-    var cambiaFecha = this.oriProgramacion !== model.dProgramacion;
-    var cambiaBanco = this.oriIdBanco !== model.nIdBanco;
-    var verificado = this.curEstado.nIdEstado === 2;
-    //debugger;
-    if(this.id!==0 && verificado && (cambiaFecha || cambiaBanco)){
-      this.alertService.showNotification('Cambiar cita','Su cita ya ha sido registrada, editar el banco o la fecha cancelará la cita actual y creará una nueva.<br>¿Desea continuar?') .then(res => {
-        if (res === 'ok') {
-          //Cancela cita actual
-          this.loadingService.openLoading();
-          var nIdEliminar = model.nIdCita;
-          this.citaService.eliminar(nIdEliminar).subscribe(data=>{
-            //debugger;
-            if(data.typeResponse==environment.EXITO){
-              //Crea nueva cita
-              model.nIdCita = 0
-              this.servicioGuardar(model, nIdEliminar);
-              this.loadingService.closeLoading();
-            }
-            else{
-              this.loadingService.closeLoading();
-            }
-          });
-        }
-      });
+    if(this.id!==0){
+      var cambiaFecha = this.oriProgramacion !== model.dProgramacion;
+      var cambiaBanco = this.oriIdBanco !== model.nIdBanco;
+      var verificado = this.curEstado.nIdEstado === 2;
+      //debugger;
+      if(verificado && (cambiaFecha || cambiaBanco)){
+        this.alertService.showNotification('Cambiar cita','Su cita ya ha sido registrada, editar el banco o la fecha cancelará la cita actual y creará una nueva.<br>¿Desea continuar?') .then(res => {
+          if (res === 'ok') {
+            //Cancela cita actual
+            this.loadingService.openLoading();
+            var nIdEliminar = model.nIdCita;
+            this.citaService.eliminar(nIdEliminar).subscribe(data=>{
+              //debugger;
+              if(data.typeResponse==environment.EXITO){
+                //Crea nueva cita
+                model.nIdCita = 0
+                this.servicioGuardar(model, nIdEliminar);
+                this.loadingService.closeLoading();
+              }
+              else{
+                this.loadingService.closeLoading();
+              }
+            });
+          }
+        });
+      }
+      else{
+        this.servicioGuardar(model);
+      }    
     }
     else{
       this.servicioGuardar(model);
