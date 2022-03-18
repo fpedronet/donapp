@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { GoogleUsuario, TokenUsuario, Usuario } from '../_model/usuario';
 import { EncrDecrService } from './encr-decr.service';
 
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth,signInWithPopup,GoogleAuthProvider, signOut } from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +17,22 @@ import { EncrDecrService } from './encr-decr.service';
 export class UsuarioService {
 
   private url: string = `${environment.UrlApi}/usuario`;
+  // private user: Observable<firebase.default | null >;
   
   constructor(
+    public afAuth: AngularFireAuth,
     private http: HttpClient,
     private router: Router,
     private EncrDecr: EncrDecrService,
-  ) { }
+  ) { 
+    this.afAuth.authState.subscribe(userResponse => {
+      if (userResponse) {
+        localStorage.setItem('user', JSON.stringify(userResponse));
+      } else {
+        localStorage.setItem('user', null);
+      }
+    })
+  }
 
   loginMobil(usuario: Usuario){
     let urls = `${this.url}/PostLogin`;
@@ -33,6 +45,33 @@ export class UsuarioService {
 
     return this.http.post<TokenUsuario>(urls, usuario);
   }
+
+  async  loginWithGoogle() {
+    return await this.afAuth.signInWithPopup(new GoogleAuthProvider())
+  }
+
+  isUserLoggedIn() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+  // // Sign in with Google
+  // GoogleAuth() {
+  //   return this.AuthLogin(new GoogleAuthProvider());
+  // }
+  // // Auth logic to run auth providers
+  // AuthLogin(provider) {
+  //   debugger;
+  //   return this.afAuth
+  //     .signInWithPopup(provider)
+  //     .then((result) => {
+  //       debugger;
+  //       console.log('You have been successfully logged in!');
+  //     })
+  //     .catch((error) => {
+  //       debugger;
+  //       console.log(error);
+  //     });
+  // }
+
 
   sessionUsuario(){
     let helper = new JwtHelperService();

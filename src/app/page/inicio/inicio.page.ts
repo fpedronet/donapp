@@ -26,7 +26,11 @@ export class InicioPage implements OnInit {
   dataSource: Publicidad[] = [];
   diaRestante: string;
   diaCaducado: boolean = false;
-
+  count: number = 0;
+  number: number = 0;
+  next: boolean = true;
+  interval;
+  
   ngOnInit() {
     let users = this.usuarioService.sessionUsuario();
     this.correoVerif = true
@@ -41,13 +45,41 @@ export class InicioPage implements OnInit {
 
         if(this.correoVerif && !this.diaCaducado){
           this.dataSource = data.items;
+          this.count = data.items.length;
+
+          this.startTimer();
         }        
       });
 
     }
   }
 
+  startTimer() {
+    this.interval = setInterval(() => {
+      this.swipeNext();
+    },3000)
+  }
+
+  swipeNext(){
+    if(this.count > this.number && this.next){
+
+      this.number++;
+      this.slides.slideNext();
+
+    }else{
+      this.number--;
+      this.next=false;
+
+      if(this.number==0){
+        this.next=true;
+      }
+
+      this.slides.slidePrev();
+    }
+  }
+
   ionSlideChange(slides){
+   
     this.selectedSlide = slides;
 
     slides.getActiveIndex().then(

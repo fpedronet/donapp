@@ -30,7 +30,8 @@ export class LoginPage implements OnInit {
   form: FormGroup = new FormGroup({});
   loading:any;
   userInfo = null;
-  
+  userDetails: any;
+
   ngOnInit() {
     
     this.form = new FormGroup({
@@ -68,7 +69,21 @@ export class LoginPage implements OnInit {
     }
   }
 
+  isUserLoggedIn() {
+    this.userDetails = this.usuarioService.isUserLoggedIn();
+  }
+
  googleSignup(){
+
+  this.usuarioService.loginWithGoogle()
+  .then(res => {
+    console.log(res);
+   
+    this.isUserLoggedIn();
+  }, err => {
+    console.log(err.message);
+  });
+
     // const googleUser = GoogleAuth.signIn().then(
     //   (res) =>{
 
