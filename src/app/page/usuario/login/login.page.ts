@@ -9,6 +9,7 @@ import { UsuarioService } from 'src/app/_service/usuario.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { EncrDecrService } from 'src/app/_service/encr-decr.service';
 
+import {GoogleAuth} from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -22,9 +23,8 @@ export class LoginPage implements OnInit {
     private usuarioService : UsuarioService,
     private loadingService : LoadingService,   
     private toastService : ToastService,
-    private EncrDecr: EncrDecrService
+    private EncrDecr: EncrDecrService,
   ) { 
-
   }
 
   form: FormGroup = new FormGroup({});
@@ -75,53 +75,53 @@ export class LoginPage implements OnInit {
 
  googleSignup(){
 
-  this.usuarioService.loginWithGoogle()
-  .then(res => {
-    console.log(res);
+  // this.usuarioService.loginWithGoogle()
+  // .then(res => {
+  //   console.log(res);
    
-    this.isUserLoggedIn();
-  }, err => {
-    console.log(err.message);
-  });
+  //   this.isUserLoggedIn();
+  // }, err => {
+  //   console.log(err.message);
+  // });
 
-    // const googleUser = GoogleAuth.signIn().then(
-    //   (res) =>{
+    const googleUser =GoogleAuth.signIn().then(
+      (res) =>{
+debugger;
+        let model = new Usuario();
 
-    //     let model = new Usuario();
+        model.vUsuario = res.email;
+        model.tipologeo = "gmail";
 
-    //     model.vUsuario = res.email;
-    //     model.tipologeo = "gmail";
-
-    //     this.loadingService.openLoading();
-    //     this.usuarioService.loginGoogle(model).subscribe(data=>{
+        this.loadingService.openLoading();
+        this.usuarioService.loginGoogle(model).subscribe(data=>{
  
-    //       let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+1;
+          let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+1;
 
-    //       let key = this.EncrDecr.set(google);
+          let key = this.EncrDecr.set(google);
 
-    //       localStorage.setItem(environment.TOKEN_GOOGLE, key);
+          localStorage.setItem(environment.TOKEN_GOOGLE, key);
 
-    //       if(data.typeResponse==environment.EXITO){
+          if(data.typeResponse==environment.EXITO){
 
-    //         localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+            localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
               
-    //         this.router.navigate(['inicio']);
+            this.router.navigate(['inicio']);
 
-    //         this.loadingService.closeLoading();
-    //         this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+            this.loadingService.closeLoading();
+            this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-    //       }else{
-    //         this.loadingService.closeLoading();
-    //         this.router.navigate(['cpersona']);
-    //       }  
+          }else{
+            this.loadingService.closeLoading();
+            this.router.navigate(['cpersona']);
+          }  
 
-    //     });
-    //   },
-    //   (error) =>{
-    //     debugger;
-    //     console.log("error sss = " + error.error);
-    //   }
-    // );
+        });
+      },
+      (error) =>{
+        debugger;
+        console.log("error sss = " + error);
+      }
+    );
   }
 
   registrarPersona(){
