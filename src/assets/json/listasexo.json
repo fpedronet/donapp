@@ -9,10 +9,6 @@
     },
     {
         "nIdSexo":3,
-        "vDescripcion":"Otro"
-    },
-    {
-        "nIdSexo":4,
         "vDescripcion":"Prefiero no decirlo"
     }
 ]
