@@ -41,4 +41,9 @@ export class CitaService {
     let urls = `${this.url}/DeleteCita?id=${id}&inverso=${inverso}`;
     return this.http.delete<Response>(urls);
   }
+
+  desconfirmar(id: number){
+    let urls = `${this.url}/DesconfirmarCita?id=${id}`;
+    return this.http.delete<Response>(urls);
+  }
 }
