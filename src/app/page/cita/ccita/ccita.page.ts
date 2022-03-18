@@ -88,8 +88,11 @@ export class CcitaPage implements OnInit {
   curEstado: Estado;
 
   //Valores originales de cita para detectar cambios
-  oriProgramacion: Date;
+  oriTipoDonacion: number;
   oriIdBanco: number;
+  oriProgramacion: Date;
+  oriTipoDocuPaciente: number;
+  oriDocuPaciente: string;
 
   //Geolocalización
   geoLoc: Geolocalizacion = new Geolocalizacion();  
@@ -537,8 +540,11 @@ export class CcitaPage implements OnInit {
         this.programadoFormatted = format(this.dProgramacion, this.formatFechaHora);
 
         //Guarda valores originales
+        this.oriTipoDonacion = data.nTipoDonacion;
         this.oriIdBanco = data.nIdBanco;
         this.oriProgramacion = this.dProgramacion;
+        this.oriTipoDocuPaciente = data.nTipoDocuReceptor;
+        this.oriDocuPaciente = data.vIdReceptor;
       }      
       
       this.loadingService.closeLoading();
@@ -583,37 +589,57 @@ export class CcitaPage implements OnInit {
     //debugger;
     //Solo muestra mensaje cuando se ha modificado la fecha o el banco
     if(this.id!==0){
-      var cambiaFecha = this.oriProgramacion !== model.dProgramacion;
+      var cambiaTipoDonacion = this.oriTipoDonacion !== model.nTipoDonacion;
       var cambiaBanco = this.oriIdBanco !== model.nIdBanco;
+      var cambiaFecha = this.oriProgramacion !== model.dProgramacion;
+      var cambiaReceptor = this.oriTipoDocuPaciente !== model.nTipoDocuReceptor || this.oriDocuPaciente !== model.vIdReceptor;
+      
+      var cambiaDatos = cambiaTipoDonacion || cambiaBanco || cambiaFecha || cambiaReceptor;
       var verificado = this.curEstado.nIdEstado === 2;
       //debugger;
-      if(verificado && (cambiaFecha || cambiaBanco)){
-        this.alertService.showNotification('Cambiar cita','Su cita ya ha sido registrada, editar el banco o la fecha cancelará la cita actual y creará una nueva.<br>¿Desea continuar?') .then(res => {
-          if (res === 'ok') {
-            //Cancela cita actual
-            this.loadingService.openLoading();
-            var nIdEliminar = model.nIdCita;
-            this.citaService.eliminar(nIdEliminar).subscribe(data=>{
-              //debugger;
-              if(data.typeResponse==environment.EXITO){
-                //Crea nueva cita
-                model.nIdCita = 0
-                this.servicioGuardar(model, nIdEliminar);
-                this.loadingService.closeLoading();
-              }
-              else{
-                this.loadingService.closeLoading();
-              }
-            });
-          }
-        });
+      if(verificado && cambiaDatos){
+        if(cambiaBanco){
+          this.alertService.showNotification('Cambiar cita','Su cita ya ha sido registrada, editar el banco cancelará la cita actual y creará una nueva.<br>¿Desea continuar?') .then(res => {
+            if (res === 'ok') {
+              //Cancela cita actual
+              this.loadingService.openLoading();
+              var nIdEliminar = model.nIdCita;
+              this.citaService.eliminar(nIdEliminar).subscribe(data=>{
+                //debugger;
+                if(data.typeResponse==environment.EXITO){
+                  //Crea nueva cita
+                  model.nIdCita = 0;
+                  this.servicioGuardar(model, nIdEliminar);
+                  this.loadingService.closeLoading();
+                }
+                else{
+                  this.loadingService.closeLoading();
+                }
+              });
+            }
+          });
+        }
+        else{
+          this.loadingService.openLoading();
+          this.citaService.desconfirmar(model.nIdCita).subscribe(data=>{
+            if(data.typeResponse==environment.EXITO){
+              this.servicioGuardar(model);
+              this.loadingService.closeLoading();
+            }
+            else{
+              this.loadingService.closeLoading();
+            }
+          });
+        }
       }
       else{
         this.servicioGuardar(model);
+        this.loadingService.closeLoading();
       }    
     }
     else{
       this.servicioGuardar(model);
+      this.loadingService.closeLoading();
     }    
     
   }
