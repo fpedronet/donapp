@@ -6,6 +6,8 @@ import { Menu } from './_model/menu';
 import { MenuService } from './_service/menu.service';
 import { UsuarioService } from './_service/usuario.service';
 
+import {GoogleAuth} from '@codetrix-studio/capacitor-google-auth';
+
 // import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
@@ -91,18 +93,18 @@ export class AppComponent {
   }
 
   closeLogin(){
-    // GoogleAuth.signOut().then(() => {
-    //   debugger;
-    //   localStorage.clear();
-    //   this.router.navigate(['']);
-    // },
-    // err =>{
-    //   console.log(err);
-    // });
+    GoogleAuth.signOut().then(() => {
+      localStorage.clear();
+      this.router.navigate(['']);
+      this.userActive = false;
+    },
+    err =>{
+      console.log(err);
+    });
    
-    localStorage.clear();
-    this.router.navigate(['']);
-    this.userActive = false;
+    // localStorage.clear();
+    // this.router.navigate(['']);
+    // this.userActive = false;
   }
   
   openPage(url: string){

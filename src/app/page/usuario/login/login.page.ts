@@ -75,18 +75,8 @@ export class LoginPage implements OnInit {
 
  googleSignup(){
 
-  // this.usuarioService.loginWithGoogle()
-  // .then(res => {
-  //   console.log(res);
-   
-  //   this.isUserLoggedIn();
-  // }, err => {
-  //   console.log(err.message);
-  // });
-
     const googleUser =GoogleAuth.signIn().then(
       (res) =>{
-debugger;
         let model = new Usuario();
 
         model.vUsuario = res.email;
@@ -118,7 +108,6 @@ debugger;
         });
       },
       (error) =>{
-        debugger;
         console.log("error sss = " + error);
       }
     );

@@ -75,7 +75,7 @@ export class CpersonaPage implements OnInit {
   correoOrig: string;
 
   ngOnInit() {
-
+debugger;
     let user = this.usuarioService.sessionGoogle();
 
     this.verifcado = (user.verifcado=="" || user.verifcado==null || user.verifcado==undefined)? 0: 1
