@@ -49,14 +49,14 @@
 
       <ion-item fill="outline" mode="md">
         <ion-label>Departamento</ion-label>
-        <ion-select #DPTO interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!edit" required>
+        <ion-select #DPTO interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="vIdDepartamento" (ionChange)="updateDpto(DPTO.value)" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaDepartamentos" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>     
       </ion-item>
 
       <ion-item fill="outline" mode="md">
         <ion-label>Provincia</ion-label>
-        <ion-select #PROV [disabled]="listaProvincias.length==0 || !edit" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
+        <ion-select #PROV [disabled]="listaProvincias.length==0 || !edit" interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="vIdProvincia" (ionChange)="updateProv(PROV.value)" required>
           <ion-select-option *ngFor="let el of listaProvincias" [value]="el.vUbigeo">{{el.vNombre}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -65,7 +65,7 @@
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">
         <ion-label *ngIf="BANCO.value === 0">Banco</ion-label>
         <ion-label position="floating" *ngIf="BANCO.value !== 0">Banco</ion-label>
-        <ion-select #BANCO [disabled]="listaBancos.length==0 || !edit" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
+        <ion-select #BANCO [disabled]="listaBancos.length==0 || !edit" interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="nIdBanco" (ionChange)="updateBanco(BANCO.value)" required>
           <ion-select-option *ngFor="let el of listaBancos" [value]="el.nIdBanco">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -73,7 +73,7 @@
       <!--DONACIÓN A CAMPAÑA-->
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===2">
         <ion-label>Campaña</ion-label>
-        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nIdCampana" [disabled]="!edit" required>
+        <ion-select [disabled]="listaCampanas.length==0" interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="nIdCampana" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaCampanas" [value]="el.nIdCampana">{{el.vDescripcion}}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -86,11 +86,13 @@
           <ion-icon name="chevron-up"></ion-icon>
         </ion-label>
         <ion-item style="width: -webkit-fill-available;" *ngIf="showHorario" fill="outline" mode="md">
-          <ion-list style="padding: 0; width: -webkit-fill-available;">
+          <ion-list style="padding: 0; width: 100%;">
             <ion-item *ngFor="let el of horarioAtencion">
-              <span>
-                {{el[0]}}<br>{{el[1]}}
-              </span>
+              <ion-label style="white-space: break-spaces;">
+                <h2 style="color: #85153e;">{{el[0]}}</h2>
+                <p>{{el[1]}}</p>
+              </ion-label>
+              
             </ion-item>    
           </ion-list>
         </ion-item>        
@@ -133,7 +135,7 @@
 
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===3">
         <ion-label>Tipo de documento</ion-label>
-        <ion-select name="nTipoDocuReceptor" interface="action-sheet" placeholder="-Seleccione-" cancelText="-Seleccione-" formControlName="nTipoDocuReceptor" [disabled]="!edit" required>
+        <ion-select name="nTipoDocuReceptor" interface="action-sheet" placeholder="Seleccione" cancelText="Cancelar" formControlName="nTipoDocuReceptor" [disabled]="!edit" required>
           <ion-select-option *ngFor="let el of listaTipoDocu" [value]="el.nIdTipoDocu">{{el.vAbrev}}</ion-select-option>
         </ion-select>
       </ion-item>

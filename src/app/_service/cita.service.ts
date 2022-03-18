@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Response } from '../_model/response';
 import { Cita } from '../_model/cita';
 import { dataCollection } from '../_model/dataCollection';
+import { HistorialResumen } from '../_model/historialresumen';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class CitaService {
     let urls = `${this.url}/GetAllCita`;
 
     return this.http.post<dataCollection>(urls,model);
+  }
+
+  obtenerResumen(donante: number = 0){
+    let urls = `${this.url}/GetHistorialResumen?donante=${donante}`;
+    return this.http.get<HistorialResumen>(urls);
   }
 
   obtener(id: number, tipo: number){
