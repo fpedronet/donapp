@@ -40,75 +40,162 @@
       <ion-item-options side="end">
       </ion-item-options>
 
-      <ion-item>
-        <ion-text *ngIf="dataCita.length === 0">
-          {{sinResultados}}
-        </ion-text>
-        <ion-list style="width: 100%;" *ngIf="dataCita.length > 0">        
-
-          <ion-item lines="none" style="padding-top: 0px;" *ngFor="let cita of dataCita; let i = index">           
-
-            <ion-card style="width: -webkit-fill-available;">   
+      <ion-item>        
+        <ion-list style="width: 100%;">
+          <ion-item *ngIf="currentTab === 2 && resumenHistorial !== undefined" lines="none" style="padding-top: 0px;">
+            <ion-card style="width: 100%;">
               <ion-header>
-              </ion-header>    
+              </ion-header>
+              <ion-card-header style="padding-top: 0; padding-bottom: 0;">
+                <ion-toolbar>
+                  <ion-icon size="large" color="danger" name="heart-circle" slot="start"></ion-icon>
+                  <ion-card-title>
+                      <h4 style="margin-left: 10px;">
+                        Resultados de donaciones
+                      </h4>
+                  </ion-card-title>
+                </ion-toolbar>                
+              </ion-card-header>
               <ion-card-content style="width: 100%; margin: 0; padding: 0;">
-
-                <ion-grid>
-                  <ion-row>
-                    <ion-col size="2">
-                      <div *ngIf="currentTab === 1" class="imagen">
-                        <img slot="start" src="{{cita.vIcon}}" style="width: 50px;"/>
-                      </div>
-                      <!--ion-icon *ngIf="cita.estado.visual" style="text-align: center;" name={{cita.estado}}></ion-icon-->
-                      <ion-icon *ngIf="cita.estado.visual" class="icon" class="text-estado-{{cita.estado.nIdEstado}}" name={{cita.estado.icon}}></ion-icon>
-                      <!--small class="text-estado-{{cita.estado.nIdEstado}}" >{{cita.estado.vDescripcion.toUpperCase()}}</small-->         
+                <ion-grid style="color: black; font-size: large;">
+                  <ion-row class="row-resumen" *ngIf="resumenHistorial.nTotDonaciones > 0">
+                    <ion-col size-xs="12" size-sm="9">
+                      <ion-label style="white-space: normal; font-weight: normal;">
+                        Última donación exitosa
+                      </ion-label>
                     </ion-col>
-                    <ion-col size="10">
-                      <ion-label>
-                        <h2 *ngIf="currentTab === 1" class="labelCard" style="font-weight: bold;">{{cita.diaProgramado.toUpperCase()}}</h2>
-                        <h2 *ngIf="currentTab === 1" class="labelCard">{{cita.fechaProgramada}}</h2>
-                        <h2 *ngIf="currentTab === 2 && cita.estado.vMensaje !== ''" class="labelCard" style="font-weight: bold; white-space: break-spaces;">{{cita.estado.vMensaje}}</h2>
-                        <h2 *ngIf="currentTab === 2" class="labelCard" style="white-space: break-spaces;">{{cita.diaProgramado}} {{cita.fechaProgramada}}</h2>
-                        <p *ngIf="currentTab === 1" style="white-space: break-spaces;">{{cita.vTipoCita}}</p>
-                        <h2 *ngIf="cita.nTipoCita === 1 || cita.nTipoCita === 3" style="white-space: break-spaces; font-weight: bold;">{{cita.vBanco}}</h2>
-                        <h2 *ngIf="cita.nTipoCita === 2" style="white-space: break-spaces; font-weight: bold;">{{cita.vCampana}}</h2>
+                    <ion-col size-xs="12" size-sm="3" style="padding-top: 0;">
+                      <ion-label class="label-cifras">
+                        {{resumenHistorial.diaProgramado}} {{resumenHistorial.fechaProgramada}}
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="row-resumen">
+                    <ion-col size-xs="7" size-sm="9">
+                      <ion-label style="white-space: normal; font-weight: normal;">
+                        Donaciones de plaquetas
+                      </ion-label>
+                    </ion-col>
+                    <ion-col size-xs="5" size-sm="3" class="col-resumen">
+                      <ion-label class="label-cifras-mini">
+                        {{resumenHistorial.nTotPlaqueta}}
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="row-resumen">
+                    <ion-col size-xs="7" size-sm="9">
+                      <ion-label style="white-space: normal; font-weight: normal;">
+                        Donaciones de sangre
+                      </ion-label>
+                    </ion-col>
+                    <ion-col size-xs="5" size-sm="3" class="col-resumen">
+                      <ion-label class="label-cifras-mini">
+                        {{resumenHistorial.nTotSangre}}
+                      </ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row class="row-resumen">
+                    <ion-col size-xs="7" size-sm="9">
+                      <ion-label style="white-space: normal; font-weight: normal;">
+                        Vidas que ayudaste
+                      </ion-label>
+                    </ion-col>
+                    <ion-col size-xs="5" size-sm="3" class="col-resumen">
+                      <ion-label class="label-cifras-mini">
+                        {{resumenHistorial.nVidasSalvadas}}
                       </ion-label>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
-                <ion-grid *ngIf="currentTab === 1 && cita.estado.nIdEstado !== 3" style="padding: 0;">
-                  <ion-row>
-                    <ion-col size="4" style="padding: 0;">
-                      <ion-button style="margin: 0;" color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
-                        <ion-icon name="eye-outline"></ion-icon>
-                      </ion-button> 
-                    </ion-col>
-                    <ion-col size="4" style="padding: 0;">
-                      <ion-button style="margin: 0;" color="primary" fill="clear" size="full" (click)="edit(cita.nIdCita, true)">
-                        <ion-icon name="create-outline"></ion-icon>
-                      </ion-button> 
-                    </ion-col>
-                    <ion-col size="4" style="padding: 0;">
-                      <ion-button style="margin: 0;" color="danger" fill="clear" size="full" (click)="cancel(cita.nIdCita, cita.estado.nIdEstado)">
-                        <ion-icon name="ban-outline"></ion-icon>
-                      </ion-button> 
-                    </ion-col>
-                  </ion-row>                  
-                </ion-grid>
-                <ion-grid *ngIf="currentTab === 2 && cita.estado.nIdEstado !== 3" style="padding: 0;">
-                  <ion-row>
-                    <ion-col size="12" style="padding: 0;">
-                      <ion-button style="margin: 0;" color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
-                        <ion-icon name="eye-outline"></ion-icon>
-                      </ion-button> 
-                    </ion-col>
-                  </ion-row>                  
-                </ion-grid>
-              </ion-card-content>
+                
+              </ion-card-content>              
             </ion-card>
-
-         
           </ion-item>
+
+          <ion-item *ngIf="dataCita.length === 0">
+            <ion-text>
+              {{sinResultados}}
+            </ion-text>
+          </ion-item>
+
+          <div *ngIf="dataCita.length > 0">
+            <ion-item lines="none" style="padding-top: 0px;" *ngFor="let cita of dataCita; let i = index">            
+
+              <ion-card style="width: 100%;">
+                <ion-header>
+                </ion-header>
+                <ion-card-content style="width: 100%; margin: 0; padding: 0;">
+  
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="2">
+                        <div *ngIf="currentTab === 1" class="imagen">
+                          <img slot="start" src="{{cita.vIcon}}" style="width: 50px;"/>
+                        </div>
+                        <div *ngIf="currentTab === 2 && cita.donacion !== undefined" class="imagen">
+                          <img slot="start" src="{{cita.donacion.vIcon}}" style="width: 50px;"/>
+                        </div>
+                        <!--ion-icon *ngIf="cita.estado.visual" style="text-align: center;" name={{cita.estado}}></ion-icon-->
+                        <ion-icon *ngIf="cita.estado.visual" class="icon" class="text-estado-{{cita.estado.nIdEstado}}" name={{cita.estado.icon}}></ion-icon>
+                        <!--small class="text-estado-{{cita.estado.nIdEstado}}" >{{cita.estado.vDescripcion.toUpperCase()}}</small-->         
+                      </ion-col>
+                      <ion-col size="10">
+                        <ion-label *ngIf="currentTab === 1" style="white-space: break-spaces;">
+                          <h2 class="labelCard" style="font-weight: bold;">{{cita.diaProgramado.toUpperCase()}}</h2>
+                          <h2 class="labelCard">{{cita.fechaProgramada}}</h2>
+                          <p>{{cita.vTipoCita}}</p>
+                          <h2 *ngIf="cita.nTipoCita === 1 || cita.nTipoCita === 3" style="font-weight: bold;">{{cita.vBanco}}</h2>
+                          <h2 *ngIf="cita.nTipoCita === 2" style="font-weight: bold;">{{cita.vCampana}}</h2>
+                        </ion-label>
+                        <ion-label *ngIf="currentTab === 2" style="white-space: break-spaces;">
+                          <h2 *ngIf="cita.estado.vMensaje !== ''" class="labelCard" style="font-weight: bold;">{{cita.estado.vMensaje}}</h2>
+                          <h2 class="labelCard">{{cita.diaProgramado}} {{cita.fechaProgramada}}</h2>
+                          <p>{{cita.vTipoCita}}</p>
+                          <h2 *ngIf="cita.nTipoCita === 1 || cita.nTipoCita === 3" style="font-weight: bold;">{{cita.vBanco}}</h2>
+                          <h2 *ngIf="cita.nTipoCita === 2" style="font-weight: bold;">{{cita.vCampana}}</h2>
+                          <ion-item-divider *ngIf="cita.donacion !== undefined" style="min-height: 1px;"></ion-item-divider>
+                          <h2 *ngIf="cita.donacion !== undefined">Hematrocito: {{cita.donacion.nHematrocito}}</h2>
+                          <h2 *ngIf="cita.donacion !== undefined">Hemoglobina: {{cita.donacion.nHemoglobina}}</h2>
+                          <h2 *ngIf="cita.donacion !== undefined && cita.donacion.nPeso > 0">Peso: {{cita.donacion.nPeso}}kg</h2>
+                          <h2 *ngIf="cita.donacion !== undefined">{{cita.donacion.diaRegistrado}} {{cita.donacion.fechaRegistrada}}</h2>
+                        </ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-grid *ngIf="currentTab === 1 && cita.estado.nIdEstado !== 3" style="padding: 0;">
+                    <ion-row>
+                      <ion-col size="4" style="padding: 0;">
+                        <ion-button style="margin: 0;" color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
+                          <ion-icon name="eye-outline"></ion-icon>
+                        </ion-button> 
+                      </ion-col>
+                      <ion-col size="4" style="padding: 0;">
+                        <ion-button style="margin: 0;" color="primary" fill="clear" size="full" (click)="edit(cita.nIdCita, true)">
+                          <ion-icon name="create-outline"></ion-icon>
+                        </ion-button> 
+                      </ion-col>
+                      <ion-col size="4" style="padding: 0;">
+                        <ion-button style="margin: 0;" color="danger" fill="clear" size="full" (click)="cancel(cita.nIdCita, cita.estado.nIdEstado)">
+                          <ion-icon name="ban-outline"></ion-icon>
+                        </ion-button> 
+                      </ion-col>
+                    </ion-row>                  
+                  </ion-grid>
+                  <!--ion-grid *ngIf="currentTab === 2 && cita.estado.nIdEstado !== 3" style="padding: 0;">
+                    <ion-row>
+                      <ion-col size="12" style="padding: 0;">
+                        <ion-button style="margin: 0;" color="success" fill="clear" size="full" (click)="edit(cita.nIdCita, false)">
+                          <ion-icon name="eye-outline"></ion-icon>
+                        </ion-button> 
+                      </ion-col>
+                    </ion-row>                  
+                  </ion-grid-->
+                </ion-card-content>
+              </ion-card>
+           
+            </ion-item>
+          </div>
+          
         </ion-list>
       </ion-item>
       

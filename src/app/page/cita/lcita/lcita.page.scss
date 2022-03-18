@@ -28,3 +28,30 @@ ion-label{
     padding-top: 21px;
     font-weight: bold;
 }
+
+.label-cifras{
+    white-space: normal;
+    text-align: initial;
+    font-family: system-ui;
+    color: #9b1417;
+}
+
+.label-cifras-mini{
+    white-space: normal;
+    text-align: center;
+    font-family: system-ui;
+    font-size: x-large;
+    color: #9b1417;
+}
+
+.row-resumen{
+    border-width: 0.01em;
+    border-style: dotted;
+    border-radius: 0.5em;
+    border-color: #9b1417;
+}
+
+.col-resumen{
+    display: grid;
+    align-items: center;
+}

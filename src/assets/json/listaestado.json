@@ -11,7 +11,7 @@
     {
         "nIdEstado":2,
         "vDescripcion":"Registrada",
-        "vMensaje":"",
+        "vMensaje":"Su cita fue registrada",
         "vDetalle":"Cita registrada en hospital",
         "icon": "checkmark-sharp",
         "color": "#0000FF",

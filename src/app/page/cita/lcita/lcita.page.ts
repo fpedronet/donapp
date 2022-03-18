@@ -17,6 +17,7 @@ import jsonEstado from 'src/assets/json/listaestado.json';
 import { Estado } from 'src/app/_model/estado';
 import { LoadingService } from '../../components/loading/loading.service';
 import { ToastService } from '../../components/toast/toast.service';
+import { HistorialResumen } from 'src/app/_model/historialresumen';
 
 @Component({
   selector: 'app-lcita',
@@ -39,6 +40,8 @@ export class LcitaPage implements OnInit {
   dataSource: Cita[] = [];
   dataCita: Cita[] = [];
   sinResultados: string = 'Buscando resultados...';
+
+  resumenHistorial: HistorialResumen;
 
   total: number = 0;
   totalResult: number = 0;
@@ -63,7 +66,7 @@ export class LcitaPage implements OnInit {
     this.listarestado();
     this.buscar(this.currentTab);
 
-    this.slideDistance = window.screen.width/3;
+    this.slideDistance = window.screen.width*0.40;
     //console.log(this.slideDistance);
   }
   
@@ -93,14 +96,10 @@ export class LcitaPage implements OnInit {
             model.fechaProgramada= element.fechaProgramada;
             
             //Obtiene día de la semana
-            var cadenaDate = model.fechaProgramada.slice(0,10);
-            var dayArr = cadenaDate.split('/');
-            var idDia = new Date(dayArr[2]+'-'+dayArr[1]+'-'+dayArr[0]).getDay() + 1;
-            var dia = this.listaDiaSemana.find(e => e.nIdDiaSemana === idDia);
+            var dia = this.obtenerDiaSemana(model.fechaProgramada);            
+            model.diaProgramado = '';
             if(dia !== undefined)
-              model.diaProgramado = dia.vDescripcion;
-            else
-              model.diaProgramado = '';
+              model.diaProgramado = dia.vDescripcion;              
 
             model.nTipoCita = element.nTipoCita;
             model.vTipoCita = element.vTipoCita;
@@ -108,6 +107,18 @@ export class LcitaPage implements OnInit {
             model.vIcon = "../../../../assets/"+element.vIcon;
             model.vBanco = element.vBanco;
             model.vCampana = element.vCampana;
+
+            //Asigna donación si existe
+            if(element.donacion !== null){
+              model.donacion = element.donacion;
+              model.donacion.vIcon = "../../../../assets/"+element.donacion.vIcon;
+
+              //Obtiene día de la semana
+              var dia = this.obtenerDiaSemana(model.donacion.fechaRegistrada);
+              model.donacion.diaRegistrado = '';
+              if(dia !== undefined)
+                model.donacion.diaRegistrado = dia.vDescripcion;  
+            }
 
             model.nRegistrado = element.nRegistrado;
             model.nRealizado = element.nRealizado;
@@ -145,6 +156,15 @@ export class LcitaPage implements OnInit {
     // }, 500);
   }
 
+  obtenerDiaSemana(fechaStr: string){
+    //Extra solo la fecha
+    var cadenaDate = fechaStr.slice(0,10);
+    var dayArr = cadenaDate.split('/');
+    var idDia = new Date(dayArr[2]+'-'+dayArr[1]+'-'+dayArr[0]).getDay() + 1;
+    var dia = this.listaDiaSemana.find(e => e.nIdDiaSemana === idDia);
+    return dia;
+  }
+
   obtenerEstado(regis: number, reali: number, exist: number){
     var estado: number = 1;
 
@@ -173,12 +193,34 @@ export class LcitaPage implements OnInit {
   }
 
   buscar(tipo: number){
+    this.resumenHistorial = undefined;
+    //Busca resumen si está en pestaña historial
+    if(this.currentTab === 2){
+      this.mostrarResumen();
+    }
     this.dataCita = [];
     this.sinResultados = 'Buscando resultados...';
     this.totalResult = 0;
     this.total = 0;
     this.page=1;
     this.loadData(tipo);
+  }
+
+  mostrarResumen(){
+    this.citaService.obtenerResumen().subscribe(data=>{
+      //debugger;
+      
+      var dia = this.obtenerDiaSemana(data.fechaProgramada);            
+      if(dia !== undefined)
+        data.diaProgramado = dia.vDescripcion;
+      else
+        data.diaProgramado = '';
+
+      data.nVidasSalvadas = data.nTotSangre * data.nVidasSangre + data.nTotPlaqueta * data.nVidasPlaqueta;
+
+      this.resumenHistorial = data;
+      
+    });
   }
 
   listartipocita(){

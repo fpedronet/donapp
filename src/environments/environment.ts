@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
 
+<<<<<<< HEAD
   firebaseConfig : {
     apiKey: "AIzaSyDAIyRDUKlsCygO6g8dYJANXqdKBgu9BNo",
     authDomain: "donapp-342910.firebaseapp.com",
@@ -17,9 +18,13 @@ export const environment = {
 
   UrlApi:'https://sitedev.poclab.pe/donappdev/api',  
   UrlImage:'assets/',
+=======
+  //UrlApi:'https://sitedev.poclab.pe/donappdev/api',  
+  //UrlImage:'assets/',
+>>>>>>> 8887e76a1c48f1f3f4b7f1b5633cd8bb12feced0
 
-    // UrlApi:'http://localhost:48394/api',  
-    // UrlImage:'assets/',
+     UrlApi:'http://localhost:48394/api',  
+     UrlImage:'assets/',
 
   TOKEN_NAME: 'access_token',
   TOKEN_GOOGLE: 'access_google',
