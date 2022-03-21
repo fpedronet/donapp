@@ -4,4 +4,5 @@
     <string name="title_activity_main">donapp</string>
     <string name="package_name">com.analitico.sdkdonapp</string>
     <string name="custom_url_scheme">com.analitico.sdkdonapp</string>
+    <string name="server_client_id">793983751073-vto78artc8it7ma0qibggb5qfi67ijl5.apps.googleusercontent.com</string>
 </resources>
