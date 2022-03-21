@@ -9,8 +9,6 @@ import { UsuarioService } from 'src/app/_service/usuario.service';
 import { ToastService } from '../../components/toast/toast.service';
 import { EncrDecrService } from 'src/app/_service/encr-decr.service';
 
-import {GoogleAuth} from '@codetrix-studio/capacitor-google-auth';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -69,49 +67,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  isUserLoggedIn() {
-    this.userDetails = this.usuarioService.isUserLoggedIn();
-  }
-
- googleSignup(){
-
-    const googleUser =GoogleAuth.signIn().then(
-      (res) =>{
-        let model = new Usuario();
-
-        model.vUsuario = res.email;
-        model.tipologeo = "gmail";
-
-        this.loadingService.openLoading();
-        this.usuarioService.loginGoogle(model).subscribe(data=>{
- 
-          let google = res.email+"|"+res.givenName+"|"+res.familyName+"|"+1;
-
-          let key = this.EncrDecr.set(google);
-
-          localStorage.setItem(environment.TOKEN_GOOGLE, key);
-
-          if(data.typeResponse==environment.EXITO){
-
-            localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
-              
-            this.router.navigate(['inicio']);
-
-            this.loadingService.closeLoading();
-            this.toastService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-
-          }else{
-            this.loadingService.closeLoading();
-            this.router.navigate(['cpersona']);
-          }  
-
-        });
-      },
-      (error) =>{
-        console.log("error sss = " + error);
-      }
-    );
-  }
 
   registrarPersona(){
     this.router.navigate(['cpersona']);
