@@ -1,7 +1,7 @@
 [
     {
         "nIdEstado":1,
-        "vDescripcion":"Creada",
+        "vDescripcion":"Programada",
         "vMensaje":"",
         "vDetalle":"Cita que acaba de ser creada",
         "icon": "ban-sharp",
@@ -10,7 +10,7 @@
     },
     {
         "nIdEstado":2,
-        "vDescripcion":"Registrada",
+        "vDescripcion":"Verificada en sistema",
         "vMensaje":"Su cita fue registrada",
         "vDetalle":"Cita verificada en banco",
         "icon": "checkmark-sharp",
@@ -28,7 +28,7 @@
     },    
     {
         "nIdEstado":4,
-        "vDescripcion":"Donó",        
+        "vDescripcion":"Donación confirmada",        
         "vDetalle":"Donación realizada con éxito",
         "vMensaje":"¡Gracias por tu donación!",
         "icon": "ellipse-sharp",
@@ -37,7 +37,7 @@
     },
     {
         "nIdEstado":5,
-        "vDescripcion":"No donó",
+        "vDescripcion":"Donación no confirmada",
         "vDetalle":"Se presentó pero no se llevó a cabo la donación",
         "vMensaje":"No se completó la donación",
         "icon": "contrast-sharp",
@@ -46,7 +46,7 @@
     },
     {
         "nIdEstado":6,
-        "vDescripcion":"Faltó",
+        "vDescripcion":"Falto a cita",
         "vDetalle":"No se presentó a la cita para donación",
         "vMensaje": "Tu presencia salva vidas, no faltes",
         "icon": "triangle-sharp",

@@ -1,9 +1,14 @@
 ion-button {
-    --border-radius:12px;
-    --background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
-  }
+  --border-radius:12px;
+  --background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+}
 
-  .btnFiltro{
-    text-align:center;
-    padding-top:50px;
-  }
+.btnFiltro{
+  text-align:center;
+  padding-top:50px;
+}
+
+.item-filter {
+  padding: 0;
+  //--padding-start: 0;
+}

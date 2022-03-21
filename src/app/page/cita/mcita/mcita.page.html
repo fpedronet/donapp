@@ -13,13 +13,13 @@
   <div class="formFiltro">
     <ion-list>
 
-      <ion-item lines="none">
+      <ion-item class="item-filter" lines="none">
         <ion-label class="title-in-form">Tipo Cita</ion-label>
       </ion-item>
 
-      <ion-item fill="outline" mode="md">        
+      <ion-item class="item-filter" fill="outline">        
         <ion-list>
-          <ion-item lines="none" *ngFor="let el of listaTipoCitas">
+          <ion-item class="item-filter" lines="none" *ngFor="let el of listaTipoCitas">
             <ion-label>{{el.vDescripcion}}</ion-label>
             <ion-checkbox slot="start" color="danger" [value]="el.nIdTipoCita" [(ngModel)]="el.isChecked" (ionChange)="changeListCita($event.target)"></ion-checkbox>
           </ion-item>
@@ -29,13 +29,13 @@
         </ion-select-->
       </ion-item>
 
-      <ion-item lines="none">
+      <ion-item class="item-filter" lines="none">
         <ion-label class="title-in-form">Tipo Donación</ion-label>
       </ion-item>
 
-      <ion-item fill="outline" mode="md">
+      <ion-item class="item-filter" fill="outline">
         <ion-list>
-          <ion-item lines="none" *ngFor="let el of listaTipoDonaciones">
+          <ion-item class="item-filter" lines="none" *ngFor="let el of listaTipoDonaciones">
             <ion-label>{{el.vDescripcion}}</ion-label>
             <ion-checkbox slot="start" color="danger" [value]="el.nIdTipoDonacion" [(ngModel)]="el.isChecked"></ion-checkbox>
           </ion-item>
@@ -43,6 +43,24 @@
         <!--ion-select class="custom-options" multiple="true" cancelText="Cancelar" okText="Aceptar" [(ngModel)]="selectTipoDonacion">
           <ion-select-option *ngFor="let el of listaTipoDonaciones" [value]="el.nIdTipoDonacion">{{el.vDescripcion}}</ion-select-option>
         </ion-select-->
+      </ion-item>
+
+      <ion-item class="item-filter" style="padding-top: 14px" lines="none">
+        <ion-label>Mostrar citas canceladas</ion-label>
+        <ion-checkbox slot="start" color="danger" [value]="filtrarCancelado.nIdEstado" [(ngModel)]="filtrarCancelado.isChecked"></ion-checkbox>
+      </ion-item>
+
+      <ion-item class="item-filter" lines="none">
+        <ion-label class="title-in-form">Estado de cita</ion-label>
+      </ion-item>
+
+      <ion-item class="item-filter" fill="outline">
+        <ion-list>
+          <ion-item class="item-filter" lines="none" *ngFor="let el of filtrarEstadosHistorial">
+            <ion-label>{{el.vDescripcion}}</ion-label>
+            <ion-checkbox slot="start" color="danger" [value]="el.nIdEstado" [(ngModel)]="el.isChecked"></ion-checkbox>
+          </ion-item>
+        </ion-list>
       </ion-item>
 
       <div class="btnFiltro">

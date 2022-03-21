@@ -80,8 +80,24 @@ form{
     margin-right: 0em;
     margin-left: 0em;
 }
+
 .formFiltro{
     margin:10px;
+}
+
+.label-opener{
+    outline-style: solid;
+    //outline-offset: -2px;
+    //outline-width: thin;
+    color: #85153e;
+}
+
+.icon-open-label{
+    font-size: larger;
+}
+
+.item-no-pad {
+    padding: 0;
 }
 
 ion-item{

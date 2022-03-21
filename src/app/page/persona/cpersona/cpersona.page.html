@@ -134,12 +134,10 @@
         </ion-input>
       </ion-item>
 
-      <ion-item lines="none" *ngIf="id!==0">
-        <ion-label *ngIf="!showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
-          <ion-icon name="chevron-down"></ion-icon>
-        </ion-label>
-        <ion-label *ngIf="showCambioContra" (click)="actualizaMuestraContra()">Actualiza contraseña 
-          <ion-icon name="chevron-up"></ion-icon>
+      <ion-item class="label-opener" style="padding: 0" lines="none" *ngIf="id!==0">
+        <ion-label (click)="actualizaMuestraContra()">Actualiza contraseña 
+          <ion-icon class="icon-open-label" *ngIf="!showCambioContra" name="chevron-down-sharp"></ion-icon>
+          <ion-icon class="icon-open-label" *ngIf="showCambioContra" name="chevron-up-sharp"></ion-icon>
         </ion-label>
       </ion-item>
 
