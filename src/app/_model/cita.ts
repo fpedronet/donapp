@@ -45,7 +45,8 @@ export class CitaRequest{
     data?: string;
     tipo?: number;
     listaTipocita?: number[] = [];
-    listTipodonacion?: number[] = [];    
+    listTipodonacion?: number[] = [];
+    listEstado?: number[] = [];
     page?: number;
     pages?: number ;
     column?: string;

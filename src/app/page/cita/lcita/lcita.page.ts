@@ -52,8 +52,11 @@ export class LcitaPage implements OnInit {
   listaDiaSemana: DiaSemana[] = [];
   listaTipoCitas: TipoCita[] = [];
   listaTipoDonaciones: TipoDonacion[] = [];
+
+  //Filtros
   selectTipoCita: number[] = [];
   selectTipoDonacion: number[] = [];
+  selectEstado: number[] = [];
 
   currentTab: number = 1;
   slideDistance: number = 150;
@@ -78,6 +81,7 @@ export class LcitaPage implements OnInit {
       model.tipo = tipo;
       model.listaTipocita = this.selectTipoCita;
       model.listTipodonacion = this.selectTipoDonacion;
+      model.listEstado = this.selectEstado;
       model.page = this.page;
       model.pages = 10;
 
@@ -286,7 +290,9 @@ export class LcitaPage implements OnInit {
       estado.color = jsonEstado[i].color;
       estado.visual = jsonEstado[i].visual;
 
+      //Todos los estados son considerados
       this.listaEstado.push(estado);
+      this.selectEstado.push(estado.nIdEstado);
 
       this.crearClasesCss(estado.nIdEstado, estado.color);
     }
@@ -350,15 +356,17 @@ export class LcitaPage implements OnInit {
       componentProps:{
         selectTipoCita:this.selectTipoCita,
         selectTipoDonacion:this.selectTipoDonacion,
+        selectEstado:this.selectEstado
       }
     });
 
     await modal.present();
     const {data} = await modal.onDidDismiss();
 
-    if(data.arrayTipoCita !== undefined && data.arrayTipoDonacion !== undefined){
-      this.selectTipoCita =data.arrayTipoCita;
-      this.selectTipoDonacion =data.arrayTipoDonacion;
+    if(data.arrayTipoCita !== undefined && data.arrayTipoDonacion !== undefined && data.arrayEstado !== undefined){
+      this.selectTipoCita = data.arrayTipoCita;
+      this.selectTipoDonacion = data.arrayTipoDonacion;
+      this.selectEstado = data.arrayEstado;
       this.buscar(this.currentTab);
     }    
   }

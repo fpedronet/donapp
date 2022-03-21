@@ -79,23 +79,34 @@
       </ion-item>
       
       <ion-item lines="none" *ngIf="(tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3) && horarioAtencion.length !== 0">
-        <ion-label *ngIf="!showHorario" (click)="showHorario=!showHorario">Horario de atención 
-          <ion-icon name="chevron-down"></ion-icon>
-        </ion-label>
-        <ion-label *ngIf="showHorario" position="stacked" (click)="showHorario=!showHorario">Horario de atención 
-          <ion-icon name="chevron-up"></ion-icon>
-        </ion-label>
-        <ion-item style="width: -webkit-fill-available;" *ngIf="showHorario" fill="outline" mode="md">
-          <ion-list style="padding: 0; width: 100%;">
-            <ion-item *ngFor="let el of horarioAtencion">
-              <ion-label style="white-space: break-spaces;">
-                <h2 style="color: #85153e;">{{el[0]}}</h2>
-                <p>{{el[1]}}</p>
-              </ion-label>
-              
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item class="label-opener" style="padding: 0">
+                <ion-label (click)="showHorario=!showHorario">Horario de atención 
+                  <ion-icon class="icon-open-label" *ngIf="!showHorario" name="chevron-down-sharp"></ion-icon>
+                  <ion-icon class="icon-open-label" *ngIf="showHorario" name="chevron-up-sharp"></ion-icon>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item class="item-no-pad" style="width: 100%;" *ngIf="showHorario" fill="outline" mode="md">
+              <ion-list style="padding: 0; width: 100%;">
+                <ion-item *ngFor="let el of horarioAtencion">
+                  <ion-label style="white-space: break-spaces;">
+                    <h2 style="color: #85153e;">{{el[0]}}</h2>
+                    <p>{{el[1]}}</p>
+                  </ion-label>
+                  
+                </ion-item>    
+              </ion-list>
             </ion-item>    
-          </ion-list>
-        </ion-item>        
+          </ion-row>
+        </ion-grid>
+        
+            
       </ion-item>
 
       <ion-item fill="outline" mode="md" *ngIf="tipoCita.nIdTipoCita===1 || tipoCita.nIdTipoCita===3">

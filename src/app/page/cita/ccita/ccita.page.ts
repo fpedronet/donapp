@@ -346,18 +346,18 @@ export class CcitaPage implements OnInit {
 
     let curDpto = this.listaDepartamentos.find(e => e.vUbigeo === idDpto)
     if(curDpto !== undefined){
+      //Reinicio banco y campaña
+      this.form.patchValue({
+        nIdBanco: 0,
+        nIdCampana: 0
+      });
       this.listaProvincias = curDpto.listaProvincias;
       //Si hay solo un elemento lo preselecciona, sino deselecciona
       let selValue = (this.listaProvincias.length === 1)?this.listaProvincias[0].vUbigeo:"0000";
       this.form.patchValue({
         vIdProvincia: selValue
       });
-      //Reinicio banco y campaña
-      this.form.patchValue({
-        nIdBanco: 0,
-        nIdCampana: 0
-      });
-    }    
+    }
   }
 
   updateProv(idProv: string){
@@ -367,6 +367,7 @@ export class CcitaPage implements OnInit {
     let curProv = this.listaProvincias.find(e => e.vUbigeo === idProv)
     if(curProv !== undefined){
       if(this.tipo == 1 || this.tipo == 3){
+        //debugger;
         //Filtra los bancos cuyo ubigeo coincide con el de provincia al inicio
         this.listaBancos = this.listaTotBancos.filter(e => e.vUbigeo !== null && e.vUbigeo.startsWith(curProv.vUbigeo));
         //Si hay solo un elemento lo preselecciona, sino deselecciona

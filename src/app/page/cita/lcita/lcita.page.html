@@ -47,7 +47,7 @@
               <ion-header>
               </ion-header>
               <ion-card-header style="padding-top: 0; padding-bottom: 0;">
-                <ion-toolbar>
+                <ion-toolbar style="--opacity: 0">
                   <ion-icon size="large" color="danger" name="heart-circle" slot="start"></ion-icon>
                   <ion-card-title>
                       <h4 style="margin-left: 10px;">
@@ -112,7 +112,7 @@
             </ion-card>
           </ion-item>
 
-          <ion-item *ngIf="dataCita.length === 0">
+          <ion-item lines="none" *ngIf="dataCita.length === 0">
             <ion-text>
               {{sinResultados}}
             </ion-text>
